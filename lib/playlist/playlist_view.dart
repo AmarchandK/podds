@@ -43,134 +43,133 @@ class _PlaylistViewState extends State<PlaylistView> {
             ),
             transition: Transition.downToUp),
       ),
-      body: Container(
-        decoration: stylesClass.background(),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(),
-          body: ValueListenableBuilder(
-            valueListenable: playListNotifier,
-            builder: (BuildContext ctx, List<dynamic> savedPlaylistSongsValue,
-                Widget? child) {
-              return ListView.builder(
-                // itemCount: 1,
-                itemCount: playListNotifier
-                    .value[widget.folderIndex].playlistSongs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  if (playListNotifier
-                      .value[widget.folderIndex].playlistSongs.isEmpty) {
-                    return const Text('No Songs Added');
-                  } else {
-                    return ListTile(
-                      leading: QueryArtworkWidget(
-                        artworkFit: BoxFit.fill,
+      // body: Container(
+      //   decoration: stylesClass.background(),
+      //   child: Scaffold(
+      //     backgroundColor: Colors.transparent,
+      //     appBar: AppBar(),
+      //     body: ValueListenableBuilder(
+      //       valueListenable: playListNotifier,
+      //       builder: (BuildContext ctx, List<dynamic> savedPlaylistSongsValue,
+      //           Widget? child) {
+      //         return ListView.builder(
+      //           // itemCount: 1,
+      //           itemCount: playListNotifier
+      //               .value[widget.folderIndex].playlistSongs.length,
+      //           itemBuilder: (BuildContext context, int index) {
+      //             if (playListNotifier
+      //                 .value[widget.folderIndex].playlistSongs.isEmpty) {
+      //               return const Text('No Songs Added');
+      //             } else {
+      //               return ListTile(
+      //                 leading: QueryArtworkWidget(
+      //                   artworkFit: BoxFit.fill,
 
-                        // id: AddToPlaylistScreen.songs[index].id,
-                        id: StylesPage
-                            .songs[PlaysongCheck.selectPlaySong.value[index]]
-                            .id,
-                        type: ArtworkType.AUDIO,
-                        nullArtworkWidget: const Icon(Icons.music_note),
-                      ),
-                    );
-                  }
-                },
-              );
-            },
-          ),
-        ),
-      ),
-      // child: CustomScrollView(
-      //   slivers: [
-      //     SliverAppBar(
-      //       leading: Padding(
-      //         padding: const EdgeInsets.only(left: .0),
-      //         child: IconButton(
-      //             onPressed: () => Navigator.pop(context),
-      //             icon: const Icon(
-      //               Icons.arrow_back_ios,
-      //               color: Colors.white,
-      //             )),
-      //       ),
-      //       floating: true,
-      //       flexibleSpace: FlexibleSpaceBar(
-      //         expandedTitleScale: 2,
-      //         // collapseMode: CollapseMode.pin,
-      //         title: stylesClass.textStyle(hometext: widget.playlistName),
-      //         centerTitle: true,
-      //         background: Image.asset(
-      //           'assets/podds.png',
-      //           fit: BoxFit.cover,
-      //         ),
-      //       ),
-      //       backgroundColor: color2,
-      //       expandedHeight: MediaQuery.of(context).size.height / 3,
-      //       actions: [
-      //         PopupMenuButton<int>(
-      //             color: color2,
-      //             elevation: 0,
-      //             icon: const Icon(Icons.more_vert),
-      //             itemBuilder: (context) => [
-      //                   PopupMenuItem(
-      //                       child: TextButton.icon(
-      //                           label: const Text("Rename"),
-      //                           onPressed: null,
-      //                           icon: const Icon(Icons
-      //                               .drive_file_rename_outline_outlined))),
-      //                   const PopupMenuDivider(
-      //                     height: 5,
-      //                   ),
-      //                   PopupMenuItem(
-      //                     child: TextButton.icon(
-      //                       label: const Text("Delete Playlist"),
-      //                       onPressed: () {
-      //                         deletePlayList(widget.folderIndex);
-      //                         setState(() {
-      //                           baseIndex = 2;
-      //                         });
-      //                         Navigator.pushAndRemoveUntil(
-      //                             context,
-      //                             MaterialPageRoute(
-      //                                 builder: (context) => BaseScreen()),
-      //                             (route) => false);
-      //                       },
-      //                       icon: const Icon(Icons.delete_outline),
-      //                     ),
-      //                   ),
-      //                 ])
-      //       ],
+      //                   // id: AddToPlaylistScreen.songs[index].id,
+      //                   id: StylesPage
+      //                       .songs[PlaysongCheck.selectPlaySong.value[index]]
+      //                       .id,
+      //                   type: ArtworkType.AUDIO,
+      //                   nullArtworkWidget: const Icon(Icons.music_note),
+      //                 ),
+      //               );
+      //             }
+      //           },
+      //         );
+      //       },
       //     ),
-      //     // SliverToBoxAdapter(child: stylesClass.allsongList()),
-      //     SliverToBoxAdapter(
-      //       child: ValueListenableBuilder(
-      //         valueListenable: playListNotifier,
-      //         builder: (BuildContext context,
-      //             List<PlayListModel> savedPlaylistSongsValue,
-      //             Widget? child) {
-      //           return ListView.builder(
-      //             itemCount: playListNotifier
-      //                 .value[widget.folderIndex].playlistSongs.length,
-      //             itemBuilder: (BuildContext context, int index) {
-      //               if (savedPlaylistSongsValue.isEmpty) {
-      //                 return const Text('No Songs Added');
-      //               } else {
-      //                 return ListTile(
-      //                   leading: QueryArtworkWidget(
-      //                     artworkFit: BoxFit.fill,
-      //                     id: playListNotifier.value[widget.folderIndex]
-      //                         .playlistSongs[index].id,
-      //                     type: ArtworkType.AUDIO,
-      //                     nullArtworkWidget: const Icon(Icons.music_note),
-      //                   ),
-      //                 );
-      //               }
-      //             },
-      //           );
-      //         },
-      //       ),
-      //     )
-      //   ],
+      //   ),
       // ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            leading: Padding(
+              padding: const EdgeInsets.only(left: .0),
+              child: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  )),
+            ),
+            floating: true,
+            flexibleSpace: FlexibleSpaceBar(
+              expandedTitleScale: 2,
+              // collapseMode: CollapseMode.pin,
+              title: stylesClass.textStyle(hometext: widget.playlistName),
+              centerTitle: true,
+              background: Image.asset(
+                'assets/podds.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+            backgroundColor: color2,
+            expandedHeight: MediaQuery.of(context).size.height / 3,
+            actions: [
+              PopupMenuButton<int>(
+                  color: color2,
+                  elevation: 0,
+                  icon: const Icon(Icons.more_vert),
+                  itemBuilder: (context) => [
+                        PopupMenuItem(
+                            child: TextButton.icon(
+                                label: const Text("Rename"),
+                                onPressed: null,
+                                icon: const Icon(
+                                    Icons.drive_file_rename_outline_outlined))),
+                        const PopupMenuDivider(
+                          height: 5,
+                        ),
+                        PopupMenuItem(
+                          child: TextButton.icon(
+                            label: const Text("Delete Playlist"),
+                            onPressed: () {
+                              deletePlayList(widget.folderIndex);
+                              setState(() {
+                                baseIndex = 2;
+                              });
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BaseScreen()),
+                                  (route) => false);
+                            },
+                            icon: const Icon(Icons.delete_outline),
+                          ),
+                        ),
+                      ])
+            ],
+          ),
+          // SliverToBoxAdapter(child: stylesClass.allsongList()),
+          SliverToBoxAdapter(
+            child: ValueListenableBuilder(
+              valueListenable: playListNotifier,
+              builder: (BuildContext context,
+                  List<PlayListModel> savedPlaylistSongsValue, Widget? child) {
+                return ListView.builder(
+                  itemCount: playListNotifier
+                      .value[widget.folderIndex].playlistSongs.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (savedPlaylistSongsValue.isEmpty) {
+                      return const Text('No Songs Added');
+                    } else {
+                      return ListTile(
+                        leading: QueryArtworkWidget(
+                          artworkFit: BoxFit.fill,
+                          id: playListNotifier.value[widget.folderIndex]
+                              .playlistSongs[index].id,
+                          type: ArtworkType.AUDIO,
+                          nullArtworkWidget: const Icon(Icons.music_note),
+                        ),
+                      );
+                    }
+                  },
+                );
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }
