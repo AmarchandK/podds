@@ -111,7 +111,7 @@ class StylesPage extends StatefulWidget {
                         child: ListTile(
                           onTap: () {
                             Get.to(
-                              // RecentSongs.addRecentlyPlayed(item.data!),
+                                // RecentSongs.addRecentlyPlayed(item.data!),
                                 PlayerScreen(
                                   songName: item.data!,
                                   audioPlayer: audioPlayer,
