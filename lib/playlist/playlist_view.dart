@@ -145,7 +145,7 @@ class _PlaylistViewState extends State<PlaylistView> {
             child: ValueListenableBuilder(
               valueListenable: playListNotifier,
               builder: (BuildContext context,
-                  List<PlayListModel> savedPlaylistSongsValue, Widget? child) {
+                  List<dynamic> savedPlaylistSongsValue, Widget? child) {
                 return ListView.builder(
                   itemCount: playListNotifier
                       .value[widget.folderIndex].playlistSongs.length,
