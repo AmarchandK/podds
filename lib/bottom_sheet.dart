@@ -1,9 +1,6 @@
-import 'dart:html';
-
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
-import 'package:get/route_manager.dart';
 import 'package:podds/add_profile.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
@@ -66,7 +63,7 @@ showOptions(BuildContext context) {
                                   builder: (context) => AddScreen()),
                               (route) => false);
                         },
-                        icon: Icon(Icons.restart_alt)),
+                        icon: const Icon(Icons.restart_alt)),
                   ),
                   const ListTile(
                     title: Text('Dark Mode'),
