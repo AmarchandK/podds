@@ -8,7 +8,7 @@ import 'package:podds/base_screen.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/playlist/add_playlist_songs.dart';
-import 'package:podds/playlist/playlist_Button.dart';
+import 'package:podds/playlist/playlist_button.dart';
 
 class PlaylistView extends StatefulWidget {
   PlaylistView(
@@ -98,7 +98,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => BaseScreen()),
+                                        builder: (context) => const BaseScreen()),
                                     (route) => false);
                               },
                               icon: const Icon(Icons.delete_outline),

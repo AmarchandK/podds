@@ -6,7 +6,7 @@ import 'package:podds/libary.dart';
 import 'package:podds/playlist/playlist.dart';
   int baseIndex=0;
 class BaseScreen extends StatefulWidget {
-   BaseScreen({Key? key}) : super(key: key);
+   const BaseScreen({Key? key}) : super(key: key);
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();

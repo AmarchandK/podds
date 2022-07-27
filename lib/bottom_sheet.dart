@@ -54,7 +54,7 @@ showOptions(BuildContext context) {
                     height: 40,
                   ),
                   ListTile(
-                    title: Text('Reset App'),
+                    title: const Text('Reset App'),
                     trailing: IconButton(
                         onPressed: () {
                           resetApp();

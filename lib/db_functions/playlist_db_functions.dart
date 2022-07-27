@@ -52,7 +52,7 @@ void updateList(index, value) async {
 void deletePlayList(index) async {
   final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
   await playListDB.deleteAt(index);
-  print('deleted${index}');
+
   getAllPlaylist();
 }
 
@@ -68,7 +68,7 @@ class PlaysongCheck {
   static ValueNotifier<List> selectPlaySong = ValueNotifier([]);
   static showSelectSong(index) {
     final checkSong = playListNotifier.value[index].playlistSongs;
-    print('Check song${checkSong}');
+
     selectPlaySong.value.clear();
     playListLoop.clear();
     for (int i = 0; i < checkSong.length; i++) {

@@ -1,14 +1,11 @@
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/db_functions/favorite_db.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/functions/homescreen_functns.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/sample.dart';
 import 'package:podds/search.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -46,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //     showSearch(context: context, delegate: MySearchDeligate()),
               //     transition: Transition.cupertino,
               //     duration: const Duration(milliseconds: 500)),
-              onPressed: () => Get.to(SearchScreen()),
+              onPressed: () => Get.to(const SearchScreen()),
               icon: const Icon(Icons.search))
         ],
       ),
