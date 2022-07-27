@@ -126,13 +126,11 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           OutlinedButton(
               onPressed: () {
                 final _playName = _textEditingController.text.trim();
-                print('playlist name${_playName}');
                 if (_playName.isNotEmpty) {
                   final _newlist =
                       PlayListModel(playListName: _playName, playlistSongs: []);
                   playlistAdd(_newlist);
                   _textEditingController.clear();
-                  print('newlist${_newlist}');
                   Navigator.of(context).pop(MaterialPageRoute(
                     builder: (context) => const PlaylistScreen(),
                   ));

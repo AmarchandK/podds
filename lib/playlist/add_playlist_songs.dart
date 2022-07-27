@@ -21,7 +21,6 @@ class AddToPlaylistScreen extends StatefulWidget {
 }
 
 class _AddToPlaylistScreenState extends State<AddToPlaylistScreen> {
-  @override
   final audioQuery = OnAudioQuery();
 
   @override
