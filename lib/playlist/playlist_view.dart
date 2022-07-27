@@ -34,7 +34,6 @@ class _PlaylistViewState extends State<PlaylistView> {
       decoration: stylesClass.background(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-
         floatingActionButton: FloatingActionButton(
           backgroundColor: color1,
           child: const Icon(
@@ -48,43 +47,6 @@ class _PlaylistViewState extends State<PlaylistView> {
               ),
               transition: Transition.downToUp),
         ),
-        // body: Container(
-        //   decoration: stylesClass.background(),
-        //   child: Scaffold(
-        //     backgroundColor: Colors.transparent,
-        //     appBar: AppBar(),
-        //     body: ValueListenableBuilder(
-        //       valueListenable: playListNotifier,
-        //       builder: (BuildContext ctx, List<dynamic> savedPlaylistSongsValue,
-        //           Widget? child) {
-        //         return ListView.builder(
-        //           // itemCount: 1,
-        //           itemCount: playListNotifier
-        //               .value[widget.folderIndex].playlistSongs.length,
-        //           itemBuilder: (BuildContext context, int index) {
-        //             if (playListNotifier
-        //                 .value[widget.folderIndex].playlistSongs.isEmpty) {
-        //               return const Text('No Songs Added');
-        //             } else {
-        //               return ListTile(
-        //                 leading: QueryArtworkWidget(
-        //                   artworkFit: BoxFit.fill,
-
-        //                   // id: AddToPlaylistScreen.songs[index].id,
-        //                   id: StylesPage
-        //                       .songs[PlaysongCheck.selectPlaySong.value[index]]
-        //                       .id,
-        //                   type: ArtworkType.AUDIO,
-        //                   nullArtworkWidget: const Icon(Icons.music_note),
-        //                 ),
-        //               );
-        //             }
-        //           },
-        //         );
-        //       },
-        //     ),
-        //   ),
-        // ),
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -145,8 +107,6 @@ class _PlaylistViewState extends State<PlaylistView> {
                         ])
               ],
             ),
-            // SliverToBoxAdapter(child: stylesClass.allsongList()),
-
             SliverToBoxAdapter(
               child: ValueListenableBuilder(
                 valueListenable: playListNotifier,
@@ -162,15 +122,23 @@ class _PlaylistViewState extends State<PlaylistView> {
                         return ListTile(
                           leading: QueryArtworkWidget(
                             artworkFit: BoxFit.fill,
-                            id: AddToPlaylistScreen.songs[index].id,
+                            id: AddToPlaylistScreen
+                                .songs[
+                                    PlaysongCheck.selectPlaySong.value[index]]
+                                .id,
                             type: ArtworkType.AUDIO,
                             nullArtworkWidget: const Icon(Icons.music_note),
                           ),
-                          title: Text(AddToPlaylistScreen.songs[index].title),
+                          title: Text(AddToPlaylistScreen
+                              .songs[PlaysongCheck.selectPlaySong.value[index]]
+                              .title),
                           trailing: PlayListAddButton(
                               index: index,
                               folderindex: widget.folderIndex,
-                              id: AddToPlaylistScreen.songs[index].id),
+                              id: AddToPlaylistScreen
+                                  .songs[
+                                      PlaysongCheck.selectPlaySong.value[index]]
+                                  .id),
                         );
                       }
                     },

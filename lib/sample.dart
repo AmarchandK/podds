@@ -1,12 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:on_audio_query/on_audio_query.dart';
-// import 'package:sarigama_music1/functions/song_list.dart';
-// import 'package:sarigama_music1/src/home/home_page.dart';
-// import 'package:sarigama_music1/src/home/home_screen.dart';
-// import '../home/add_songs.dart';
-// import '../../functions/playlist_fun.dart';
 // import 'package:just_audio/just_audio.dart';
-// import '../musicplayer/music_player.dart';
+// import 'package:podds/db_functions/playlist_db_functions.dart';
 
 // class SinglePlaylist extends StatefulWidget {
 //   const SinglePlaylist({Key? key, required this.folderIndex, int? id})
@@ -38,7 +33,7 @@
 //         backgroundColor: Colors.transparent,
 //         title: Row(
 //           children: [
-//             Text(
+//             const Text(
 //               'Sarigama',
 //               style: TextStyle(
 //                   color: Color.fromARGB(209, 78, 11, 11), fontSize: 35.0),
@@ -86,7 +81,7 @@
 //                 padding: const EdgeInsets.all(10),
 //                 itemCount: playListNotifier
 //                     .value[widget.folderIndex].songListdb.length,
-//                 itemBuilder: (BuildContext context, int index) {
+//                 itemBuilder: (context, index) {
 //                   return GridTile(
 //                     child: GestureDetector(
 //                       onTap: () {
