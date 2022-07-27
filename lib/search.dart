@@ -6,11 +6,10 @@ class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchScreenState createState () => _SearchScreenState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-
   final List<SongModel> _allSongs = StylesPage.songs;
   // This list holds the data for the list view
   List<SongModel> _foundSongs = [];
@@ -71,14 +70,12 @@ class _SearchScreenState extends State<SearchScreen> {
                           elevation: 4,
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           child: ListTile(
-                         
                             title: Text(_foundSongs[index].title),
                           ),
                         ),
                       )
                     : const Text(
-                        'No results found',
-                        style: TextStyle(fontSize: 24),
+                        'No Songs found',
                       ),
               ),
             ],
@@ -88,45 +85,6 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // class SearchScreen extends StatelessWidget {
 //   const SearchScreen({Key? key}) : super(key: key);
 

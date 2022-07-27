@@ -38,15 +38,14 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
               // controller: controller,
               itemCount: value.length,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: const Color.fromARGB(119, 21, 153, 140),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Card(
+                    color: const Color.fromARGB(119, 21, 153, 140),
                     child: ListTile(
                       onTap: () {
                         RecentSongs.addRecentlyPlayed(
                             StylesPage.songs[value[index]].id);
-                        print('object');
                         Get.to(
                             PlayerScreen(
                               audioPlayer: StylesPage.audioPlayer,

@@ -39,11 +39,10 @@ class StylesPage extends StatefulWidget {
                   shrinkWrap: true,
                   itemCount: item.data!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      color: const Color.fromARGB(119, 21, 153, 140),
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 5, left: 5, right: 5),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Card(
+                        color: const Color.fromARGB(119, 21, 153, 140),
                         child: ListTile(
                           onTap: () => Get.to(
                               PlayerScreen(

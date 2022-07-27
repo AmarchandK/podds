@@ -1,6 +1,11 @@
+import 'dart:html';
+
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
+import 'package:get/route_manager.dart';
+import 'package:podds/add_profile.dart';
+import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 
 bool value1 = false;
@@ -51,8 +56,18 @@ showOptions(BuildContext context) {
                   const SizedBox(
                     height: 40,
                   ),
-                  bottomSheetDatas(
-                      title: 'Refresh', iconData: Icons.repeat_outlined),
+                  ListTile(
+                    title: Text('Reset App'),
+                    trailing: IconButton(
+                        onPressed: () {
+                          resetApp();
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => AddScreen()),
+                              (route) => false);
+                        },
+                        icon: Icon(Icons.restart_alt)),
+                  ),
                   const ListTile(
                     title: Text('Dark Mode'),
                     trailing: Padding(
