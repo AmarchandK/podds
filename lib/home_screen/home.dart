@@ -1,6 +1,7 @@
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:podds/db_functions/favorite_db.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
@@ -18,9 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    RecentSongs.getRecentSongs();
-    getAllPlaylist();
-    FavoriteDB.displaySongs();
+    homeInint();
     super.initState();
   }
 
@@ -39,10 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         actions: [
           IconButton(
-              // onPressed: () => Get.to(
-              //     showSearch(context: context, delegate: MySearchDeligate()),
-              //     transition: Transition.cupertino,
-              //     duration: const Duration(milliseconds: 500)),
               onPressed: () => Get.to(const SearchScreen()),
               icon: const Icon(Icons.search))
         ],
@@ -62,5 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           )),
     );
+  }
+  Future homeInint() async {
+    await  Permission.storage.request();
+    await RecentSongs.displayRecents();
+    setState(() {
+    });
+    await getAllPlaylist();
+    await FavoriteDB.getAllSongs();
   }
 }

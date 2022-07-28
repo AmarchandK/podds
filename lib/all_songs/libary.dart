@@ -1,6 +1,5 @@
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/favorites/fav_fuction.dart';
 import '../functions/styles.dart';
@@ -13,14 +12,7 @@ class LibaryScreen extends StatefulWidget {
 }
 
 class _LibaryScreenState extends State<LibaryScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Permission.storage.request(); /*allow permission to storage */
-
-    super.initState();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

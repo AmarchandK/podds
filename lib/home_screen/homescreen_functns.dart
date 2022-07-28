@@ -275,24 +275,28 @@ class HomeRecentsSongs extends StatelessWidget {
                   child: Column(
                     children: [
                       CircleAvatar(
+                        backgroundColor: color2,
                         radius: 40,
                         child: QueryArtworkWidget(
-                          artworkBorder: BorderRadius.circular(0),
-                          artworkFit: BoxFit.fill,
-                          id: AllSongs.songs[recentValue[index]].id,
-                          type: ArtworkType.AUDIO,
-                          nullArtworkWidget: Image.asset(
-                            'assets/podds.png',
-                            fit: BoxFit.fill,
-                          ),
-                        ),
+                            artworkBorder: BorderRadius.circular(100),
+                            artworkHeight: 75,
+                            artworkWidth: 75,
+                            artworkFit: BoxFit.fill,
+                            id: AllSongs.songs[recentValue[index]].id,
+                            type: ArtworkType.AUDIO,
+                            nullArtworkWidget: const Icon(
+                              Icons.music_note,
+                              color: color1,
+                            )),
                       ),
                       SizedBox(
                         width: 70,
-                        child: Text(
-                          AllSongs.songs[recentValue[index]].title,
-                          overflow: TextOverflow.fade,
-                          softWrap: false,
+                        child: Center(
+                          child: Text(
+                            AllSongs.songs[recentValue[index]].title,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                          ),
                         ),
                       )
                     ],
