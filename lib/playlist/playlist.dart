@@ -53,40 +53,43 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   itemCount: savedPlaylistvalue.length,
                   itemBuilder: (BuildContext context, int index) {
                     final playlistDataTemp = savedPlaylistvalue[index];
-                    return CustomCard(
-                        borderRadius: 5,
-                        color: color1,
-                        onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PlaylistView(
-                                  folderIndex: index,
-                                  playlistName: playlistDataTemp.playListName,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: CustomCard(
+                          borderRadius: 5,
+                          color: color1,
+                          onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PlaylistView(
+                                    folderIndex: index,
+                                    playlistName: playlistDataTemp.playListName,
+                                  ),
                                 ),
                               ),
-                            ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              height: 130,
-                              child: Image.asset(
-                                'assets/podds.png',
-                                fit: BoxFit.fill,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+                                height: 150,
+                                child: Image.asset(
+                                  'assets/podds.png',
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                              child: Text(
-                                playlistDataTemp.playListName,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          ],
-                        ));
+                              SizedBox(
+                                height: 15,
+                                child: Text(
+                                  playlistDataTemp.playListName,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          )),
+                    );
                   },
                 );
               }),

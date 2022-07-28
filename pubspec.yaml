@@ -50,6 +50,7 @@ dependencies:
   feedback: ^2.5.0
   flutter_email_sender: ^5.1.0
   path_provider: ^2.0.11
+  share_plus: ^4.0.10
   
   
 

@@ -256,6 +256,7 @@ class HomeRecentsSongs extends StatelessWidget {
         valueListenable: RecentSongs.recentsNotifier,
         builder:
             (BuildContext context, List<dynamic> recentValue, Widget? child) {
+          recentValue.reversed;
           return ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: recentValue.length,
