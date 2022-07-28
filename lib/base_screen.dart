@@ -4,17 +4,19 @@ import 'package:podds/functions/styles.dart';
 import 'package:podds/home_screen/home.dart';
 import 'package:podds/all_songs/libary.dart';
 import 'package:podds/playlist/playlist.dart';
-  int baseIndex=0;
+
+int baseIndex = 0;
+
 class BaseScreen extends StatefulWidget {
-   const BaseScreen({Key? key}) : super(key: key);
+  const BaseScreen({Key? key}) : super(key: key);
+ 
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();
 }
 
 class _BaseScreenState extends State<BaseScreen> {
- 
-  final screens =  const[HomeScreen(), LibaryScreen(), PlaylistScreen()];
+  final screens = const [HomeScreen(), LibaryScreen(), PlaylistScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +34,12 @@ class _BaseScreenState extends State<BaseScreen> {
             selectedIndex: baseIndex,
             onDestinationSelected: (index) {
               if (index == 3) {
-                showOptions(context);
+              showModalBottomSheet (
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (ctx) {
+          return Settings(context: context);
+        });
               } else {
                 setState(() {
                   baseIndex = index;

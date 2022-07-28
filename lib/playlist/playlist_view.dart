@@ -100,7 +100,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const BaseScreen()),
+                                        builder: (context) =>  BaseScreen()),
                                     (route) => false);
                               },
                               icon: const Icon(Icons.delete_outline),

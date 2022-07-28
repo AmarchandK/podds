@@ -287,6 +287,7 @@ class HomeRecentsSongs extends StatelessWidget {
                             nullArtworkWidget: const Icon(
                               Icons.music_note,
                               color: color1,
+                              size: 35,
                             )),
                       ),
                       SizedBox(

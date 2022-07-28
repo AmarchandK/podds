@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.podds">
+    <queries>
+    <intent>
+    <action android:name="android.intent.action.SEND"/>
+    <data android:mimeType="*/*"/>
+    </intent>
+    </queries>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>

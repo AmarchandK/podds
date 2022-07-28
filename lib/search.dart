@@ -1,9 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/functions/styles.dart';
+import 'package:podds/player_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -72,7 +75,12 @@ class _SearchScreenState extends State<SearchScreen> {
                           elevation: 4,
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           child: ListTile(
+                            leading: const Icon(Icons.search),
                             title: Text(_foundSongs[index].title),
+                            onTap: () => Get.to(PlayerScreen(
+                                songName: _foundSongs,
+                                audioPlayer: AllSongs.audioPlayer,
+                                index: index)),
                           ),
                         ),
                       )

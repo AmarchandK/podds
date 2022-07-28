@@ -17,7 +17,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    checkLogin(); 
+    checkLogin();
     FavoriteDB.getAllSongs();
 
     super.initState();
@@ -25,10 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      color: Colors.black,
       child: Image.asset(
         'assets/Splash.png',
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
       ),
     );
   }

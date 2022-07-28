@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -21,7 +22,7 @@ Future<void> main() async {
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
-  runApp(const MyApp());
+  runApp(const BetterFeedback(child:  MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
-        brightness: value1 ? Brightness.dark : Brightness.light,
+        brightness: Brightness.dark ,
       ),
       home: const SplashScreen(),
     );

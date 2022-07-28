@@ -9,41 +9,41 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AddScreen extends StatelessWidget {
   AddScreen({Key? key}) : super(key: key);
   final _nameControler = TextEditingController();
-  final _formkey = GlobalKey<FormState>();
+  static final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
+    return Scaffold(
+      body: Form(
+        key: _formkey,
+        child: Container(
           decoration: stylesClass.background(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              const Icon(Icons.abc),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Form(
-                  key: _formkey,
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please Enter Your Name';
-                      } else {
-                        return null;
-                      }
-                    },
-                    controller: _nameControler,
-                    decoration: const InputDecoration(
-                      errorStyle: TextStyle(color: color2),
-                      hintText: 'Enter Your Name',
-                      border: OutlineInputBorder(),
-                    ),
+                child: TextFormField(
+                  controller: _nameControler,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter Your Name';
+                    } else {
+                      return null;
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    errorStyle: TextStyle(color: color2),
+                    hintText: 'Enter Your Name',
+                    border: OutlineInputBorder(),
                   ),
                 ),
               ),
               ElevatedButton(
                 onPressed: () {
-                  if (_formkey.currentState!.validate()) {
+                  if (_formkey.currentState!
+                  .validate()) {
                     onTap(context);
                   } else {
                     print('Data Is Empty');
@@ -71,7 +71,7 @@ class AddScreen extends StatelessWidget {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) =>  const BaseScreen(),
+        builder: (context) => const BaseScreen(),
       ),
     );
   }
