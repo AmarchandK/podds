@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-
 import 'package:podds/base_screen.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/splash.dart';

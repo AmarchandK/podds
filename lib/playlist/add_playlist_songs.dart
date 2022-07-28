@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/player_screen.dart';
 import 'package:podds/playlist/playlist_button.dart';
@@ -63,7 +64,7 @@ class _AddToPlaylistScreenState extends State<AddToPlaylistScreen> {
                               onTap: () => Get.to(
                                   PlayerScreen(
                                     songName: item.data!,
-                                    audioPlayer: StylesPage.audioPlayer,
+                                    audioPlayer: AllSongs.audioPlayer,
                                     index: index,
                                     id: AddToPlaylistScreen.songs[index].id,
                                   ),

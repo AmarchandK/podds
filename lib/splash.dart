@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:podds/add_profile.dart';
 import 'package:podds/base_screen.dart';

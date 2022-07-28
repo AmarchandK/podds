@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/functions/styles.dart';
+import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 
 // class PlayListFunctions {
@@ -61,7 +61,7 @@ void resetApp() async {
   final boxdb = await Hive.openBox('favorites');
   await playListDB.clear();
   await boxdb.clear();
-  StylesPage.audioPlayer.pause();
+AllSongs.audioPlayer.pause();
 }
 
 class PlaysongCheck {
@@ -72,8 +72,8 @@ class PlaysongCheck {
     selectPlaySong.value.clear();
     playListLoop.clear();
     for (int i = 0; i < checkSong.length; i++) {
-      for (int j = 0; j < StylesPage.songs.length; j++) {
-        if (StylesPage.songs[j].id == checkSong[i]) {
+      for (int j = 0; j < AllSongs.songs.length; j++) {
+        if (AllSongs.songs[j].id == checkSong[i]) {
           selectPlaySong.value.add(j);
           break;
         }

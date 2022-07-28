@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/db_functions/favorite_db.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
@@ -42,8 +43,8 @@ class HomeAllSongs extends StatelessWidget {
                       PlayerScreen(
                         songName: item.data!,
                         index: index,
-                        audioPlayer: StylesPage.audioPlayer,
-                        id: StylesPage.songs[index].id,
+                        audioPlayer: AllSongs.audioPlayer,
+                        id: AllSongs.songs[index].id,
                       ),
                       transition: Transition.rightToLeftWithFade,
                       duration: const Duration(milliseconds: 500)),
@@ -118,10 +119,10 @@ class HomeFavorites extends StatelessWidget {
               return GestureDetector(
                 onTap: () => Get.to(
                     PlayerScreen(
-                      audioPlayer: StylesPage.audioPlayer,
+                      audioPlayer: AllSongs.audioPlayer,
                       index: index,
                       songName: FavoriteDB.favloop,
-                      id: StylesPage.songs[value[index]].id,
+                      id: AllSongs.songs[value[index]].id,
                     ),
                     transition: Transition.rightToLeftWithFade,
                     duration: const Duration(milliseconds: 500)),
@@ -141,7 +142,7 @@ class HomeFavorites extends StatelessWidget {
                             child: QueryArtworkWidget(
                               artworkBorder: BorderRadius.circular(0),
                               artworkFit: BoxFit.fill,
-                              id: StylesPage.songs[value[index]].id,
+                              id: AllSongs.songs[value[index]].id,
                               type: ArtworkType.AUDIO,
                               nullArtworkWidget: Image.asset(
                                 'assets/podds.png',
@@ -157,7 +158,7 @@ class HomeFavorites extends StatelessWidget {
                           width: 130,
                           child: Center(
                             child: Text(
-                              StylesPage.songs[value[index]].title,
+                              AllSongs.songs[value[index]].title,
                               overflow: TextOverflow.fade,
                               softWrap: false,
                             ),
@@ -264,10 +265,10 @@ class HomeRecentsSongs extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => Get.to(
                       PlayerScreen(
-                        audioPlayer: StylesPage.audioPlayer,
+                        audioPlayer: AllSongs.audioPlayer,
                         index: index,
                         songName: RecentSongs.recentPlayed,
-                        id: StylesPage.songs[recentValue[index]].id,
+                        id: AllSongs.songs[recentValue[index]].id,
                       ),
                       transition: Transition.rightToLeftWithFade,
                       duration: const Duration(milliseconds: 500)),
@@ -278,7 +279,7 @@ class HomeRecentsSongs extends StatelessWidget {
                         child: QueryArtworkWidget(
                           artworkBorder: BorderRadius.circular(0),
                           artworkFit: BoxFit.fill,
-                          id: StylesPage.songs[recentValue[index]].id,
+                          id: AllSongs.songs[recentValue[index]].id,
                           type: ArtworkType.AUDIO,
                           nullArtworkWidget: Image.asset(
                             'assets/podds.png',
@@ -289,7 +290,7 @@ class HomeRecentsSongs extends StatelessWidget {
                       SizedBox(
                         width: 70,
                         child: Text(
-                          StylesPage.songs[recentValue[index]].title,
+                          AllSongs.songs[recentValue[index]].title,
                           overflow: TextOverflow.fade,
                           softWrap: false,
                         ),

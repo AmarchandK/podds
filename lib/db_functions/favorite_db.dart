@@ -3,7 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/functions/styles.dart';
+import 'package:podds/all_songs/all_songs.dart';
 
 class FavoriteDB {
   static ValueNotifier<List<dynamic>> favorites = ValueNotifier([]);
@@ -34,10 +34,10 @@ class FavoriteDB {
     favorites.value.clear();
     favloop.clear();
     for (int i = 0; i < musicitems.length; i++) {
-      for (int j = 0; j < StylesPage.songs.length; j++) {
-        if (musicitems[i] == StylesPage.songs[j].id) {
+      for (int j = 0; j < AllSongs.songs.length; j++) {
+        if (musicitems[i] == AllSongs.songs[j].id) {
           favorites.value.add(j);
-          favloop.add(StylesPage.songs[j]);
+          favloop.add(AllSongs.songs[j]);
         }
       }
     }

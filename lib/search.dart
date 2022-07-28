@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/functions/styles.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final List<SongModel> _allSongs = StylesPage.songs;
+  final List<SongModel> _allSongs = AllSongs.songs;
   // This list holds the data for the list view
   List<SongModel> _foundSongs = [];
   @override
@@ -86,6 +87,13 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
+
+
+
+
+
+
+           ///////      Deligate     //////
 // class SearchScreen extends StatelessWidget {
 //   const SearchScreen({Key? key}) : super(key: key);
 

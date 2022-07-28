@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:podds/bottom_sheet.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/home.dart';
-import 'package:podds/libary.dart';
+import 'package:podds/home_screen/home.dart';
+import 'package:podds/all_songs/libary.dart';
 import 'package:podds/playlist/playlist.dart';
   int baseIndex=0;
 class BaseScreen extends StatefulWidget {

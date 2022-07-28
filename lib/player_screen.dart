@@ -7,7 +7,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/home.dart';
+import 'package:podds/home_screen/home.dart';
 
 class PlayerScreen extends StatefulWidget {
   PlayerScreen(

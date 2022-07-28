@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/db_functions/favorite_db.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_button.dart';
-import 'package:podds/functions/styles.dart';
 import 'package:podds/player_screen.dart';
 
 class FavoriteFunction extends StatefulWidget {
@@ -45,14 +45,14 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
                     child: ListTile(
                       onTap: () {
                         RecentSongs.addRecentlyPlayed(
-                            StylesPage.songs[value[index]].id);
+                            AllSongs.songs[value[index]].id);
                         Get.to(
                             PlayerScreen(
-                              audioPlayer: StylesPage.audioPlayer,
+                              audioPlayer: AllSongs.audioPlayer,
                               index: index,
                               // songName: FavoriteDB.favloop,
                               songName: FavoriteDB.favloop,
-                              id: StylesPage.songs[value[index]].id,
+                              id: AllSongs.songs[value[index]].id,
                               // id: tempFav[index].id,
                             ),
                             transition: Transition.downToUp,
@@ -62,16 +62,16 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
                         radius: 25,
                         child: QueryArtworkWidget(
                           artworkFit: BoxFit.fill,
-                          id: StylesPage.songs[value[index]].id,
+                          id:AllSongs.songs[value[index]].id,
                           type: ArtworkType.AUDIO,
                           nullArtworkWidget: const Icon(Icons.music_note),
                         ),
                       ),
                       trailing: FavBTN(
-                        id: StylesPage.songs[value[index]].id,
+                        id: AllSongs.songs[value[index]].id,
                       ),
                       title: Text(
-                        StylesPage.songs[value[index]].title,
+                        AllSongs.songs[value[index]].title,
                         overflow: TextOverflow.fade,
                         softWrap: false,
                       ),

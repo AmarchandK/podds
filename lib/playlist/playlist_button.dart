@@ -1,8 +1,6 @@
-
-
 // ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
+import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
@@ -58,7 +56,7 @@ class _PlayListAddButtonState extends State<PlayListAddButton> {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               duration: const Duration(seconds: 2),
               content: Text(
-                'Added ${StylesPage.songs[indexCheck].title} to ${playListNotifier.value[widget.folderindex!].playListName},',
+                'Added ${AllSongs.songs[indexCheck].title} to ${playListNotifier.value[widget.folderindex!].playListName},',
                 style: const TextStyle(color: Colors.white),
               ),
               backgroundColor: const Color.fromARGB(255, 62, 62, 62),
