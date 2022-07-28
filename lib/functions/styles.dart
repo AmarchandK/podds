@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/player_screen.dart';
 
@@ -44,15 +45,19 @@ class StylesPage extends StatefulWidget {
                       child: Card(
                         color: const Color.fromARGB(119, 21, 153, 140),
                         child: ListTile(
-                          onTap: () => Get.to(
-                              PlayerScreen(
-                                songName: item.data!,
-                                audioPlayer: audioPlayer,
-                                index: index,
-                                id: songs[index].id,
-                              ),
-                              transition: Transition.downToUp,
-                              duration: const Duration(milliseconds: 500)),
+                          onTap: () {
+                            Get.to(
+                                PlayerScreen(
+                                  songName: item.data!,
+                                  audioPlayer: audioPlayer,
+                                  index: index,
+                                  id: songs[index].id,
+                                ),
+                                transition: Transition.downToUp,
+                                duration: const Duration(milliseconds: 500));
+
+                            RecentSongs.addRecentlyPlayed(item.data!);
+                          },
                           leading: CircleAvatar(
                             radius: 25,
                             child: QueryArtworkWidget(

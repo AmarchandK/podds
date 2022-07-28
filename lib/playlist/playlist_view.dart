@@ -3,10 +3,13 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:http/http.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/base_screen.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
+import 'package:podds/home.dart';
+import 'package:podds/player_screen.dart';
 import 'package:podds/playlist/add_playlist_songs.dart';
 import 'package:podds/playlist/playlist_button.dart';
 
@@ -120,6 +123,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                         return const Text('No Songs Added');
                       } else {
                         return ListTile(
+                          onTap: () => Get.to(PlayerScreen(songName: AddToPlaylistScreen
+                                .songs, audioPlayer: StylesPage.audioPlayer, index: index)),
                           leading: QueryArtworkWidget(
                             artworkFit: BoxFit.fill,
                             id: AddToPlaylistScreen

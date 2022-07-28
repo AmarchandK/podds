@@ -50,14 +50,13 @@ class _SearchScreenState extends State<SearchScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
-              TextField(
+              TextFormField(
                 onChanged: (value) => _runFilter(value),
                 decoration: InputDecoration(
-                    icon: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back)),
                     labelText: 'Search',
-                    suffixIcon: const Icon(Icons.search)),
+                    suffixIcon: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.close))),
               ),
               const SizedBox(
                 height: 20,

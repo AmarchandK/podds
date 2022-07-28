@@ -52,13 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             children: [
               stylesClass.textStyle(hometext: 'Recents'),
-              recentHome(),
+              const HomeRecentsSongs(),
               stylesClass.textStyle(hometext: 'Playlists'),
-              playListHome(),
+              const HomePlaylist(),
               stylesClass.textStyle(hometext: 'Favorites'),
-              favSongHome(),
+              const HomeFavorites(),
               stylesClass.textStyle(hometext: 'All songs'),
-              allSongHome()
+              HomeAllSongs()
             ],
           )),
     );
