@@ -8,6 +8,7 @@ class RecentSongs {
   static List<dynamic> recentPlayed = [];
   static addRecentlyPlayed(item) async {
     final dbBox = await Hive.openBox('recentsNotifier');
+
     await dbBox.add(item);
     getRecentSongs();
   }
@@ -15,7 +16,7 @@ class RecentSongs {
   static getRecentSongs() async {
     final dbBox = await Hive.openBox('recentsNotifier');
     recentPlayed = dbBox.values.toList();
-
+    recentPlayed.reversed;
     displayRecents();
     recentsNotifier.notifyListeners();
   }
@@ -24,18 +25,16 @@ class RecentSongs {
     final dbBox = await Hive.openBox('recentsNotifier');
     final recentsItems = dbBox.values.toList();
     recentsNotifier.value.clear();
-
     recentPlayed.clear();
     for (int i = 0; i < recentsItems.length; i++) {
       for (int j = 0; j < AllSongs.songs.length; j++) {
         if (recentsItems[i] == AllSongs.songs[j].id) {
           recentsNotifier.value.add(j);
           recentPlayed.add(AllSongs.songs[j]);
-
         }
       }
     }
-    
+    recentPlayed.reversed.toList();
     recentsNotifier.notifyListeners();
   }
 }

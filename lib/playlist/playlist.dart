@@ -1,6 +1,4 @@
-
 // ignore_for_file: no_leading_underscores_for_local_identifiers
-
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
@@ -11,7 +9,6 @@ import 'package:podds/playlist/playlist_view.dart';
 
 class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({Key? key}) : super(key: key);
-
   @override
   State<PlaylistScreen> createState() => _PlaylistScreenState();
 }
@@ -24,7 +21,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   }
 
   final TextEditingController _textEditingController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,27 +43,33 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               valueListenable: playListNotifier,
               builder: (BuildContext context,
                   List<PlayListModel> savedPlaylistvalue, Widget? child) {
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: savedPlaylistvalue.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final playlistDataTemp = savedPlaylistvalue[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: CustomCard(
+                if (savedPlaylistvalue.isEmpty) {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                } else {
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    ),
+                    itemCount: savedPlaylistvalue.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final playlistDataTemp = savedPlaylistvalue[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: CustomCard(
                           borderRadius: 5,
                           color: color1,
                           onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PlaylistView(
-                                    folderIndex: index,
-                                    playlistName: playlistDataTemp.playListName,
-                                  ),
-                                ),
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PlaylistView(
+                                folderIndex: index,
+                                playlistName: playlistDataTemp.playListName,
                               ),
+                            ),
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -89,10 +91,12 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                 ),
                               )
                             ],
-                          )),
-                    );
-                  },
-                );
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
               }),
         ),
       ),

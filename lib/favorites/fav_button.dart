@@ -13,8 +13,6 @@ class FavBTN extends StatefulWidget {
 }
 
 class _FavBTNState extends State<FavBTN> {
- 
-
   @override
   Widget build(BuildContext context) {
     final lastIndex =
@@ -24,12 +22,13 @@ class _FavBTNState extends State<FavBTN> {
       return IconButton(
           onPressed: () async {
             await FavoriteDB.deleteFromFav(lastIndex);
-            setState(() {});
+
             const snackbar = SnackBar(
               content: Text('remove from favourites'),
               duration: Duration(seconds: 1),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackbar);
+            setState(() {});
           },
           icon: const Icon(
             Icons.favorite,
@@ -39,12 +38,14 @@ class _FavBTNState extends State<FavBTN> {
     return IconButton(
         onPressed: () async {
           await FavoriteDB.addSongtoFav(widget.id);
-          setState(() {});
+
           const snackBar = SnackBar(
-            content: Text('add to favorites '),
-            duration: Duration(seconds: 1),
+            content: Text('Add to favorites '),
+            duration: Duration(seconds: 2),
           );
+
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          setState(() {});
         },
         icon: const Icon(Icons.favorite_border_outlined, color: color2));
   }

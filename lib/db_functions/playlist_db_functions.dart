@@ -58,10 +58,12 @@ void deletePlayList(index) async {
 
 void resetApp() async {
   final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
-  final boxdb = await Hive.openBox('favorites');
+  final favBoxdb = await Hive.openBox('favorites');
+  final recentbocdb = await Hive.openBox('recentsNotifier');
   await playListDB.clear();
-  await boxdb.clear();
-AllSongs.audioPlayer.pause();
+  await favBoxdb.clear();
+  await recentbocdb.clear();
+  AllSongs.audioPlayer.pause();
 }
 
 class PlaysongCheck {

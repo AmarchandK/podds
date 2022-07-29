@@ -61,15 +61,15 @@ class _AddToPlaylistScreenState extends State<AddToPlaylistScreen> {
                           child: Card(
                             color: const Color.fromARGB(119, 21, 153, 140),
                             child: ListTile(
-                              onTap: () => Get.to(
-                                  PlayerScreen(
-                                    songName: item.data!,
-                                    audioPlayer: AllSongs.audioPlayer,
-                                    index: index,
-                                    id: AddToPlaylistScreen.songs[index].id,
-                                  ),
-                                  transition: Transition.downToUp,
-                                  duration: const Duration(milliseconds: 500)),
+                              // onTap: () => Get.to(
+                              //     PlayerScreen(
+                              //       songName: item.data!,
+                              //       audioPlayer: AllSongs.audioPlayer,
+                              //       index: index,
+                              //       id: AddToPlaylistScreen.songs[index].id,
+                              // //     ),
+                              //     transition: Transition.downToUp,
+                              //     duration: const Duration(milliseconds: 500)),
                               leading: CircleAvatar(
                                 radius: 25,
                                 child: QueryArtworkWidget(

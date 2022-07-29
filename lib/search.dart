@@ -78,6 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             leading: const Icon(Icons.search),
                             title: Text(_foundSongs[index].title),
                             onTap: () => Get.to(PlayerScreen(
+                                id: AllSongs.songs[index].id,
                                 songName: _foundSongs,
                                 audioPlayer: AllSongs.audioPlayer,
                                 index: index)),

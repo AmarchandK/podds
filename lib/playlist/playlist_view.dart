@@ -100,7 +100,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>  BaseScreen()),
+                                        builder: (context) => BaseScreen()),
                                     (route) => false);
                               },
                               icon: const Icon(Icons.delete_outline),
@@ -122,8 +122,11 @@ class _PlaylistViewState extends State<PlaylistView> {
                         return const Text('No Songs Added');
                       } else {
                         return ListTile(
-                          onTap: () => Get.to(PlayerScreen(songName: AddToPlaylistScreen
-                                .songs, audioPlayer: AllSongs.audioPlayer, index: index)),
+                          onTap: () => Get.to(PlayerScreen(
+                              id: AllSongs.songs[index].id,
+                              songName: AddToPlaylistScreen.songs,
+                              audioPlayer: AllSongs.audioPlayer,
+                              index: index)),
                           leading: QueryArtworkWidget(
                             artworkFit: BoxFit.fill,
                             id: AddToPlaylistScreen
