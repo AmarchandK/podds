@@ -1,3 +1,4 @@
+
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -72,7 +73,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                             children: [
                               SizedBox(
                                 width: double.infinity,
-                                height: 150,
+                                height: 130,
                                 child: Image.asset(
                                   'assets/podds.png',
                                   fit: BoxFit.fill,

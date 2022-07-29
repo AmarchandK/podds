@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ class Settings extends StatefulWidget {
   @override
   State<Settings> createState() => _SettingsState();
 }
-
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
@@ -85,7 +83,6 @@ class _SettingsState extends State<Settings> {
   }
 
 ///////////////////////////////////////////////////////
-
   _bottomSheetDatas({
     required String title,
     required IconData iconData,
@@ -101,7 +98,6 @@ class _SettingsState extends State<Settings> {
       onTap: () => ontap?.call(title),
     );
   }
-
   _betterFeedback(context) {
     BetterFeedback.of(context).show((UserFeedback feedback) async {
       final screenShotFilePath = await writeImageToStorage(feedback.screenshot);
@@ -115,7 +111,6 @@ class _SettingsState extends State<Settings> {
       await FlutterEmailSender.send(email);
     });
   }
-
   Future<String> writeImageToStorage(Uint8List feedbackScreenshot) async {
     final Directory output = await getTemporaryDirectory();
     final String screenshotFilePath = '${output.path}/feedback.png';
