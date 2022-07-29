@@ -43,7 +43,7 @@ class _PlaylistViewState extends State<PlaylistView> {
             color: color2,
           ),
           onPressed: () => Get.to(
-              AddToPlaylistScreen(
+              AddToPlaylist(
                 playlistName: widget.playlistName,
                 folderIndex: widget.folderIndex,
               ),
@@ -100,7 +100,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => BaseScreen()),
+                                        builder: (context) =>
+                                            const BaseScreen()),
                                     (route) => false);
                               },
                               icon: const Icon(Icons.delete_outline),
@@ -117,34 +118,36 @@ class _PlaylistViewState extends State<PlaylistView> {
                   return ListView.builder(
                     itemCount: playListNotifier
                         .value[widget.folderIndex].playlistSongs.length,
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (BuildContext context, int playIndex) {
                       if (savedPlaylistSongsValue.isEmpty) {
                         return const Text('No Songs Added');
                       } else {
                         return ListTile(
                           onTap: () => Get.to(PlayerScreen(
-                              id: AllSongs.songs[index].id,
-                              songName: AddToPlaylistScreen.songs,
-                              audioPlayer: AllSongs.audioPlayer,
-                              index: index)),
+                            id: AddToPlaylist.addSong[playIndex].id,
+                            songName: AddToPlaylist.addSong,
+                            audioPlayer: AllSongs.audioPlayer,
+                            index: playIndex,
+                          )),
                           leading: QueryArtworkWidget(
                             artworkFit: BoxFit.fill,
-                            id: AddToPlaylistScreen
-                                .songs[
-                                    PlaysongCheck.selectPlaySong.value[index]]
+                            id: AddToPlaylist
+                                .addSong[PlaysongCheck
+                                    .selectPlaySong.value[playIndex]]
                                 .id,
                             type: ArtworkType.AUDIO,
                             nullArtworkWidget: const Icon(Icons.music_note),
                           ),
-                          title: Text(AddToPlaylistScreen
-                              .songs[PlaysongCheck.selectPlaySong.value[index]]
+                          title: Text(AddToPlaylist
+                              .addSong[
+                                  PlaysongCheck.selectPlaySong.value[playIndex]]
                               .title),
                           trailing: PlayListAddButton(
-                              index: index,
+                              index: playIndex,
                               folderindex: widget.folderIndex,
-                              id: AddToPlaylistScreen
-                                  .songs[
-                                      PlaysongCheck.selectPlaySong.value[index]]
+                              id: AddToPlaylist
+                                  .addSong[PlaysongCheck
+                                      .selectPlaySong.value[playIndex]]
                                   .id),
                         );
                       }

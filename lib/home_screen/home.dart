@@ -1,6 +1,7 @@
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:podds/db_functions/favorite_db.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
@@ -29,6 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         scrolledUnderElevation: 30,
         backgroundColor: color1,
+        // leading: const Image(
+        //   image: AssetImage('assets/whitePodds.png'),
+        //   width: 50,
+        //   fit: BoxFit.fitWidth,
+        // ),
         leading: const Icon(
           BootstrapIcons.earbuds,
           color: color2,
@@ -58,11 +64,11 @@ class _HomeScreenState extends State<HomeScreen> {
           )),
     );
   }
+
   Future homeInint() async {
-    await  Permission.storage.request();
+    await Permission.storage.request();
     await RecentSongs.displayRecents();
-    setState(() {
-    });
+    setState(() {});
     await getAllPlaylist();
     await FavoriteDB.getAllSongs();
   }

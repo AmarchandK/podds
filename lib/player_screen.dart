@@ -107,6 +107,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 ),
               ),
             ),
+          
             stylesClass.textStyle(
               hometext: widget.songName[widget.index].displayNameWOExt,
             ),
