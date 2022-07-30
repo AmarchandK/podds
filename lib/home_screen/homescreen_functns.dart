@@ -47,7 +47,7 @@ class HomeAllSongs extends StatelessWidget {
                         () => PlayerScreen(
                               songName: item.data!,
                               index: index,
-                              audioPlayer: AllSongs.audioPlayer,
+                  
                               id: AllSongs.songs[index].id,
                             ),
                         transition: Transition.rightToLeftWithFade,
@@ -132,7 +132,7 @@ class HomeFavorites extends StatelessWidget {
                         AllSongs.songs[value[index]].id);
                     Get.to(
                       () => PlayerScreen(
-                        audioPlayer: AllSongs.audioPlayer,
+                 
                         index: index,
                         songName: FavoriteDB.favloop,
                         id: AllSongs.songs[value[index]].id,
@@ -304,7 +304,7 @@ class HomeRecentsSongs extends StatelessWidget {
                           AllSongs.songs[removedup[index]].id);
                       Get.to(
                         () => PlayerScreen(
-                          audioPlayer: AllSongs.audioPlayer,
+                   
                           index: removedup[index],
                           songName: AllSongs.songs,
                           id: AllSongs.songs[removedup[index]].id,

@@ -12,7 +12,7 @@ class AllSongs extends StatelessWidget {
   AllSongs({Key? key}) : super(key: key);
  static List<SongModel> songs = [];
   final audioQuery = OnAudioQuery();
-  static AudioPlayer audioPlayer = AudioPlayer();
+
   @override
   Widget build(BuildContext context) {
     return  Builder(builder: (context) {
@@ -45,7 +45,7 @@ class AllSongs extends StatelessWidget {
                             Get.to(() =>
                                 PlayerScreen(
                                   songName: item.data!,
-                                  audioPlayer: audioPlayer,
+                                 
                                   index: index,
                                   id: songs[index].id,
                                 ),

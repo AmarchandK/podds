@@ -130,8 +130,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                           onTap: () => Get.to(PlayerScreen(
                             id: savedPlaylistSongsValue[playIndex].id,
                             songName: AddToPlaylist.addSong,
-                            audioPlayer: AllSongs.audioPlayer,
-                            index: savedPlaylistSongsValue[playIndex],
+                            index: playIndex,
                           )),
                           leading: QueryArtworkWidget(
                             artworkFit: BoxFit.fill,

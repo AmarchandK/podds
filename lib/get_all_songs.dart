@@ -1,10 +1,9 @@
-
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class GetAllSongs {
-  static AudioPlayer player = AudioPlayer();
+  static AudioPlayer audioPlayer = AudioPlayer();
   static int currentIndex = -1;
   static List<SongModel> songscopy = [];
   static List<SongModel> playingSongs = [];
@@ -15,7 +14,9 @@ class GetAllSongs {
       sources.add(
         AudioSource.uri(
           Uri.parse(song.uri!),
-          tag: MediaItem(id: song.id.toString(), title: song.title,
+          tag: MediaItem(
+            id: song.id.toString(),
+            title: song.title,
           ),
         ),
       );

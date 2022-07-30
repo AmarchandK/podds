@@ -55,7 +55,7 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
                               AllSongs.songs[value[index]].id);
                           Get.to(() =>
                               PlayerScreen(
-                                audioPlayer: AllSongs.audioPlayer,
+                           
                                 index: index,
                                 songName: FavoriteFunction.tempFav,
                                 id: AllSongs.songs[value[index]].id,

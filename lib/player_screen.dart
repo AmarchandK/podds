@@ -10,18 +10,15 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
+import 'package:podds/get_all_songs.dart';
 import 'package:podds/home_screen/home.dart';
 
 class PlayerScreen extends StatefulWidget {
   PlayerScreen(
-      {Key? key,
-      required this.songName,
-      required this.audioPlayer,
-      required this.index,
-      required this.id})
+      {Key? key, required this.songName, required this.index, required this.id})
       : super(key: key);
   final List<dynamic> songName;
-  final AudioPlayer audioPlayer;
+
   int index;
   dynamic id;
 
@@ -42,7 +39,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   void playSong() {
     try {
-      widget.audioPlayer.setAudioSource(AudioSource.uri(
+      GetAllSongs.audioPlayer.setAudioSource(AudioSource.uri(
         Uri.parse(widget.songName[widget.index].uri!),
         tag: MediaItem(
           // Specify a unique ID for each media item:
@@ -53,17 +50,17 @@ class _PlayerScreenState extends State<PlayerScreen> {
           artUri: Uri.parse('https://example.com/albumart.jpg'),
         ),
       ));
-      widget.audioPlayer.play();
+      GetAllSongs.audioPlayer.play();
       _isPlaying = true;
     } on Exception {
       log("Cannot Parse Song");
     }
-    widget.audioPlayer.durationStream.listen((d) {
+    GetAllSongs.audioPlayer.durationStream.listen((d) {
       setState(() {
         _duration = d!;
       });
     });
-    widget.audioPlayer.positionStream.listen((p) {
+    GetAllSongs.audioPlayer.positionStream.listen((p) {
       setState(() {
         _position = p;
       });
@@ -85,6 +82,28 @@ class _PlayerScreenState extends State<PlayerScreen> {
         //     child: playlistAdd(value)
         //   ),
         // ],
+        actions: [
+          StreamBuilder(
+            stream: GetAllSongs.audioPlayer.speedStream,
+            builder: (context, snapshot) {
+              return IconButton(
+                onPressed: null,
+                // onPressed: showSliderDialog(
+                //     context: context,
+                //     divisions: 10,
+                //     max: 1.5,
+                //     min: 0.5,
+                //     onChanged: GetAllSongs.audioPlayer.setSpeed,
+                //     stream: GetAllSongs.audioPlayer.speedStream,
+                //     title: 'Adjust Your Volume',
+                //     value: GetAllSongs.audioPlayer.speed),
+                icon: GetAllSongs.audioPlayer.volume == 0
+                    ? const Icon(Icons.volume_off)
+                    : const Icon(Icons.volume_up),
+              );
+            },
+          )
+        ],
       ),
       body: Container(
         height: double.infinity,
@@ -114,11 +133,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
               speed: 10,
               text: TextSpan(
                 // text: widget.songName[widget.index].displayNameWOExt,
-                text: widget.songName[widget.index].title.toString() ,
+                text: widget.songName[widget.index].title.toString(),
                 style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    ),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             Text(widget.songName[widget.index].artist.toString() == '<unknown>'
@@ -181,9 +200,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     onPressed: () {
                       setState(() {
                         if (_isPlaying) {
-                          widget.audioPlayer.pause();
+                          GetAllSongs.audioPlayer.pause();
                         } else {
-                          widget.audioPlayer.play();
+                          GetAllSongs.audioPlayer.play();
                         }
                         _isPlaying = !_isPlaying;
                       });
@@ -218,6 +237,56 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   void changeToSeconds(int seconds) {
     Duration duration = Duration(seconds: seconds);
-    widget.audioPlayer.seek(duration);
+    GetAllSongs.audioPlayer.seek(duration);
+  }
+
+  showSliderDialog({
+    required BuildContext context,
+    required String title,
+    required int divisions,
+    required double min,
+    required double max,
+    String valueSuffix = '',
+    required double value,
+    required Stream<double> stream,
+    required ValueChanged<double> onChanged,
+  }) {
+    return showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.white),
+        ),
+        content: StreamBuilder<double>(
+          stream: stream,
+          builder: (context, snapshot) => SizedBox(
+            height: 100.0,
+            child: Column(
+              children: [
+                Text('${snapshot.data?.toStringAsFixed(1)}$valueSuffix',
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Fixed',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.0)),
+                Slider(
+                  activeColor: Colors.amberAccent,
+                  inactiveColor: Colors.grey,
+                  divisions: divisions,
+                  min: min,
+                  max: max,
+                  value: snapshot.data ?? value,
+                  onChanged: onChanged,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

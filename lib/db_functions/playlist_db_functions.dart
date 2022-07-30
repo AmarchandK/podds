@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
+import 'package:podds/get_all_songs.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 
 // class PlayListFunctions {
@@ -62,7 +63,7 @@ void resetApp() async {
   await playListDB.clear();
   await favBoxdb.clear();
   await recentbocdb.clear();
-  AllSongs.audioPlayer.pause();
+   GetAllSongs.audioPlayer.pause();
 }
 
 class PlaysongCheck {
