@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/db_functions/playlist_db_functions.dart';
+
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/home_screen/home.dart';
@@ -108,8 +110,16 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 ),
               ),
             ),
-            stylesClass.textStyle(
-              hometext: widget.songName[widget.index].displayNameWOExt,
+            MarqueeText(
+              speed: 10,
+              text: TextSpan(
+                // text: widget.songName[widget.index].displayNameWOExt,
+                text: widget.songName[widget.index].title.toString() ,
+                style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    ),
+              ),
             ),
             Text(widget.songName[widget.index].artist.toString() == '<unknown>'
                 ? 'Unknown Artist'

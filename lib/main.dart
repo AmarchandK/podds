@@ -4,12 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:podds/bottom_sheet.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 import 'package:podds/splash.dart';
-
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();

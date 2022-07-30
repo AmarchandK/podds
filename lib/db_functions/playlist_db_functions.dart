@@ -43,7 +43,7 @@ void updateList(index, value) async {
   final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
   await playListDB.putAt(index, value);
   await getAllPlaylist();
-
+  print('New name $value');
   await PlaysongCheck.showSelectSong(index);
   playListNotifier.notifyListeners();
 }

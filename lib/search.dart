@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/state_manager.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/functions/styles.dart';
@@ -19,6 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final List<SongModel> _allSongs = AllSongs.songs;
   // This list holds the data for the list view
   List<SongModel> _foundSongs = [];
+  String temp = '';
   @override
   initState() {
     // at the beginning, all users are shown
@@ -55,11 +57,21 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(
             children: [
               TextFormField(
-                onChanged: (value) => _runFilter(value),
+                autofocus: true,
+                onChanged: (value) {
+                  _runFilter(value);
+                  temp = value;
+                },
                 decoration: InputDecoration(
                     labelText: 'Search',
                     suffixIcon: IconButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () {
+                          if (temp.isEmpty) {
+                            Navigator.pop(context);
+                          } else {
+                            // temp.//???????????????
+                          }
+                        },
                         icon: const Icon(Icons.close))),
               ),
               const SizedBox(

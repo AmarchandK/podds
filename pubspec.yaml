@@ -52,6 +52,7 @@ dependencies:
   path_provider: ^2.0.11
   share_plus: ^4.0.10
   lottie: ^1.4.0
+  marquee_text: ^2.5.0+1
   
   
 

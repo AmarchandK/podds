@@ -441,6 +441,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+  marquee_text:
+    dependency: "direct main"
+    description:
+      name: marquee_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.5.0+1"
   matcher:
     dependency: transitive
     description:

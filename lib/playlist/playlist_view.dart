@@ -8,8 +8,10 @@ import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/base_screen.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
+import 'package:podds/paly_list_model/play_list_model.dart';
 import 'package:podds/player_screen.dart';
 import 'package:podds/playlist/add_playlist_songs.dart';
+import 'package:podds/playlist/playlist.dart';
 import 'package:podds/playlist/playlist_button.dart';
 
 class PlaylistView extends StatefulWidget {
@@ -29,6 +31,7 @@ class _PlaylistViewState extends State<PlaylistView> {
     super.initState();
   }
 
+  final TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     PlaysongCheck.showSelectSong(widget.folderIndex);
@@ -83,7 +86,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                           PopupMenuItem(
                               child: TextButton.icon(
                                   label: const Text("Rename"),
-                                  onPressed: null,
+                                  onPressed: () =>
+                                      renamePlaylsit(widget.folderIndex),
                                   icon: const Icon(Icons
                                       .drive_file_rename_outline_outlined))),
                           const PopupMenuDivider(
@@ -124,10 +128,10 @@ class _PlaylistViewState extends State<PlaylistView> {
                       } else {
                         return ListTile(
                           onTap: () => Get.to(PlayerScreen(
-                            id: AddToPlaylist.addSong[playIndex].id,
+                            id: savedPlaylistSongsValue[playIndex].id,
                             songName: AddToPlaylist.addSong,
                             audioPlayer: AllSongs.audioPlayer,
-                            index: playIndex,
+                            index: savedPlaylistSongsValue[playIndex],
                           )),
                           leading: QueryArtworkWidget(
                             artworkFit: BoxFit.fill,
@@ -164,16 +168,41 @@ class _PlaylistViewState extends State<PlaylistView> {
     );
   }
 
-  renamePlaylsit(index, value) async {
-    showDialog(context: context, builder: (context)=>AlertDialog(
-      title:  Text('Rename Playlist'),
-      content: TextField(
-        autofocus: true,
-        decoration: InputDecoration(
-          hintText: ''
+  renamePlaylsit(index) async {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Rename Playlist'),
+        content: TextField(
+          controller: _textEditingController,
+          autofocus: true,
+          decoration: const InputDecoration(
+            hintText: 'Playlist name',
+            border: OutlineInputBorder(),
+          ),
         ),
+        actions: [
+          OutlinedButton(
+            onPressed: () {
+              final playReName = _textEditingController.text.trim();
+              if (playReName.isNotEmpty) {
+                // final _newlist =
+                //     PlayListModel(playListName: _playName, playlistSongs: []);
+                // updateList(index, playReName);
+                _textEditingController.clear();
+                Navigator.of(context).pop(MaterialPageRoute(
+                  builder: (context) => const PlaylistScreen(),
+                ));
+              }
+            },
+            child: const Text('Rename'),
+          ),
+          OutlinedButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          )
+        ],
       ),
-    ))
-    updateList(index, value);
+    );
   }
 }
