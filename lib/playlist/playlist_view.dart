@@ -163,4 +163,17 @@ class _PlaylistViewState extends State<PlaylistView> {
       ),
     );
   }
+
+  renamePlaylsit(index, value) async {
+    showDialog(context: context, builder: (context)=>AlertDialog(
+      title:  Text('Rename Playlist'),
+      content: TextField(
+        autofocus: true,
+        decoration: InputDecoration(
+          hintText: ''
+        ),
+      ),
+    ))
+    updateList(index, value);
+  }
 }
