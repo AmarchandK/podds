@@ -44,12 +44,12 @@ class HomeAllSongs extends StatelessWidget {
                   onTap: () {
                     RecentSongs.addRecentlyPlayed(item.data![index].id);
                     Get.to(
-                        PlayerScreen(
-                          songName: item.data!,
-                          index: index,
-                          audioPlayer: AllSongs.audioPlayer,
-                          id: AllSongs.songs[index].id,
-                        ),
+                        () => PlayerScreen(
+                              songName: item.data!,
+                              index: index,
+                              audioPlayer: AllSongs.audioPlayer,
+                              id: AllSongs.songs[index].id,
+                            ),
                         transition: Transition.rightToLeftWithFade,
                         duration: const Duration(milliseconds: 500));
                   },
@@ -131,7 +131,7 @@ class HomeFavorites extends StatelessWidget {
                     RecentSongs.addRecentlyPlayed(
                         AllSongs.songs[value[index]].id);
                     Get.to(
-                      PlayerScreen(
+                      () => PlayerScreen(
                         audioPlayer: AllSongs.audioPlayer,
                         index: index,
                         songName: FavoriteDB.favloop,
@@ -220,7 +220,7 @@ class HomePlaylist extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     Get.to(
-                      PlaylistView(
+                      () => PlaylistView(
                         folderIndex: index,
                         playlistName: playlistDataTemp.playListName,
                       ),
@@ -303,7 +303,7 @@ class HomeRecentsSongs extends StatelessWidget {
                       RecentSongs.addRecentlyPlayed(
                           AllSongs.songs[removedup[index]].id);
                       Get.to(
-                        PlayerScreen(
+                        () => PlayerScreen(
                           audioPlayer: AllSongs.audioPlayer,
                           index: removedup[index],
                           songName: AllSongs.songs,

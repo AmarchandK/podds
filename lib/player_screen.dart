@@ -84,7 +84,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
         //   ),
         // ],
       ),
-      body: DecoratedBox(
+      body: Container(
+        height: double.infinity,
         decoration: stylesClass.background(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -107,7 +108,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 ),
               ),
             ),
-          
             stylesClass.textStyle(
               hometext: widget.songName[widget.index].displayNameWOExt,
             ),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/functions/styles.dart';
-
 import 'package:podds/playlist/playlist_button.dart';
 
 class AddToPlaylist extends StatefulWidget {

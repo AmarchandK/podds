@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         actions: [
           IconButton(
-              onPressed: () => Get.to(const SearchScreen()),
+              onPressed: () => Get.to(() => const SearchScreen()),
               icon: const Icon(Icons.search))
         ],
       ),
@@ -66,9 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future homeInint() async {
-    await Permission.storage.request();
-    await RecentSongs.displayRecents();
-    setState(() {});
+    setState(() {
+      Permission.storage.request();
+      RecentSongs.displayRecents();
+    });
     await getAllPlaylist();
     await FavoriteDB.getAllSongs();
   }

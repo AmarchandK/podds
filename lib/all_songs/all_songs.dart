@@ -42,7 +42,7 @@ class AllSongs extends StatelessWidget {
                         color: const Color.fromARGB(119, 21, 153, 140),
                         child: ListTile(
                           onTap: () {
-                            Get.to(
+                            Get.to(() =>
                                 PlayerScreen(
                                   songName: item.data!,
                                   audioPlayer: audioPlayer,

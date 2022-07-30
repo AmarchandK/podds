@@ -16,7 +16,7 @@ class RecentSongs {
   static getRecentSongs() async {
     final dbBox = await Hive.openBox('recentsNotifier');
     recentPlayed = dbBox.values.toList();
-    recentPlayed.reversed;
+  
     displayRecents();
     recentsNotifier.notifyListeners();
   }
