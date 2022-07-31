@@ -8,7 +8,6 @@ class RecentSongs {
   static List<dynamic> recentPlayed = [];
   static addRecentlyPlayed(item) async {
     final dbBox = await Hive.openBox('recentsNotifier');
-
     await dbBox.add(item);
     getRecentSongs();
   }

@@ -91,8 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             title: Text(_foundSongs[index].title),
                             onTap: () => Get.to(PlayerScreen(
                                 id: AllSongs.songs[index].id,
-                                songName: _foundSongs,
-                    
+                                songModal: _foundSongs,
                                 index: index)),
                           ),
                         ),

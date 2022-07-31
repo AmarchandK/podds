@@ -12,7 +12,6 @@ class LibaryScreen extends StatefulWidget {
 }
 
 class _LibaryScreenState extends State<LibaryScreen> {
-  
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -56,7 +55,7 @@ class _LibaryScreenState extends State<LibaryScreen> {
         body: Container(
           decoration: stylesClass.background(),
           child: TabBarView(children: [
-           AllSongs(),
+            AllSongs(),
             const FavoriteFunction(),
           ]),
         ),

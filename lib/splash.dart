@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:podds/add_profile.dart';
+import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/base_screen.dart';
 import 'package:podds/db_functions/favorite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     checkLogin();
     FavoriteDB.getAllSongs();
 
+    AllSongs();
     super.initState();
   }
 
@@ -53,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
         () => Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>  const BaseScreen(),
+            builder: (context) => const BaseScreen(),
           ),
         ),
       );

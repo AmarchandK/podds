@@ -2,6 +2,7 @@ import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/db_functions/favorite_db.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
@@ -53,12 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               stylesClass.textStyle(hometext: 'Recents'),
               const HomeRecentsSongs(),
-              stylesClass.textStyle(hometext: 'Playlists'),
-              const HomePlaylist(),
               stylesClass.textStyle(hometext: 'Favorites'),
               const HomeFavorites(),
               stylesClass.textStyle(hometext: 'All songs'),
-              HomeAllSongs()
+              HomeAllSongs(),
+              stylesClass.textStyle(hometext: 'Playlists'),
+              const HomePlaylist(),
             ],
           )),
     );

@@ -53,13 +53,12 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
                           FavoriteFunction.tempFav.addAll(FavoriteDB.favloop);
                           RecentSongs.addRecentlyPlayed(
                               AllSongs.songs[value[index]].id);
-                          Get.to(() =>
-                              PlayerScreen(
-                           
-                                index: index,
-                                songName: FavoriteFunction.tempFav,
-                                id: AllSongs.songs[value[index]].id,
-                              ),
+                          Get.to(
+                              () => PlayerScreen(
+                                    index: index,
+                                    songModal: FavoriteFunction.tempFav,
+                                    id: AllSongs.songs[value[index]].id,
+                                  ),
                               transition: Transition.downToUp,
                               duration: const Duration(milliseconds: 500));
                         },

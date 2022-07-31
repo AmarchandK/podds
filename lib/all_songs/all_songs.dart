@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_button.dart';
@@ -10,12 +9,12 @@ import 'package:podds/player_screen.dart';
 
 class AllSongs extends StatelessWidget {
   AllSongs({Key? key}) : super(key: key);
- static List<SongModel> songs = [];
+  static List<SongModel> songs = [];
   final audioQuery = OnAudioQuery();
 
   @override
   Widget build(BuildContext context) {
-    return  Builder(builder: (context) {
+    return Builder(builder: (context) {
       return FutureBuilder<List<SongModel>>(
           future: audioQuery.querySongs(
               orderType: OrderType.ASC_OR_SMALLER,
@@ -42,13 +41,12 @@ class AllSongs extends StatelessWidget {
                         color: const Color.fromARGB(119, 21, 153, 140),
                         child: ListTile(
                           onTap: () {
-                            Get.to(() =>
-                                PlayerScreen(
-                                  songName: item.data!,
-                                 
-                                  index: index,
-                                  id: songs[index].id,
-                                ),
+                            Get.to(
+                                () => PlayerScreen(
+                                      songModal: item.data!,
+                                      index: index,
+                                      id: songs[index].id,
+                                    ),
                                 transition: Transition.downToUp,
                                 duration: const Duration(milliseconds: 500));
 

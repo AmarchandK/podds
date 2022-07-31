@@ -45,9 +45,8 @@ class HomeAllSongs extends StatelessWidget {
                     RecentSongs.addRecentlyPlayed(item.data![index].id);
                     Get.to(
                         () => PlayerScreen(
-                              songName: item.data!,
+                              songModal: item.data!,
                               index: index,
-                  
                               id: AllSongs.songs[index].id,
                             ),
                         transition: Transition.rightToLeftWithFade,
@@ -132,9 +131,8 @@ class HomeFavorites extends StatelessWidget {
                         AllSongs.songs[value[index]].id);
                     Get.to(
                       () => PlayerScreen(
-                 
                         index: index,
-                        songName: FavoriteDB.favloop,
+                        songModal: FavoriteDB.favloop,
                         id: AllSongs.songs[value[index]].id,
                       ),
                       transition: Transition.rightToLeftWithFade,
@@ -196,7 +194,7 @@ class HomeFavorites extends StatelessWidget {
 ///////////////////////////////////////////
 ///////////////////////////////////////////////
 class HomePlaylist extends StatelessWidget {
-  const HomePlaylist({Key? key}) : super(key: key);
+  const  HomePlaylist({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -304,9 +302,8 @@ class HomeRecentsSongs extends StatelessWidget {
                           AllSongs.songs[removedup[index]].id);
                       Get.to(
                         () => PlayerScreen(
-                   
                           index: removedup[index],
-                          songName: AllSongs.songs,
+                          songModal: AllSongs.songs,
                           id: AllSongs.songs[removedup[index]].id,
                         ),
                         transition: Transition.rightToLeftWithFade,

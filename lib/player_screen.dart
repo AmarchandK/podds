@@ -15,9 +15,12 @@ import 'package:podds/home_screen/home.dart';
 
 class PlayerScreen extends StatefulWidget {
   PlayerScreen(
-      {Key? key, required this.songName, required this.index, required this.id})
+      {Key? key,
+      required this.songModal,
+      required this.index,
+      required this.id})
       : super(key: key);
-  final List<dynamic> songName;
+  final List<dynamic> songModal;
 
   int index;
   dynamic id;
@@ -27,12 +30,22 @@ class PlayerScreen extends StatefulWidget {
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
+  int currentIndex1 = 0;
+
   bool _isPlaying = false;
   Duration _position = const Duration();
   Duration _duration = const Duration();
 
   @override
   void initState() {
+    GetAllSongs.audioPlayer.currentIndexStream.listen((index) {
+      if (index != null && mounted) {
+        setState(() {
+          currentIndex1 = index;
+        });
+        GetAllSongs.getCurrentIndex = index;
+      }
+    });
     playSong();
     super.initState();
   }
@@ -40,13 +53,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
   void playSong() {
     try {
       GetAllSongs.audioPlayer.setAudioSource(AudioSource.uri(
-        Uri.parse(widget.songName[widget.index].uri!),
+        Uri.parse(widget.songModal[widget.index].uri!),
         tag: MediaItem(
           // Specify a unique ID for each media item:
-          id: '${widget.songName[widget.index].id}',
+          id: '${widget.songModal[widget.index].id}',
           // Metadata to display in the notification:
-          album: "${widget.songName[widget.index].album}",
-          title: widget.songName[widget.index].displayNameWOExt,
+          album: "${widget.songModal[widget.index].album}",
+          title: widget.songModal[widget.index].displayNameWOExt,
           artUri: Uri.parse('https://example.com/albumart.jpg'),
         ),
       ));
@@ -67,6 +80,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
     });
   }
 
+  final debouncer = Debouncer(milliseconds: 1000);
   @override
   Widget build(BuildContext context) {
     ValueNotifier(HomeScreen);
@@ -83,26 +97,18 @@ class _PlayerScreenState extends State<PlayerScreen> {
         //   ),
         // ],
         actions: [
-          StreamBuilder(
-            stream: GetAllSongs.audioPlayer.speedStream,
-            builder: (context, snapshot) {
-              return IconButton(
-                onPressed: null,
-                // onPressed: showSliderDialog(
-                //     context: context,
-                //     divisions: 10,
-                //     max: 1.5,
-                //     min: 0.5,
-                //     onChanged: GetAllSongs.audioPlayer.setSpeed,
-                //     stream: GetAllSongs.audioPlayer.speedStream,
-                //     title: 'Adjust Your Volume',
-                //     value: GetAllSongs.audioPlayer.speed),
-                icon: GetAllSongs.audioPlayer.volume == 0
-                    ? const Icon(Icons.volume_off)
-                    : const Icon(Icons.volume_up),
-              );
+          IconButton(
+            onPressed: () {
+              debouncer.run(() {
+                showSliderDialog(value: GetAllSongs.audioPlayer.volume);
+              });
+
+              setState(() {});
             },
-          )
+            icon: GetAllSongs.audioPlayer.volume == 0
+                ? const Icon(Icons.volume_off)
+                : const Icon(Icons.volume_up),
+          ),
         ],
       ),
       body: Container(
@@ -115,14 +121,17 @@ class _PlayerScreenState extends State<PlayerScreen> {
               height: 200,
               width: 200,
               decoration: BoxDecoration(
-                  border: Border.all(width: 5, color: color2),
-                  color: color1,
-                  borderRadius: const BorderRadius.all(Radius.circular(100))),
+                border: Border.all(width: 5, color: color2),
+                color: color1,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(100),
+                ),
+              ),
               child: GestureDetector(
                 child: QueryArtworkWidget(
                   artworkFit: BoxFit.fill,
                   artworkBorder: BorderRadius.circular(100),
-                  id: widget.songName[widget.index].id,
+                  id: widget.songModal[widget.index].id,
                   type: ArtworkType.AUDIO,
                   keepOldArtwork: true,
                   nullArtworkWidget: const Icon(Icons.music_note),
@@ -133,16 +142,16 @@ class _PlayerScreenState extends State<PlayerScreen> {
               speed: 10,
               text: TextSpan(
                 // text: widget.songName[widget.index].displayNameWOExt,
-                text: widget.songName[widget.index].title.toString(),
+                text: widget.songModal[widget.index].title.toString(),
                 style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            Text(widget.songName[widget.index].artist.toString() == '<unknown>'
+            Text(widget.songModal[widget.index].artist.toString() == '<unknown>'
                 ? 'Unknown Artist'
-                : widget.songName[widget.index].artist.toString()),
+                : widget.songModal[widget.index].artist.toString()),
             Align(child: FavBTN(id: widget.id)),
             SliderTheme(
               data: const SliderThemeData(
@@ -174,9 +183,48 @@ class _PlayerScreenState extends State<PlayerScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.shuffle_rounded)),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.repeat)),
+                StreamBuilder<bool>(
+                  stream: GetAllSongs.audioPlayer.shuffleModeEnabledStream,
+                  builder: (context, snapshot) {
+                    final shuffleModeEnabled = snapshot.data ?? false;
+                    return IconButton(
+                      onPressed: () {
+                        GetAllSongs.audioPlayer
+                            .setShuffleModeEnabled(!shuffleModeEnabled);
+                      },
+                      icon: shuffleModeEnabled
+                          ? const Icon(Icons.shuffle_rounded)
+                          : const Icon(
+                              Icons.shuffle_rounded,
+                              color: color1,
+                            ),
+                    );
+                  },
+                ),
+                StreamBuilder<LoopMode>(
+                    stream: GetAllSongs.audioPlayer.loopModeStream,
+                    builder: (context, snapshot) {
+                      final loopMode = snapshot.data ?? LoopMode.off;
+                      const repeatIcons = [
+                        Icon(Icons.repeat),
+                        Icon(Icons.repeat_on_sharp),
+                        Icon(Icons.repeat_one)
+                      ];
+                      const cycleModes = [
+                        LoopMode.off,
+                        LoopMode.all,
+                        LoopMode.one,
+                      ];
+                      final index = cycleModes.indexOf(loopMode);
+                      return IconButton(
+                        onPressed: () {
+                          GetAllSongs.audioPlayer.setLoopMode(cycleModes[
+                              (cycleModes.indexOf(loopMode) + 1) %
+                                  cycleModes.length]);
+                        },
+                        icon: repeatIcons[index],
+                      );
+                    }),
               ],
             ),
             Row(
@@ -187,7 +235,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     if (widget.index > 0) {
                       widget.index--;
                     } else {
-                      widget.index = widget.songName.length - 1;
+                      widget.index = widget.songModal.length - 1;
                     }
                     playSong();
                   },
@@ -215,7 +263,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     )),
                 IconButton(
                   onPressed: () {
-                    if (widget.index < widget.songName.length - 1) {
+                    if (widget.index < widget.songModal.length - 1) {
                       widget.index++;
                     } else {
                       widget.index = 0;
@@ -240,29 +288,23 @@ class _PlayerScreenState extends State<PlayerScreen> {
     GetAllSongs.audioPlayer.seek(duration);
   }
 
+/////// VOLUME ////////////
   showSliderDialog({
-    required BuildContext context,
-    required String title,
-    required int divisions,
-    required double min,
-    required double max,
     String valueSuffix = '',
     required double value,
-    required Stream<double> stream,
-    required ValueChanged<double> onChanged,
   }) {
     return showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text(
-          title,
+        title: const Text(
+          'Adjust Your Volume',
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
         content: StreamBuilder<double>(
-          stream: stream,
+          stream: GetAllSongs.audioPlayer.volumeStream,
           builder: (context, snapshot) => SizedBox(
             height: 100.0,
             child: Column(
@@ -274,13 +316,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         fontWeight: FontWeight.bold,
                         fontSize: 24.0)),
                 Slider(
-                  activeColor: Colors.amberAccent,
+                  activeColor: color2,
                   inactiveColor: Colors.grey,
-                  divisions: divisions,
-                  min: min,
-                  max: max,
+                  divisions: 10,
+                  min: 0,
+                  max: 5,
                   value: snapshot.data ?? value,
-                  onChanged: onChanged,
+                  onChanged: GetAllSongs.audioPlayer.setVolume,
                 ),
               ],
             ),

@@ -4,11 +4,9 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/base_screen.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/paly_list_model/play_list_model.dart';
 import 'package:podds/player_screen.dart';
 import 'package:podds/playlist/add_playlist_songs.dart';
 import 'package:podds/playlist/playlist.dart';
@@ -128,8 +126,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                       } else {
                         return ListTile(
                           onTap: () => Get.to(PlayerScreen(
-                            id: savedPlaylistSongsValue[playIndex].id,
-                            songName: AddToPlaylist.addSong,
+                            id: AddToPlaylist.addSong[playIndex].id,
+                            songModal: AddToPlaylist.addSong,
                             index: playIndex,
                           )),
                           leading: QueryArtworkWidget(
