@@ -7,10 +7,10 @@ import 'package:podds/functions/styles.dart';
 import 'package:podds/playlist/playlist_button.dart';
 
 class AddToPlaylist extends StatefulWidget {
-  AddToPlaylist(
+  const AddToPlaylist(
       {Key? key, required this.playlistName, required this.folderIndex})
       : super(key: key);
-  String playlistName;
+ final String playlistName;
   static List<SongModel> addSong = AllSongs.songs;
   final int folderIndex;
   @override

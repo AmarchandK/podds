@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:podds/all_songs/all_songs.dart';
+
 import 'package:podds/bottom_sheet.dart';
-import 'package:podds/db_functions/favorite_db.dart';
+
 import 'package:podds/favorites/fav_fuction.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/home_screen/home.dart';
@@ -20,7 +21,7 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   @override
   void initState() {
-   
+  
     const FavoriteFunction();
 
     super.initState();
@@ -29,7 +30,6 @@ class _BaseScreenState extends State<BaseScreen> {
   final screens = const [HomeScreen(), LibaryScreen(), PlaylistScreen()];
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: screens[baseIndex],

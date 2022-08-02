@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:podds/add_profile.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/base_screen.dart';
-import 'package:podds/db_functions/favorite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const savekey = 'userlogedin';
+String name = '';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -19,8 +19,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     checkLogin();
-    FavoriteDB.getAllSongs();
-
     AllSongs();
     super.initState();
   }
@@ -38,10 +36,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> checkLogin() async {
     final sharedpref = await SharedPreferences.getInstance();
-    final alreadyloged = sharedpref.getBool(savekey);
-    if (alreadyloged == null || alreadyloged == false) {
+    name = sharedpref.getString('name') ?? 'No data';
+    final alreadyloged = sharedpref.getBool('loged') ?? false;
+
+    if (alreadyloged == false) {
       Timer(
-        const Duration(seconds: 3),
+        const Duration(seconds: 2),
         () => Navigator.pushReplacement(
           context,
           MaterialPageRoute(

@@ -37,8 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   bootstrap_icons: ^1.8.1
   flutter_custom_cards: ^0.2.1
-  search_page: ^2.0.0+1
- 
   get: ^4.6.5
   on_audio_query: ^2.6.1
   permission_handler: ^10.0.0

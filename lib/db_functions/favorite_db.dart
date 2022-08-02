@@ -9,6 +9,7 @@ class FavoriteDB {
   static ValueNotifier<List<dynamic>> favorites = ValueNotifier([]);
   static List<dynamic> favsong = [];
   static List<SongModel> favloop = [];
+
   static addSongtoFav(item) async {
     final dbBox = await Hive.openBox('favorites');
     await dbBox.add(item);

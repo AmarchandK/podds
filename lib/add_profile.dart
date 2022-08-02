@@ -42,8 +42,7 @@ class AddScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  if (_formkey.currentState!
-                  .validate()) {
+                  if (_formkey.currentState!.validate()) {
                     onTap(context);
                   } else {
                     print('Data Is Empty');
@@ -61,13 +60,15 @@ class AddScreen extends StatelessWidget {
   Future<void> onTap(context) async {
     final sharedpref = await SharedPreferences.getInstance();
 
-    await sharedpref.setBool(savekey, true);
-
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Saved'),
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.green,
-    ));
+    sharedpref.setString('name', _nameControler.text);
+    name = _nameControler.text;
+    sharedpref.setBool('loged', true);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+          content: Text('Saved'),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent),
+    );
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

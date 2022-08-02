@@ -1,4 +1,3 @@
-import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -8,7 +7,8 @@ import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/home_screen/homescreen_functns.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/search.dart';
+import 'package:podds/miniplayer.dart';
+import 'package:podds/splash.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -30,22 +30,20 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         scrolledUnderElevation: 30,
         backgroundColor: color1,
-        // leading: const Image(
-        //   image: AssetImage('assets/whitePodds.png'),
-        //   width: 50,
-        //   fit: BoxFit.fitWidth,
-        // ),
-        leading: const Icon(
-          BootstrapIcons.earbuds,
-          color: color2,
-          size: 30,
+        leading: const Padding(
+          padding: EdgeInsets.all(3.0),
+          child: Image(
+            image: AssetImage('assets/1-removebg-preview.png'),
+          ),
         ),
-        title: const Text('Hey'),
+        title: Text('Hey $name'),
         elevation: 0,
         actions: [
           IconButton(
-              onPressed: () => Get.to(() => const SearchScreen()),
-              icon: const Icon(Icons.search))
+            // onPressed: () => Get.to(() => const SearchScreen()),
+            onPressed: () => Get.to(() => const MiniPlayer()),
+            icon: const Icon(Icons.search),
+          )
         ],
       ),
       body: Container(
@@ -54,10 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               stylesClass.textStyle(hometext: 'Recents'),
               const HomeRecentsSongs(),
-              stylesClass.textStyle(hometext: 'Favorites'),
-              const HomeFavorites(),
               stylesClass.textStyle(hometext: 'All songs'),
               HomeAllSongs(),
+              stylesClass.textStyle(hometext: 'Favorites'),
+              const HomeFavorites(),
               stylesClass.textStyle(hometext: 'Playlists'),
               const HomePlaylist(),
             ],
@@ -66,11 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future homeInint() async {
-    setState(() {
-      Permission.storage.request();
-      RecentSongs.displayRecents();
-    });
+    await Permission.storage.request();
     await getAllPlaylist();
+    await RecentSongs.displayRecents();
     await FavoriteDB.getAllSongs();
+    AllSongs();
   }
 }

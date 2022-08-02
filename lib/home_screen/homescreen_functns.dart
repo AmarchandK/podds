@@ -34,8 +34,13 @@ class HomeAllSongs extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (item.data!.isEmpty) {
-            return const Center(child: Text('No Songs Found'));
+            return Center(
+                child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset('assets/nullHome.png'),
+            ));
           } else {
+            AllSongs.songs = item.data!;
             return ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: item.data!.length > 7 ? 7 : item.data!.length,
@@ -119,7 +124,11 @@ class HomeFavorites extends StatelessWidget {
         builder: (BuildContext context, List<dynamic> value, Widget? child) {
           // tempFav.addAll(FavoriteDB.favloop);
           if (value.isEmpty) {
-            return const Center(child: Text('No Favorites Added'));
+            return Center(
+                child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Image.asset('assets/nullHome.png'),
+            ));
           } else {
             return ListView.builder(
               itemCount: value.length > 5 ? 5 : value.length,
@@ -194,7 +203,7 @@ class HomeFavorites extends StatelessWidget {
 ///////////////////////////////////////////
 ///////////////////////////////////////////////
 class HomePlaylist extends StatelessWidget {
-  const  HomePlaylist({Key? key}) : super(key: key);
+  const HomePlaylist({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -205,8 +214,11 @@ class HomePlaylist extends StatelessWidget {
         builder: (BuildContext context, List<PlayListModel> savedPlaylistvalue,
             Widget? child) {
           if (savedPlaylistvalue.isEmpty) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(50.0),
+                child: Image.asset('assets/nullHome.png'),
+              ),
             );
           } else {
             return ListView.builder(
@@ -313,20 +325,24 @@ class HomeRecentsSongs extends StatelessWidget {
                     child: Column(
                       children: [
                         CircleAvatar(
-                          backgroundColor: color2,
                           radius: 40,
-                          child: QueryArtworkWidget(
-                              artworkBorder: BorderRadius.circular(100),
-                              artworkHeight: 75,
-                              artworkWidth: 75,
-                              artworkFit: BoxFit.fill,
-                              id: AllSongs.songs[removedup[index]].id,
-                              type: ArtworkType.AUDIO,
-                              nullArtworkWidget: const Icon(
-                                Icons.music_note,
-                                color: color1,
-                                size: 35,
-                              )),
+                          backgroundColor: color2,
+                          child: CircleAvatar(
+                            backgroundColor: color1,
+                            radius: 38,
+                            child: QueryArtworkWidget(
+                                artworkBorder: BorderRadius.circular(100),
+                                artworkHeight: 75,
+                                artworkWidth: 75,
+                                artworkFit: BoxFit.fill,
+                                id: AllSongs.songs[removedup[index]].id,
+                                type: ArtworkType.AUDIO,
+                                nullArtworkWidget: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Image.asset(
+                                      'assets/1-removebg-preview.png'),
+                                )),
+                          ),
                         ),
                         SizedBox(
                           width: 70,

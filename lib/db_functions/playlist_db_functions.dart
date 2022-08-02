@@ -23,7 +23,7 @@ import 'package:podds/paly_list_model/play_list_model.dart';
 //   }
 // }
 ValueNotifier<List<PlayListModel>> playListNotifier = ValueNotifier([]);
-List<SongModel> playListLoop = [];
+// List<SongModel> playListLoop = [];
 
 void playlistAdd(PlayListModel value) async {
   final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
@@ -52,8 +52,28 @@ void updateList(index, value) async {
 void deletePlayList(index) async {
   final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
   await playListDB.deleteAt(index);
+  PlaysongCheck.selectPlaySong.notifyListeners();
 
   getAllPlaylist();
+}
+
+class PlaysongCheck {
+  static ValueNotifier<List<SongModel>> selectPlaySong = ValueNotifier([]);
+  static showSelectSong(index) {
+    final checkSong = playListNotifier.value[index].playlistSongs;
+
+    selectPlaySong.value.clear();
+    // playListLoop.clear();
+    for (int i = 0; i < checkSong.length; i++) {
+      for (int j = 0; j < AllSongs.songs.length; j++) {
+        if (AllSongs.songs[j].id == checkSong[i]) {
+          selectPlaySong.value.add(AllSongs.songs[j]);
+          selectPlaySong.notifyListeners();
+          break;
+        }
+      }
+    }
+  }
 }
 
 void resetApp() async {
@@ -63,23 +83,5 @@ void resetApp() async {
   await playListDB.clear();
   await favBoxdb.clear();
   await recentbocdb.clear();
-   GetAllSongs.audioPlayer.pause();
-}
-
-class PlaysongCheck {
-  static ValueNotifier<List> selectPlaySong = ValueNotifier([]);
-  static showSelectSong(index) {
-    final checkSong = playListNotifier.value[index].playlistSongs;
-
-    selectPlaySong.value.clear();
-    playListLoop.clear();
-    for (int i = 0; i < checkSong.length; i++) {
-      for (int j = 0; j < AllSongs.songs.length; j++) {
-        if (AllSongs.songs[j].id == checkSong[i]) {
-          selectPlaySong.value.add(j);
-          break;
-        }
-      }
-    }
-  }
+  GetAllSongs.audioPlayer.pause();
 }

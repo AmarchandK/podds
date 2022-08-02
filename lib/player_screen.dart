@@ -4,10 +4,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/get_all_songs.dart';
@@ -52,17 +50,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   void playSong() {
     try {
-      GetAllSongs.audioPlayer.setAudioSource(AudioSource.uri(
-        Uri.parse(widget.songModal[widget.index].uri!),
-        tag: MediaItem(
-          // Specify a unique ID for each media item:
-          id: '${widget.songModal[widget.index].id}',
-          // Metadata to display in the notification:
-          album: "${widget.songModal[widget.index].album}",
-          title: widget.songModal[widget.index].displayNameWOExt,
-          artUri: Uri.parse('https://example.com/albumart.jpg'),
-        ),
-      ));
+      GetAllSongs.audioPlayer.setAudioSource(
+          GetAllSongs.createSongList(widget.songModal as List<SongModel>),
+          initialIndex: widget.index);
       GetAllSongs.audioPlayer.play();
       _isPlaying = true;
     } on Exception {
@@ -90,12 +80,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
         elevation: 0,
         backgroundColor: color1,
         title: const Text('Now Playing'),
-        // actions: const [
-        //   Padding(
-        //     padding: EdgeInsets.only(right: 10),
-        //     child: playlistAdd(value)
-        //   ),
-        // ],
         actions: [
           IconButton(
             onPressed: () {
@@ -127,14 +111,19 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   Radius.circular(100),
                 ),
               ),
-              child: GestureDetector(
-                child: QueryArtworkWidget(
-                  artworkFit: BoxFit.fill,
-                  artworkBorder: BorderRadius.circular(100),
-                  id: widget.songModal[widget.index].id,
-                  type: ArtworkType.AUDIO,
-                  keepOldArtwork: true,
-                  nullArtworkWidget: const Icon(Icons.music_note),
+              child: QueryArtworkWidget(
+                artworkFit: BoxFit.fill,
+                artworkBorder: BorderRadius.circular(100),
+                id: widget.songModal[currentIndex1].id,
+                type: ArtworkType.AUDIO,
+                keepOldArtwork: true,
+                nullArtworkWidget: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/1-removebg-preview.png',
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -142,16 +131,17 @@ class _PlayerScreenState extends State<PlayerScreen> {
               speed: 10,
               text: TextSpan(
                 // text: widget.songName[widget.index].displayNameWOExt,
-                text: widget.songModal[widget.index].title.toString(),
+                text: widget.songModal[currentIndex1].title.toString(),
                 style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            Text(widget.songModal[widget.index].artist.toString() == '<unknown>'
-                ? 'Unknown Artist'
-                : widget.songModal[widget.index].artist.toString()),
+            Text(
+                widget.songModal[currentIndex1].artist.toString() == '<unknown>'
+                    ? 'Unknown Artist'
+                    : widget.songModal[currentIndex1].artist.toString()),
             Align(child: FavBTN(id: widget.id)),
             SliderTheme(
               data: const SliderThemeData(
@@ -206,14 +196,15 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     builder: (context, snapshot) {
                       final loopMode = snapshot.data ?? LoopMode.off;
                       const repeatIcons = [
+                        Icon(
+                          Icons.repeat,
+                          color: color1,
+                        ),
                         Icon(Icons.repeat),
-                        Icon(Icons.repeat_on_sharp),
-                        Icon(Icons.repeat_one)
                       ];
                       const cycleModes = [
                         LoopMode.off,
                         LoopMode.all,
-                        LoopMode.one,
                       ];
                       final index = cycleModes.indexOf(loopMode);
                       return IconButton(
@@ -231,13 +222,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
-                  onPressed: () {
-                    if (widget.index > 0) {
-                      widget.index--;
+                  onPressed: () async {
+                    if (GetAllSongs.audioPlayer.hasPrevious) {
+                      await GetAllSongs.audioPlayer.seekToPrevious();
+                      await GetAllSongs.audioPlayer.play();
                     } else {
-                      widget.index = widget.songModal.length - 1;
+                      await GetAllSongs.audioPlayer.play();
                     }
-                    playSong();
                   },
                   icon: const Icon(Icons.skip_previous_outlined),
                 ),
@@ -262,13 +253,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       size: 35.0,
                     )),
                 IconButton(
-                  onPressed: () {
-                    if (widget.index < widget.songModal.length - 1) {
-                      widget.index++;
+                  onPressed: () async {
+                    if (GetAllSongs.audioPlayer.hasNext) {
+                      await GetAllSongs.audioPlayer.seekToNext();
+                      await GetAllSongs.audioPlayer.play();
                     } else {
-                      widget.index = 0;
+                      await GetAllSongs.audioPlayer.play();
                     }
-                    playSong();
                   },
                   icon: const Icon(Icons.skip_next_outlined),
                 ),

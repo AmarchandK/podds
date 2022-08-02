@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
@@ -12,10 +11,10 @@ class PlayListAddButton extends StatefulWidget {
       required this.folderindex,
       required this.id})
       : super(key: key);
-  int? index;
-  int? folderindex;
-  int? id;
-  List<dynamic> songlist = [];
+  final int? index;
+  final int? folderindex;
+  final int? id;
+  final List<dynamic> songlist = [];
   static List<dynamic> updatelist = [];
   static List<dynamic> dltlist = [];
 

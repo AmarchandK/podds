@@ -6,6 +6,7 @@ import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/db_functions/favorite_db.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_button.dart';
+import 'package:podds/functions/styles.dart';
 import 'package:podds/player_screen.dart';
 
 class FavoriteFunction extends StatefulWidget {
@@ -34,7 +35,7 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
           // print(value);
           if (FavoriteDB.favloop.isEmpty) {
             return Center(
-              child: Image.asset('assets/iphone-5459688-removebg-preview.png'),
+              child: Image.asset('assets/nullphone.png'),
             );
           } else {
             return ListView.builder(
@@ -64,11 +65,18 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
                         },
                         leading: CircleAvatar(
                           radius: 25,
+                          backgroundColor: color1,
                           child: QueryArtworkWidget(
                             artworkFit: BoxFit.fill,
                             id: AllSongs.songs[value[index]].id,
                             type: ArtworkType.AUDIO,
-                            nullArtworkWidget: const Icon(Icons.music_note),
+                            nullArtworkWidget: Center(
+                                child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Image.asset(
+                                'assets/1-removebg-preview.png',
+                              ),
+                            )),
                           ),
                         ),
                         trailing: FavBTN(

@@ -19,12 +19,13 @@ class _LibaryScreenState extends State<LibaryScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: color1,
-          leading: const Icon(
-            BootstrapIcons.earbuds,
-            color: color2,
-            size: 30,
+          leading: const Padding(
+            padding: EdgeInsets.all(3.0),
+            child: Image(
+              image: AssetImage('assets/1-removebg-preview.png'),
+            ),
           ),
-          title: const Text('Hey Buddy'),
+          title: const Text("Let's Explore"),
           elevation: 0,
           actions: [
             PopupMenuButton<int>(

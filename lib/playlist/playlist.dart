@@ -28,24 +28,29 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
-            leading: const Icon(BootstrapIcons.earbuds),
+            leading: const Padding(
+              padding: EdgeInsets.all(3.0),
+              child: Image(
+                image: AssetImage('assets/1-removebg-preview.png'),
+              ),
+            ),
             title: stylesClass.textStyle(hometext: 'Playlists'),
             centerTitle: true,
             floating: true,
             snap: true,
             elevation: 0,
-            backgroundColor: color2,
+            backgroundColor: color1,
           )
         ],
-        body: ColoredBox(
-          color: color2,
+        body: Container(
+          decoration: stylesClass.background(),
           child: ValueListenableBuilder(
               valueListenable: playListNotifier,
               builder: (BuildContext context,
                   List<PlayListModel> savedPlaylistvalue, Widget? child) {
                 if (savedPlaylistvalue.isEmpty) {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
+                  return Center(
+                    child: Image.asset('assets/nullphone.png'),
                   );
                 } else {
                   return GridView.builder(
@@ -82,12 +87,14 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: 15,
-                                child: Text(
-                                  playlistDataTemp.playListName,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                height: 18,
+                                child: Center(
+                                  child: Text(
+                                    playlistDataTemp.playListName,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               )
                             ],
@@ -142,7 +149,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   Navigator.of(context).pop(MaterialPageRoute(
                     builder: (context) => const PlaylistScreen(),
                   ));
-               
                 }
               },
               child: const Text('Create')),
