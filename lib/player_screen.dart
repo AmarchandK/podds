@@ -18,9 +18,9 @@ class PlayerScreen extends StatefulWidget {
       required this.index,
       required this.id})
       : super(key: key);
-  final List<dynamic> songModal;
+   final List<dynamic> songModal;
 
-  int index;
+ int index;
   dynamic id;
 
   @override
@@ -246,7 +246,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         _isPlaying = !_isPlaying;
                       });
                     },
-                    elevation: 15,
+                    elevation: 20,
                     fillColor: color1,
                     child: Icon(
                       _isPlaying ? Icons.pause : Icons.play_arrow_outlined,

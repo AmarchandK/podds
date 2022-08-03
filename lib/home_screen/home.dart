@@ -8,6 +8,7 @@ import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/home_screen/homescreen_functns.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/miniplayer.dart';
+import 'package:podds/search.dart';
 import 'package:podds/splash.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -40,8 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         actions: [
           IconButton(
-            // onPressed: () => Get.to(() => const SearchScreen()),
-            onPressed: () => Get.to(() => const MiniPlayer()),
+           
+            onPressed: () => Get.to(() => const SearchScreen()),
             icon: const Icon(Icons.search),
           )
         ],
