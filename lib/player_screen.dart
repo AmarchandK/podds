@@ -189,31 +189,50 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     );
                   },
                 ),
-                StreamBuilder<LoopMode>(
-                    stream: GetAllSongs.audioPlayer.loopModeStream,
-                    builder: (context, snapshot) {
-                      final loopMode = snapshot.data ?? LoopMode.off;
-                      const repeatIcons = [
-                        Icon(
-                          Icons.repeat,
-                          color: color1,
-                        ),
-                        Icon(Icons.repeat),
-                      ];
-                      const cycleModes = [
-                        LoopMode.off,
-                        LoopMode.all,
-                      ];
-                      final index = cycleModes.indexOf(loopMode);
-                      return IconButton(
-                        onPressed: () {
-                          GetAllSongs.audioPlayer.setLoopMode(cycleModes[
-                              (cycleModes.indexOf(loopMode) + 1) %
-                                  cycleModes.length]);
-                        },
-                        icon: repeatIcons[index],
-                      );
-                    }),
+                IconButton(
+                    onPressed: () {
+                      GetAllSongs.audioPlayer.loopMode == LoopMode.one
+                          ? GetAllSongs.audioPlayer.setLoopMode(LoopMode.all)
+                          : GetAllSongs.audioPlayer.setLoopMode(LoopMode.one);
+                    },
+                    icon: StreamBuilder<LoopMode>(
+                        stream: GetAllSongs.audioPlayer.loopModeStream,
+                        builder: ((context, snapshot) {
+                          final loopMode = snapshot.data;
+                          if (LoopMode.one == loopMode) {
+                            return const Icon(Icons.repeat);
+                          } else {
+                            return const Icon(
+                              Icons.repeat,
+                              color: color1,
+                            );
+                          }
+                        })))
+                // StreamBuilder<LoopMode>(
+                //     stream: GetAllSongs.audioPlayer.loopModeStream,
+                //     builder: (context, snapshot) {
+                //       final loopMode = snapshot.data ?? LoopMode.off;
+                //       const repeatIcons = [
+                //         Icon(
+                //           Icons.repeat,
+                //           color: color1,
+                //         ),
+                //         Icon(Icons.repeat),
+                //       ];
+                //       const cycleModes = [
+                //         LoopMode.off,
+                //         LoopMode.all,
+                //       ];
+                //       final index = cycleModes.indexOf(loopMode);
+                //       return IconButton(
+                //         onPressed: () {
+                //           GetAllSongs.audioPlayer.setLoopMode(cycleModes[
+                //               (cycleModes.indexOf(loopMode) + 1) %
+                //                   cycleModes.length]);
+                //         },
+                //         icon: repeatIcons[index],
+                //       );
+                //     }),
               ],
             ),
             Row(

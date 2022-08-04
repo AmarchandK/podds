@@ -52,7 +52,7 @@ class HomeAllSongs extends StatelessWidget {
                         () => PlayerScreen(
                               songModal: item.data!,
                               index: index,
-                              id: AllSongs.songs[index].id,
+                              id: item.data![index].id,
                             ),
                         transition: Transition.rightToLeftWithFade,
                         duration: const Duration(milliseconds: 500));

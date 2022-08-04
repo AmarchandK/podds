@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
@@ -10,7 +8,7 @@ class AddToPlaylist extends StatefulWidget {
   const AddToPlaylist(
       {Key? key, required this.playlistName, required this.folderIndex})
       : super(key: key);
- final String playlistName;
+  final String playlistName;
   static List<SongModel> addSong = AllSongs.songs;
   final int folderIndex;
   @override
