@@ -18,9 +18,9 @@ class PlayerScreen extends StatefulWidget {
       required this.index,
       required this.id})
       : super(key: key);
-   final List<dynamic> songModal;
+  final List<dynamic> songModal;
 
- int index;
+  int index;
   dynamic id;
 
   @override
@@ -70,9 +70,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     ValueNotifier(HomeScreen);
     return Scaffold(
       appBar: AppBar(
@@ -83,9 +83,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         actions: [
           IconButton(
             onPressed: () {
-          
-                showSliderDialog(value: GetAllSongs.audioPlayer.volume);
-           
+              showSliderDialog(value: GetAllSongs.audioPlayer.volume);
 
               setState(() {});
             },
@@ -102,18 +100,18 @@ class _PlayerScreenState extends State<PlayerScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              height: 200,
-              width: 200,
+              height: height / 3,
+              width: height / 3,
               decoration: BoxDecoration(
                 border: Border.all(width: 5, color: color2),
                 color: color1,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(100),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(height / 6),
                 ),
               ),
               child: QueryArtworkWidget(
                 artworkFit: BoxFit.fill,
-                artworkBorder: BorderRadius.circular(100),
+                artworkBorder: BorderRadius.circular(height / 6),
                 id: widget.songModal[currentIndex1].id,
                 type: ArtworkType.AUDIO,
                 keepOldArtwork: true,
@@ -132,8 +130,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
               text: TextSpan(
                 // text: widget.songName[widget.index].displayNameWOExt,
                 text: widget.songModal[currentIndex1].title.toString(),
-                style: const TextStyle(
-                  fontSize: 30,
+                style: TextStyle(
+                  fontSize: height / 22,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -265,8 +263,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: height / 45,
             )
           ],
         ),

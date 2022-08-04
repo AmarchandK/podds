@@ -6,6 +6,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
+import 'package:podds/get_all_songs.dart';
 import 'package:podds/player_screen.dart';
 
 class AllSongs extends StatelessWidget {
@@ -25,9 +26,12 @@ class AllSongs extends StatelessWidget {
           child: Card(
             color: const Color.fromARGB(119, 21, 153, 140),
             child: ListTile(
-              // onTap: () => NowPlay(playerSong: so),
               onTap: () {
+                GetAllSongs.audioPlayer.setAudioSource(
+                    GetAllSongs.createSongList(songs),
+                    initialIndex: index);
                 RecentSongs.addRecentlyPlayed(songs[index].id);
+
                 Get.to(
                   () => PlayerScreen(
                     songModal: songs,

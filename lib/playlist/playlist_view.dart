@@ -86,16 +86,16 @@ class _PlaylistViewState extends State<PlaylistView> {
                     elevation: 0,
                     icon: const Icon(Icons.more_vert),
                     itemBuilder: (context) => [
-                          PopupMenuItem(
-                              child: TextButton.icon(
-                                  label: const Text("Rename"),
-                                  onPressed: () =>
-                                      renamePlaylsit(widget.folderIndex),
-                                  icon: const Icon(Icons
-                                      .drive_file_rename_outline_outlined))),
-                          const PopupMenuDivider(
-                            height: 5,
-                          ),
+                          // PopupMenuItem(
+                          //     child: TextButton.icon(
+                          //         label: const Text("Rename"),
+                          //         onPressed: () =>
+                          //             renamePlaylsit(widget.folderIndex),
+                          //         icon: const Icon(Icons
+                          //             .drive_file_rename_outline_outlined))),
+                          // const PopupMenuDivider(
+                          //   height: 5,
+                          // ),
                           PopupMenuItem(
                             child: TextButton.icon(
                               label: const Text("Delete Playlist"),

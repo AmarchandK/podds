@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 const color1 = Color.fromARGB(255, 25, 124, 124);
@@ -7,6 +5,12 @@ const color2 = Color.fromARGB(255, 0, 204, 204);
 final stylesClass = StylesPage();
 
 class StylesPage {
+
+  Widget build(BuildContext context) {
+  
+    return Container();
+  }
+
   BoxDecoration background() {
     return const BoxDecoration(
       gradient: LinearGradient(
@@ -30,12 +34,12 @@ class StylesPage {
 }
 
 String greeting() {
-    var hour = DateTime.now().hour;
-    if (hour < 12) {
-      return 'Good Morning';
-    }
-    if (hour < 17) {
-      return 'Good Afternoon';
-    }
-    return 'Good Evening';
+  var hour = DateTime.now().hour;
+  if (hour < 12) {
+    return 'Good Morning';
   }
+  if (hour < 17) {
+    return 'Good Afternoon';
+  }
+  return 'Good Evening';
+}

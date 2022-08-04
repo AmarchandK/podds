@@ -19,7 +19,6 @@ class GetAllSongs {
               // Metadata to display in the notification:
               album: "${song.album}",
               title: song.displayNameWOExt,
-              artUri: Uri.parse('assets/1-removebg-preview.png'),
             )),
       );
     }

@@ -43,12 +43,12 @@ class _MiniPlayerState extends State<MiniPlayer> {
           ListTile(
             onTap: () => Get.to(
                 PlayerScreen(
-                    songModal: AllSongs.songs,
+                    songModal: GetAllSongs.playingSongs,
                     index: GetAllSongs.getCurrentIndex,
                     id: GetAllSongs
                         .playingSongs[GetAllSongs.audioPlayer.currentIndex!]
                         .id),
-                duration: const Duration(seconds: 2),
+                duration: const Duration(seconds: 1),
                 transition: Transition.downToUp),
             leading: QueryArtworkWidget(
                 artworkBorder: BorderRadius.circular(5),
