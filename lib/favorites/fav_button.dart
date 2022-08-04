@@ -24,9 +24,10 @@ class _FavBTNState extends State<FavBTN> {
             await FavoriteDB.deleteFromFav(lastIndex);
 
             const snackbar = SnackBar(
-              content: Text('remove from favourites'),
-              duration: Duration(seconds: 1),
-            );
+                content: Text('remove from favourites'),
+                duration: Duration(seconds: 1),
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: color1);
             ScaffoldMessenger.of(context).showSnackBar(snackbar);
             setState(() {});
           },
@@ -40,9 +41,10 @@ class _FavBTNState extends State<FavBTN> {
           await FavoriteDB.addSongtoFav(widget.id);
 
           const snackBar = SnackBar(
-            content: Text('Add to favorites '),
-            duration: Duration(seconds: 2),
-          );
+              content: Text('Add to favorites '),
+              duration: Duration(seconds: 1),
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: color1);
 
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           setState(() {});

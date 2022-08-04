@@ -48,17 +48,20 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Container(
           decoration: stylesClass.background(),
-          child: ListView(
-            children: [
-              stylesClass.textStyle(hometext: 'Recents'),
-              const HomeRecentsSongs(),
-              stylesClass.textStyle(hometext: 'All songs'),
-              HomeAllSongs(),
-              stylesClass.textStyle(hometext: 'Favorites'),
-              const HomeFavorites(),
-              stylesClass.textStyle(hometext: 'Playlists'),
-              const HomePlaylist(),
-            ],
+          child: ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: ListView(
+              children: [
+                stylesClass.textStyle(hometext: 'Recents'),
+                const HomeRecentsSongs(),
+                stylesClass.textStyle(hometext: 'All songs'),
+                HomeAllSongs(),
+                stylesClass.textStyle(hometext: 'Favorites'),
+                const HomeFavorites(),
+                stylesClass.textStyle(hometext: 'Playlists'),
+                const HomePlaylist(),
+              ],
+            ),
           )),
     );
   }

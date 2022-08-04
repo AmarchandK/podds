@@ -27,52 +27,56 @@ class _SettingsState extends State<Settings> {
       borderRadius: 20,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: SizedBox(
-                height: 100,
-                width: 100,
-                child: Image.asset('assets/1-removebg-preview.png'),
+        child: ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 40),
+                child: SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: Image.asset('assets/1-removebg-preview.png'),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            _bottomSheetDatas(
-                title: 'Reset App',
-                ontap: (_) {
-                  showResetWarning(context);
-                },
-                iconData: Icons.restart_alt),
-            _bottomSheetDatas(
-                title: 'Share',
-                iconData: Icons.share,
-                ontap: (_) async {
-                  await Share.share('check out my website https://example.com',
-                      subject: 'Look what I made!');
-                }),
-            _bottomSheetDatas(
-                title: 'About',
-                iconData: Icons.info_outline_rounded,
-                ontap: null),
-            _bottomSheetDatas(
-                title: 'Feedback',
-                iconData: Icons.rate_review_outlined,
-                ontap: (_) {
-                  setState(() {
-                    _betterFeedback(context);
-                  });
-                }),
-            _bottomSheetDatas(title: 'Rate App', iconData: Icons.star_border),
-            const Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                'Version\n  1.0.0',
+              const SizedBox(
+                height: 40,
               ),
-            )
-          ],
+              _bottomSheetDatas(
+                  title: 'Reset App',
+                  ontap: (_) {
+                    showResetWarning(context);
+                  },
+                  iconData: Icons.restart_alt),
+              _bottomSheetDatas(
+                  title: 'Share',
+                  iconData: Icons.share,
+                  ontap: (_) async {
+                    await Share.share(
+                        'check out my website https://example.com',
+                        subject: 'Look what I made!');
+                  }),
+              _bottomSheetDatas(
+                  title: 'About',
+                  iconData: Icons.info_outline_rounded,
+                  ontap: null),
+              _bottomSheetDatas(
+                  title: 'Feedback',
+                  iconData: Icons.rate_review_outlined,
+                  ontap: (_) {
+                    setState(() {
+                      _betterFeedback(context);
+                    });
+                  }),
+              _bottomSheetDatas(title: 'Rate App', iconData: Icons.star_border),
+              const Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  'Version\n  1.0.0',
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
