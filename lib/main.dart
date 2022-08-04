@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:podds/functions/styles.dart';
 
 import 'package:podds/paly_list_model/play_list_model.dart';
 import 'package:podds/splash.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        backgroundColor: color2,
         primarySwatch: Colors.blueGrey,
         brightness: Brightness.dark,
       ),

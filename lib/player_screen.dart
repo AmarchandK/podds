@@ -70,7 +70,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
     });
   }
 
-  final debouncer = Debouncer(milliseconds: 1000);
+
   @override
   Widget build(BuildContext context) {
     ValueNotifier(HomeScreen);
@@ -83,9 +83,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              debouncer.run(() {
+          
                 showSliderDialog(value: GetAllSongs.audioPlayer.volume);
-              });
+           
 
               setState(() {});
             },

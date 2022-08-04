@@ -29,12 +29,13 @@ class StylesPage {
   }
 }
 
-class Debouncer {
-  Debouncer({required this.milliseconds});
-  final int milliseconds;
-  Timer? _timer;
-  run(VoidCallback action) {
-    _timer?.cancel();
-    _timer = Timer(Duration(milliseconds: milliseconds), action);
+String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good Morning';
+    }
+    if (hour < 17) {
+      return 'Good Afternoon';
+    }
+    return 'Good Evening';
   }
-}

@@ -29,26 +29,17 @@ class _MiniPlayerState extends State<MiniPlayer> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(
-            height: 1,
-            child: SliderTheme(
-              data: SliderTheme.of(context).copyWith(
-                trackShape: SpotifyMiniPlayerTrackShape(),
-                trackHeight: 1,
-                thumbShape: const RoundSliderThumbShape(
-                  enabledThumbRadius: 2,
-                ),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                child: Slider(
-                  value: 30,
-                  max: 100,
-                  onChanged: null,
-                ),
-              ),
-            ),
-          ),
+          // const SizedBox(
+          //   height: 1,
+          //   child: Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: 12),
+          //     child: Slider(
+          //       value: 30,
+          //       max: 100,
+          //       onChanged: null,
+          //     ),
+          //   ),
+          // ),
           ListTile(
             onTap: () => Get.to(
                 PlayerScreen(
@@ -99,108 +90,8 @@ class _MiniPlayerState extends State<MiniPlayer> {
               },
             ),
           )
-          // GestureDetector(
-          //   onTap: () => Get.to(
-          //     PlayerScreen(
-          //         songModal: AllSongs.songs,
-          //         index: GetAllSongs.getCurrentIndex,
-          //         id: GetAllSongs
-          //             .playingSongs[GetAllSongs.audioPlayer.currentIndex!].id),
-          //   ),
-          //   child: Row(
-          //     children: [
-          //       Flexible(
-          //         flex: 8,
-          //         child: GestureDetector(
-          //           child: Row(
-          //             children: [
-          //               Flexible(
-          //                 child: QueryArtworkWidget(
-          //                     artworkBorder: BorderRadius.circular(5),
-          //                     nullArtworkWidget: const Icon(
-          //                       Icons.music_note,
-          //                       color: color2,
-          //                     ),
-          //                     id: GetAllSongs
-          //                         .playingSongs[
-          //                             GetAllSongs.audioPlayer.currentIndex!]
-          //                         .id,
-          //                     type: ArtworkType.AUDIO),
-          //               ),
-          //               Flexible(
-          //                 flex: 3,
-          //                 child: Center(
-          //                   child: MarqueeText(
-          //                     style: const TextStyle(color: color2),
-          //                     speed: 15,
-          //                     text: TextSpan(
-          //                         text: GetAllSongs
-          //                             .playingSongs[
-          //                                 GetAllSongs.audioPlayer.currentIndex!]
-          //                             .displayNameWOExt),
-          //                   ),
-          //                 ),
-          //               )
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //       Flexible(
-          //         flex: 2,
-          //         child: Padding(
-          //           padding: const EdgeInsets.only(right: 15.0),
-          //           child: Center(
-          //             child: IconButton(
-          //               icon: StreamBuilder<bool>(
-          //                 stream: GetAllSongs.audioPlayer.playingStream,
-          //                 builder: ((context, snapshot) {
-          //                   bool? _currentPlayingStage = snapshot.data;
-          //                   if (_currentPlayingStage != null &&
-          //                       _currentPlayingStage) {
-          //                     return const Icon(Icons.pause_circle_outline,
-          //                         size: 35);
-          //                   } else {
-          //                     return const Icon(Icons.play_arrow, size: 35);
-          //                   }
-          //                 }),
-          //               ),
-          //               onPressed: () async {
-          //                 if (GetAllSongs.audioPlayer.playing) {
-          //                   await GetAllSongs.audioPlayer.pause();
-          //                   setState(() {});
-          //                 } else {
-          //                   await GetAllSongs.audioPlayer.play();
-          //                   setState(() {});
-          //                 }
-          //               },
-          //             ),
-          //           ),
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );
-  }
-}
-
-class SpotifyMiniPlayerTrackShape extends RoundedRectSliderTrackShape {
-  @override
-  Rect getPreferredRect({
-    @required RenderBox? parentBox,
-    Offset offset = Offset.zero,
-    @required SliderThemeData? sliderTheme,
-    bool isEnabled = false,
-    bool isDiscrete = false,
-  }) {
-    final double trackHeight = sliderTheme?.trackHeight as double;
-
-    final double trackLeft = offset.dx;
-    final double trackTop =
-        offset.dy + (parentBox!.size.height - trackHeight) / 2;
-    final trackWidth = parentBox.size.width;
-    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 }
