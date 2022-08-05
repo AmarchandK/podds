@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:podds/all_songs/all_songs.dart';
-import 'package:podds/db_functions/favorite_db.dart';
-import 'package:podds/db_functions/playlist_db_functions.dart';
-import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/home_screen/homescreen_functns.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/search.dart';
@@ -18,11 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    homeInint();
-    super.initState();
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +58,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future homeInint() async {
-    await Permission.storage.request();
-    await getAllPlaylist();
-    await RecentSongs.displayRecents();
-    await FavoriteDB.getAllSongs();
-    AllSongs();
-  }
+  
 }

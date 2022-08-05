@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:podds/bottom_sheet.dart';
+import 'package:podds/db_functions/favorite_db.dart';
+import 'package:podds/db_functions/playlist_db_functions.dart';
+import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_fuction.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/get_all_songs.dart';
 import 'package:podds/home_screen/home.dart';
 import 'package:podds/all_songs/libary.dart';
+import 'package:podds/home_screen/homescreen_functns.dart';
 import 'package:podds/miniplayer.dart';
 import 'package:podds/playlist/playlist.dart';
 
@@ -19,7 +24,8 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   @override
   void initState() {
-    const FavoriteFunction();
+    init();
+    setState(() {});
     super.initState();
   }
 
@@ -76,5 +82,14 @@ class _BaseScreenState extends State<BaseScreen> {
         ],
       ),
     );
+  }
+
+  Future init() async {
+    await Permission.storage.request();
+    HomeAllSongs();
+    await getAllPlaylist();
+    await RecentSongs.displayRecents();
+    await FavoriteDB.getAllSongs();
+    const FavoriteFunction();
   }
 }
