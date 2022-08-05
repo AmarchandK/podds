@@ -126,7 +126,11 @@ class _SettingsState extends State<Settings> {
           TextButton(
             onPressed: () {
               resetApp();
-              Get.to(() => AddScreen());
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => AddScreen(),
+                  ),
+                  (route) => false);
             },
             child: Container(
               padding: const EdgeInsets.all(14),

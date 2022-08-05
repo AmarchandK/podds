@@ -8,6 +8,7 @@ import 'package:podds/db_functions/favorite_db.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/functions/styles.dart';
+import 'package:podds/get_all_songs.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 import 'package:podds/playlist/playlist_view.dart';
 import '../player_screen.dart';
@@ -56,6 +57,7 @@ class HomeAllSongs extends StatelessWidget {
                             ),
                         transition: Transition.rightToLeftWithFade,
                         duration: const Duration(milliseconds: 500));
+                    GetAllSongs.audioPlayer.play();
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10, top: 10),

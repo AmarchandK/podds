@@ -29,7 +29,6 @@ class PlayerScreen extends StatefulWidget {
 
 class _PlayerScreenState extends State<PlayerScreen> {
   int currentIndex1 = 0;
-
   bool _isPlaying = false;
   Duration _position = const Duration();
   Duration _duration = const Duration();
@@ -44,7 +43,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         GetAllSongs.getCurrentIndex = index;
       }
     });
-    playSong();
+    // playSong();
     super.initState();
   }
 
