@@ -1,5 +1,4 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
-import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';

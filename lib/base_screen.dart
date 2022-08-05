@@ -27,7 +27,7 @@ class _BaseScreenState extends State<BaseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: color2,
       body: screens[baseIndex],
       bottomNavigationBar: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -35,10 +35,7 @@ class _BaseScreenState extends State<BaseScreen> {
         children: [
           (GetAllSongs.audioPlayer.playing) ||
                   (GetAllSongs.audioPlayer.currentIndex != null)
-              ? const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: MiniPlayer(),
-                )
+              ? const MiniPlayer()
               : const SizedBox(),
           NavigationBarTheme(
               data: const NavigationBarThemeData(

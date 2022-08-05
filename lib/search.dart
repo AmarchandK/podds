@@ -7,11 +7,11 @@ import 'package:get/state_manager.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/functions/styles.dart';
+import 'package:podds/get_all_songs.dart';
 import 'package:podds/player_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
-
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -60,17 +60,18 @@ class _SearchScreenState extends State<SearchScreen> {
                 autofocus: true,
                 onChanged: (value) {
                   _runFilter(value);
-                  temp = value;
+                  // temp = value;
                 },
                 decoration: InputDecoration(
                     labelText: 'Search',
                     suffixIcon: IconButton(
                         onPressed: () {
-                          if (temp.isEmpty) {
-                            Navigator.pop(context);
-                          } else {
-                            // temp.//???????????????
-                          }
+                          Navigator.pop(context);
+                          // if (temp.isEmpty) {
+
+                          // } else {
+                          //   // temp.//???????????????
+                          // }
                         },
                         icon: const Icon(Icons.close))),
               ),
@@ -89,10 +90,17 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: ListTile(
                             leading: const Icon(Icons.search),
                             title: Text(_foundSongs[index].title),
-                            onTap: () => Get.to(PlayerScreen(
-                                id: AllSongs.songs[index].id,
-                                songModal: _foundSongs,
-                                index: index)),
+                            onTap: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              GetAllSongs.audioPlayer.play();
+                              GetAllSongs.audioPlayer.setAudioSource(
+                                  GetAllSongs.createSongList(_foundSongs),
+                                  initialIndex: index);
+                              Get.to(PlayerScreen(
+                                  id: AllSongs.songs[index].id,
+                                  songModal: _foundSongs,
+                                  index: index));
+                            },
                           ),
                         ),
                       )

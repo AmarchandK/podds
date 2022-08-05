@@ -49,13 +49,17 @@ class HomeAllSongs extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     RecentSongs.addRecentlyPlayed(item.data![index].id);
+                    GetAllSongs.audioPlayer.setAudioSource(
+                        GetAllSongs.createSongList(item.data!),
+                        initialIndex: index);
+                    GetAllSongs.audioPlayer.play();
                     Get.to(
                         () => PlayerScreen(
                               songModal: item.data!,
                               index: index,
                               id: item.data![index].id,
                             ),
-                        transition: Transition.rightToLeftWithFade,
+                        transition: Transition.downToUp,
                         duration: const Duration(milliseconds: 500));
                     GetAllSongs.audioPlayer.play();
                   },
@@ -140,13 +144,17 @@ class HomeFavorites extends StatelessWidget {
                   onTap: () {
                     RecentSongs.addRecentlyPlayed(
                         AllSongs.songs[value[index]].id);
+                    GetAllSongs.audioPlayer.setAudioSource(
+                        GetAllSongs.createSongList(FavoriteDB.favloop),
+                        initialIndex: index);
+                    GetAllSongs.audioPlayer.play();
                     Get.to(
                       () => PlayerScreen(
                         index: index,
                         songModal: FavoriteDB.favloop,
                         id: AllSongs.songs[value[index]].id,
                       ),
-                      transition: Transition.rightToLeftWithFade,
+                      transition: Transition.downToUp,
                       duration: const Duration(milliseconds: 500),
                     );
                   },
@@ -232,11 +240,11 @@ class HomePlaylist extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     Get.to(
-                      () => PlaylistView(
-                        folderIndex: index,
-                        playlistName: playlistDataTemp.playListName,
-                      ),
-                    );
+                        () => PlaylistView(
+                              folderIndex: index,
+                              playlistName: playlistDataTemp.playListName,
+                            ),
+                        transition: Transition.rightToLeftWithFade);
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10, top: 10),
@@ -287,7 +295,7 @@ class HomePlaylist extends StatelessWidget {
 ////////////////////////////////////////////
 class HomeRecentsSongs extends StatelessWidget {
   const HomeRecentsSongs({Key? key}) : super(key: key);
-  static List removedup = [];
+  static List<SongModel> removedup = [];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -295,7 +303,7 @@ class HomeRecentsSongs extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: RecentSongs.recentsNotifier,
         builder:
-            (BuildContext context, List<dynamic> recentValue, Widget? child) {
+            (BuildContext context, List<SongModel> recentValue, Widget? child) {
           if (recentValue.isEmpty) {
             return const Center(
               child: Text('No Songs Played'),
@@ -312,15 +320,16 @@ class HomeRecentsSongs extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10, top: 5),
                   child: GestureDetector(
                     onTap: () {
-                      RecentSongs.addRecentlyPlayed(
-                          AllSongs.songs[removedup[index]].id);
+                      GetAllSongs.audioPlayer.stop();
+                      GetAllSongs.audioPlayer.setAudioSource(
+                          GetAllSongs.createSongList(removedup),
+                          initialIndex: index);
+                      GetAllSongs.audioPlayer.play();
+
                       Get.to(
                         () => PlayerScreen(
-                          index: removedup[index],
-                          songModal: AllSongs.songs,
-                          id: AllSongs.songs[removedup[index]].id,
-                        ),
-                        transition: Transition.rightToLeftWithFade,
+                            songModal: removedup, id: removedup[index].id),
+                        transition: Transition.downToUp,
                         duration: const Duration(milliseconds: 500),
                       );
                     },
@@ -337,7 +346,7 @@ class HomeRecentsSongs extends StatelessWidget {
                                 artworkHeight: 75,
                                 artworkWidth: 75,
                                 artworkFit: BoxFit.fill,
-                                id: AllSongs.songs[removedup[index]].id,
+                                id: removedup[index].id,
                                 type: ArtworkType.AUDIO,
                                 nullArtworkWidget: Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -350,7 +359,7 @@ class HomeRecentsSongs extends StatelessWidget {
                           width: 70,
                           child: Center(
                             child: Text(
-                              AllSongs.songs[removedup[index]].title,
+                              removedup[index].title,
                               overflow: TextOverflow.fade,
                               softWrap: false,
                             ),

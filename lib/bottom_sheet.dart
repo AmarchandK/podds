@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
@@ -44,7 +43,7 @@ class _SettingsState extends State<Settings> {
               ),
               _bottomSheetDatas(
                   title: 'Reset App',
-                  ontap: (_) {
+                  ontap: (ctx) {
                     showResetWarning(context);
                   },
                   iconData: Icons.restart_alt),
@@ -56,10 +55,7 @@ class _SettingsState extends State<Settings> {
                         'check out my website https://example.com',
                         subject: 'Look what I made!');
                   }),
-              _bottomSheetDatas(
-                  title: 'About',
-                  iconData: Icons.info_outline_rounded,
-                  ontap: null),
+              _bottomSheetDatas(title: 'Rate App', iconData: Icons.star_border),
               _bottomSheetDatas(
                   title: 'Feedback',
                   iconData: Icons.rate_review_outlined,
@@ -68,7 +64,13 @@ class _SettingsState extends State<Settings> {
                       _betterFeedback(context);
                     });
                   }),
-              _bottomSheetDatas(title: 'Rate App', iconData: Icons.star_border),
+              _bottomSheetDatas(
+                  title: 'About',
+                  iconData: Icons.info_outline_rounded,
+                  ontap: null),
+              const SizedBox(
+                height: 50,
+              ),
               const Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
@@ -124,13 +126,12 @@ class _SettingsState extends State<Settings> {
             "All this app's data will be deleted permanently,\nThis includes all Favorites & Playlists that you added !"),
         actions: <Widget>[
           TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text('Cancel')),
+          TextButton(
             onPressed: () {
               resetApp();
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => AddScreen(),
-                  ),
-                  (route) => false);
+              Get.offAll(AddScreen());
             },
             child: Container(
               padding: const EdgeInsets.all(14),

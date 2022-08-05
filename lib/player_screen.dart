@@ -1,7 +1,8 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, depend_on_referenced_packages
 
-import 'dart:developer';
-
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:get/route_manager.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee_text/marquee_text.dart';
@@ -15,24 +16,18 @@ class PlayerScreen extends StatefulWidget {
   PlayerScreen(
       {Key? key,
       required this.songModal,
-      required this.index,
+       this.index,
       required this.id})
       : super(key: key);
   final List<dynamic> songModal;
-
-  int index;
+  int? index;
   dynamic id;
-
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
   int currentIndex1 = 0;
-  bool _isPlaying = false;
-  Duration _position = const Duration();
-  Duration _duration = const Duration();
-
   @override
   void initState() {
     GetAllSongs.audioPlayer.currentIndexStream.listen((index) {
@@ -47,28 +42,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
     super.initState();
   }
 
-  void playSong() {
-    try {
-      GetAllSongs.audioPlayer.setAudioSource(
-          GetAllSongs.createSongList(widget.songModal as List<SongModel>),
-          initialIndex: widget.index);
-      GetAllSongs.audioPlayer.play();
-      _isPlaying = true;
-    } on Exception {
-      log("Cannot Parse Song");
-    }
-    GetAllSongs.audioPlayer.durationStream.listen((d) {
-      setState(() {
-        _duration = d!;
-      });
-    });
-    GetAllSongs.audioPlayer.positionStream.listen((p) {
-      setState(() {
-        _position = p;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -77,13 +50,18 @@ class _PlayerScreenState extends State<PlayerScreen> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+              setState(() {});
+            },
+            icon: const Icon(Icons.keyboard_arrow_down_outlined)),
         backgroundColor: color1,
         title: const Text('Now Playing'),
         actions: [
           IconButton(
             onPressed: () {
               showSliderDialog(value: GetAllSongs.audioPlayer.volume);
-
               setState(() {});
             },
             icon: GetAllSongs.audioPlayer.volume == 0
@@ -140,33 +118,30 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     ? 'Unknown Artist'
                     : widget.songModal[currentIndex1].artist.toString()),
             Align(child: FavBTN(id: widget.id)),
-            SliderTheme(
-              data: const SliderThemeData(
-                  activeTrackColor: color2,
-                  thumbColor: color2,
-                  inactiveTrackColor: Colors.grey),
-              child: Slider.adaptive(
-                value: _position.inSeconds.toDouble(),
-                onChanged: (value) {
-                  setState(() {
-                    changeToSeconds(value.toInt());
-                    value = value;
-                  });
-                },
-                min: const Duration(microseconds: 0).inSeconds.toDouble(),
-                max: _duration.inSeconds.toDouble(),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(_position.toString().split('.')[0]),
-                  Text(_duration.toString().split('.')[0])
-                ],
-              ),
-            ),
+            StreamBuilder<DurationState>(
+                stream: _durationStateStream,
+                builder: (context, snapshot) {
+                  final durationState = snapshot.data;
+                  final progress = durationState?.position ?? Duration.zero;
+                  final total = durationState?.total ?? Duration.zero;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ProgressBar(
+                      progress: progress,
+                      total: total,
+                      timeLabelType: TimeLabelType.remainingTime,
+                      timeLabelLocation: TimeLabelLocation.sides,
+                      timeLabelPadding: 20,
+                      thumbRadius: 8,
+                      thumbColor: color1,
+                      progressBarColor: color2,
+                      baseBarColor: Colors.white,
+                      onSeek: (duration) {
+                        GetAllSongs.audioPlayer.seek(duration);
+                      },
+                    ),
+                  );
+                }),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -189,49 +164,26 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   },
                 ),
                 IconButton(
-                    onPressed: () {
-                      GetAllSongs.audioPlayer.loopMode == LoopMode.one
-                          ? GetAllSongs.audioPlayer.setLoopMode(LoopMode.all)
-                          : GetAllSongs.audioPlayer.setLoopMode(LoopMode.one);
-                    },
-                    icon: StreamBuilder<LoopMode>(
-                        stream: GetAllSongs.audioPlayer.loopModeStream,
-                        builder: ((context, snapshot) {
-                          final loopMode = snapshot.data;
-                          if (LoopMode.one == loopMode) {
-                            return const Icon(Icons.repeat);
-                          } else {
-                            return const Icon(
-                              Icons.repeat,
-                              color: color1,
-                            );
-                          }
-                        })))
-                // StreamBuilder<LoopMode>(
-                //     stream: GetAllSongs.audioPlayer.loopModeStream,
-                //     builder: (context, snapshot) {
-                //       final loopMode = snapshot.data ?? LoopMode.off;
-                //       const repeatIcons = [
-                //         Icon(
-                //           Icons.repeat,
-                //           color: color1,
-                //         ),
-                //         Icon(Icons.repeat),
-                //       ];
-                //       const cycleModes = [
-                //         LoopMode.off,
-                //         LoopMode.all,
-                //       ];
-                //       final index = cycleModes.indexOf(loopMode);
-                //       return IconButton(
-                //         onPressed: () {
-                //           GetAllSongs.audioPlayer.setLoopMode(cycleModes[
-                //               (cycleModes.indexOf(loopMode) + 1) %
-                //                   cycleModes.length]);
-                //         },
-                //         icon: repeatIcons[index],
-                //       );
-                //     }),
+                  onPressed: () {
+                    GetAllSongs.audioPlayer.loopMode == LoopMode.one
+                        ? GetAllSongs.audioPlayer.setLoopMode(LoopMode.all)
+                        : GetAllSongs.audioPlayer.setLoopMode(LoopMode.one);
+                  },
+                  icon: StreamBuilder<LoopMode>(
+                    stream: GetAllSongs.audioPlayer.loopModeStream,
+                    builder: ((context, snapshot) {
+                      final loopMode = snapshot.data;
+                      if (LoopMode.one == loopMode) {
+                        return const Icon(Icons.repeat);
+                      } else {
+                        return const Icon(
+                          Icons.repeat,
+                          color: color1,
+                        );
+                      }
+                    }),
+                  ),
+                ),
               ],
             ),
             Row(
@@ -249,25 +201,37 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   icon: const Icon(Icons.skip_previous_outlined),
                 ),
                 RawMaterialButton(
-                    hoverColor: color2,
-                    padding: const EdgeInsets.all(15.0),
-                    shape: const CircleBorder(),
-                    onPressed: () {
-                      setState(() {
-                        if (_isPlaying) {
-                          GetAllSongs.audioPlayer.pause();
-                        } else {
-                          GetAllSongs.audioPlayer.play();
-                        }
-                        _isPlaying = !_isPlaying;
-                      });
+                  elevation: 20,
+                  fillColor: color1,
+                  hoverColor: color2,
+                  padding: const EdgeInsets.all(15.0),
+                  shape: const CircleBorder(),
+                  onPressed: () async {
+                    if (GetAllSongs.audioPlayer.playing) {
+                      await GetAllSongs.audioPlayer.pause();
+                    } else {
+                      await GetAllSongs.audioPlayer.play();
+                    }
+                    setState(() {});
+                  },
+                  child: StreamBuilder<bool>(
+                    stream: GetAllSongs.audioPlayer.playingStream,
+                    builder: (context, snapshot) {
+                      bool? playingStatus = snapshot.data;
+                      if (playingStatus != null && playingStatus) {
+                        return const Icon(
+                          Icons.pause,
+                          size: 40,
+                        );
+                      } else {
+                        return const Icon(
+                          Icons.play_arrow,
+                          size: 40,
+                        );
+                      }
                     },
-                    elevation: 20,
-                    fillColor: color1,
-                    child: Icon(
-                      _isPlaying ? Icons.pause : Icons.play_arrow_outlined,
-                      size: 35.0,
-                    )),
+                  ),
+                ),
                 IconButton(
                   onPressed: () async {
                     if (GetAllSongs.audioPlayer.hasNext) {
@@ -339,3 +303,15 @@ class _PlayerScreenState extends State<PlayerScreen> {
     );
   }
 }
+
+class DurationState {
+  DurationState({this.position = Duration.zero, this.total = Duration.zero});
+  Duration position, total;
+}
+
+Stream<DurationState> get _durationStateStream =>
+    Rx.combineLatest2<Duration, Duration?, DurationState>(
+        GetAllSongs.audioPlayer.positionStream,
+        GetAllSongs.audioPlayer.durationStream,
+        (position, duration) => DurationState(
+            position: position, total: duration ?? Duration.zero));

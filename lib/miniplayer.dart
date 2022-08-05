@@ -30,9 +30,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
     return AnimatedContainer(
       decoration: const BoxDecoration(
         color: Colors.black,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
       ),
       duration: const Duration(seconds: 2),
       child: ListTile(
@@ -45,6 +42,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
             duration: const Duration(seconds: 1),
             transition: Transition.downToUp),
         leading: QueryArtworkWidget(
+            keepOldArtwork: true,
             artworkBorder: BorderRadius.circular(5),
             nullArtworkWidget: const Icon(
               Icons.music_note,

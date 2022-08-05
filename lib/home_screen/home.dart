@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
             image: AssetImage('assets/1-removebg-preview.png'),
           ),
         ),
-        title: Text('${greeting()}/n $name'),
+        title: Text('${greeting()} $name'),
         elevation: 0,
         actions: [
           IconButton(

@@ -51,6 +51,7 @@ dependencies:
   share_plus: ^4.0.10
   lottie: ^1.4.0
   marquee_text: ^2.5.0+1
+  audio_video_progress_bar: ^0.10.0
   
   
 

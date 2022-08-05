@@ -7,6 +7,7 @@ import 'package:podds/db_functions/favorite_db.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
+import 'package:podds/get_all_songs.dart';
 import 'package:podds/player_screen.dart';
 
 class FavoriteFunction extends StatefulWidget {
@@ -54,14 +55,19 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
                           FavoriteFunction.tempFav.addAll(FavoriteDB.favloop);
                           RecentSongs.addRecentlyPlayed(
                               AllSongs.songs[value[index]].id);
+                          GetAllSongs.audioPlayer.setAudioSource(
+                              GetAllSongs.createSongList(FavoriteDB.favloop),
+                              initialIndex: index);
+                          GetAllSongs.audioPlayer.play();
                           Get.to(
-                              () => PlayerScreen(
-                                    index: index,
-                                    songModal: FavoriteFunction.tempFav,
-                                    id: AllSongs.songs[value[index]].id,
-                                  ),
-                              transition: Transition.downToUp,
-                              duration: const Duration(milliseconds: 500));
+                            () => PlayerScreen(
+                              index: GetAllSongs.getCurrentIndex,
+                              songModal: FavoriteDB.favloop,
+                              id: AllSongs.songs[value[index]].id,
+                            ),
+                            transition: Transition.downToUp,
+                            duration: const Duration(milliseconds: 500),
+                          );
                         },
                         leading: CircleAvatar(
                           radius: 25,

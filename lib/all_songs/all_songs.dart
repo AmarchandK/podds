@@ -30,8 +30,8 @@ class AllSongs extends StatelessWidget {
                 GetAllSongs.audioPlayer.setAudioSource(
                     GetAllSongs.createSongList(songs),
                     initialIndex: index);
+                GetAllSongs.audioPlayer.play();
                 RecentSongs.addRecentlyPlayed(songs[index].id);
-
                 Get.to(
                   () => PlayerScreen(
                     songModal: songs,

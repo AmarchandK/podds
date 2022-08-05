@@ -1,16 +1,15 @@
 // ignore_for_file: must_be_immutable
-import 'dart:developer';
 
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/base_screen.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/functions/styles.dart';
+import 'package:podds/get_all_songs.dart';
 import 'package:podds/player_screen.dart';
 import 'package:podds/playlist/add_playlist_songs.dart';
 import 'package:podds/playlist/playlist.dart';
@@ -142,6 +141,10 @@ class _PlaylistViewState extends State<PlaylistView> {
                               onTap: () {
                                 RecentSongs.addRecentlyPlayed(
                                     songs[playIndex].id);
+                                       GetAllSongs.audioPlayer.setAudioSource(
+                    GetAllSongs.createSongList(songs),
+                    initialIndex: playIndex);
+                GetAllSongs.audioPlayer.play();
                                 Get.to(PlayerScreen(
                                   id: songs[playIndex].id,
                                   songModal: songs,
