@@ -99,7 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               Get.to(PlayerScreen(
                                   id: AllSongs.songs[index].id,
                                   songModal: _foundSongs,
-                                  index: index));
+                                 ));
                             },
                           ),
                         ),

@@ -36,7 +36,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
         onTap: () => Get.to(
             PlayerScreen(
                 songModal: GetAllSongs.playingSongs,
-                index: GetAllSongs.getCurrentIndex,
+            
                 id: GetAllSongs
                     .playingSongs[GetAllSongs.audioPlayer.currentIndex!].id),
             duration: const Duration(seconds: 1),

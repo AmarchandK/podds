@@ -35,7 +35,7 @@ class _SettingsState extends State<Settings> {
                 child: SizedBox(
                   height: 100,
                   width: 100,
-                  child: Image.asset('assets/1-removebg-preview.png'),
+                  child: Image.asset('assets/logo.png'),
                 ),
               ),
               const SizedBox(

@@ -35,7 +35,6 @@ class AllSongs extends StatelessWidget {
                 Get.to(
                   () => PlayerScreen(
                     songModal: songs,
-                    index: index,
                     id: songs[index].id,
                   ),
                   transition: Transition.downToUp,
@@ -53,7 +52,7 @@ class AllSongs extends StatelessWidget {
                       child: Padding(
                     padding: const EdgeInsets.all(6.0),
                     child: Image.asset(
-                      'assets/1-removebg-preview.png',
+                      'assets/logo.png',
                     ),
                   )),
                 ),

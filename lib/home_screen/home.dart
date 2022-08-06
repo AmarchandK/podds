@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:podds/home_screen/homescreen_functns.dart';
 import 'package:podds/functions/styles.dart';
+
 import 'package:podds/search.dart';
 import 'package:podds/splash.dart';
 
@@ -13,8 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: const Padding(
           padding: EdgeInsets.all(3.0),
           child: Image(
-            image: AssetImage('assets/1-removebg-preview.png'),
+            image: AssetImage('assets/logo.png'),
           ),
         ),
         title: Text('${greeting()} $name'),
@@ -57,6 +56,4 @@ class _HomeScreenState extends State<HomeScreen> {
           )),
     );
   }
-
-  
 }

@@ -56,7 +56,6 @@ class HomeAllSongs extends StatelessWidget {
                     Get.to(
                         () => PlayerScreen(
                               songModal: item.data!,
-                              index: index,
                               id: item.data![index].id,
                             ),
                         transition: Transition.downToUp,
@@ -150,7 +149,6 @@ class HomeFavorites extends StatelessWidget {
                     GetAllSongs.audioPlayer.play();
                     Get.to(
                       () => PlayerScreen(
-                        index: index,
                         songModal: FavoriteDB.favloop,
                         id: AllSongs.songs[value[index]].id,
                       ),
@@ -350,8 +348,7 @@ class HomeRecentsSongs extends StatelessWidget {
                                 type: ArtworkType.AUDIO,
                                 nullArtworkWidget: Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child: Image.asset(
-                                      'assets/1-removebg-preview.png'),
+                                  child: Image.asset('assets/logo.png'),
                                 )),
                           ),
                         ),

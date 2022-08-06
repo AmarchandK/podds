@@ -26,6 +26,7 @@ class _BaseScreenState extends State<BaseScreen> {
   void initState() {
     init();
     setState(() {});
+  
     super.initState();
   }
 

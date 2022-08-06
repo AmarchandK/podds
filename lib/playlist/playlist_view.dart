@@ -148,7 +148,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 Get.to(PlayerScreen(
                                   id: songs[playIndex].id,
                                   songModal: songs,
-                                  index: playIndex,
+                            
                                 ));
                               },
                               leading: CircleAvatar(
@@ -161,7 +161,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                                   nullArtworkWidget: Padding(
                                     padding: const EdgeInsets.all(6.0),
                                     child: Image.asset(
-                                      'assets/1-removebg-preview.png',
+                                      'assets/logo.png',
                                     ),
                                   ),
                                 ),

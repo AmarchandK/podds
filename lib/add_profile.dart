@@ -32,7 +32,7 @@ class AddScreen extends StatelessWidget {
                       child: SizedBox(
                           height: 150,
                           width: 150,
-                          child: Image.asset('assets/1-removebg-preview.png')),
+                          child: Image.asset('assets/logo.png')),
                     ),
                     Lottie.asset('assets/lf20_8uoqnlsb.json'),
                   ],

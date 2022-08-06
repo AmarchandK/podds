@@ -16,11 +16,11 @@ class PlayerScreen extends StatefulWidget {
   PlayerScreen(
       {Key? key,
       required this.songModal,
-       this.index,
+      //  this.index,
       required this.id})
       : super(key: key);
   final List<dynamic> songModal;
-  int? index;
+  // int? index;
   dynamic id;
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
@@ -53,7 +53,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
         leading: IconButton(
             onPressed: () {
               Get.back();
-              setState(() {});
             },
             icon: const Icon(Icons.keyboard_arrow_down_outlined)),
         backgroundColor: color1,
@@ -96,7 +95,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   padding: const EdgeInsets.all(25.0),
                   child: Center(
                     child: Image.asset(
-                      'assets/1-removebg-preview.png',
+                      'assets/logo.png',
                     ),
                   ),
                 ),

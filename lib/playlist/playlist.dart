@@ -30,7 +30,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             leading: const Padding(
               padding: EdgeInsets.all(3.0),
               child: Image(
-                image: AssetImage('assets/1-removebg-preview.png'),
+                image: AssetImage('assets/logo.png'),
               ),
             ),
             title: stylesClass.textStyle(hometext: 'Playlists'),

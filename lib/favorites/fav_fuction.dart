@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:lottie/lottie.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/db_functions/favorite_db.dart';
@@ -36,7 +37,7 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
           // print(value);
           if (FavoriteDB.favloop.isEmpty) {
             return Center(
-              child: Image.asset('assets/nullphone.png'),
+              child: Lottie.asset('assets/lf20_oq4hyt7j.json'),
             );
           } else {
             return ListView.builder(
@@ -61,7 +62,6 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
                           GetAllSongs.audioPlayer.play();
                           Get.to(
                             () => PlayerScreen(
-                              index: GetAllSongs.getCurrentIndex,
                               songModal: FavoriteDB.favloop,
                               id: AllSongs.songs[value[index]].id,
                             ),
@@ -80,7 +80,7 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
                                 child: Padding(
                               padding: const EdgeInsets.all(6.0),
                               child: Image.asset(
-                                'assets/1-removebg-preview.png',
+                                'assets/logo.png',
                               ),
                             )),
                           ),
