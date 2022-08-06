@@ -10,6 +10,8 @@ import 'package:podds/add_profile.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key, required context}) : super(key: key);
@@ -52,10 +54,13 @@ class _SettingsState extends State<Settings> {
                   iconData: Icons.share,
                   ontap: (_) async {
                     await Share.share(
-                        'check out my website https://example.com',
+                        'check out my website https://play.google.com/store/apps/details?id=in.brototype.podds_app',
                         subject: 'Look what I made!');
                   }),
-              _bottomSheetDatas(title: 'Rate App', iconData: Icons.star_border),
+              _bottomSheetDatas(
+                title: 'Rate App',
+                iconData: Icons.star_border,
+              ),
               _bottomSheetDatas(
                   title: 'Feedback',
                   iconData: Icons.rate_review_outlined,
@@ -65,9 +70,12 @@ class _SettingsState extends State<Settings> {
                     });
                   }),
               _bottomSheetDatas(
-                  title: 'About',
-                  iconData: Icons.info_outline_rounded,
-                  ontap: null),
+                title: 'About',
+                iconData: Icons.info_outline_rounded,
+                ontap: () async {
+                  await launchUrlString('https://github.com/AmarchandK');
+                },
+              ),
               const SizedBox(
                 height: 50,
               ),
@@ -87,10 +95,10 @@ class _SettingsState extends State<Settings> {
 ///////////////////////////////////////////////////////
   ///
   ///
-  _bottomSheetDatas({
+  Widget _bottomSheetDatas({
     required String title,
     required IconData iconData,
-    Function(String)? ontap,
+    Function? ontap,
   }) {
     return ListTile(
       title: Text(
@@ -99,7 +107,7 @@ class _SettingsState extends State<Settings> {
             color: Colors.black, fontFamily: 'BalsamiqSans_Regular'),
       ),
       trailing: Icon(iconData, color: Colors.black),
-      onTap: () => ontap?.call(title),
+      onTap: () => ontap,
     );
   }
 
