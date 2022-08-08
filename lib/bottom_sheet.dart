@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:feedback/feedback.dart';
@@ -11,7 +13,6 @@ import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key, required context}) : super(key: key);
@@ -54,13 +55,14 @@ class _SettingsState extends State<Settings> {
                   iconData: Icons.share,
                   ontap: (_) async {
                     await Share.share(
-                        'check out my website https://play.google.com/store/apps/details?id=in.brototype.podds_app',
+                        'check out my website https://play.google.com/store/apps/details?id=in.brototype.podds',
                         subject: 'Look what I made!');
                   }),
               _bottomSheetDatas(
-                title: 'Rate App',
-                iconData: Icons.star_border,
-              ),
+                  title: 'Rate App',
+                  iconData: Icons.star_border,
+                  ontap: (ctx) => launch(
+                      'https://play.google.com/store/apps/details?id=in.brototype.podds')),
               _bottomSheetDatas(
                   title: 'Feedback',
                   iconData: Icons.rate_review_outlined,
@@ -70,12 +72,10 @@ class _SettingsState extends State<Settings> {
                     });
                   }),
               _bottomSheetDatas(
-                title: 'About',
-                iconData: Icons.info_outline_rounded,
-                ontap: () async {
-                  await launchUrlString('https://github.com/AmarchandK');
-                },
-              ),
+                  title: 'About',
+                  iconData: Icons.info_outline_rounded,
+                  ontap: (ctx) async =>
+                      await launch('https://github.com/AmarchandK')),
               const SizedBox(
                 height: 50,
               ),
@@ -95,10 +95,10 @@ class _SettingsState extends State<Settings> {
 ///////////////////////////////////////////////////////
   ///
   ///
-  Widget _bottomSheetDatas({
+  _bottomSheetDatas({
     required String title,
     required IconData iconData,
-    Function? ontap,
+    Function(String)? ontap,
   }) {
     return ListTile(
       title: Text(
@@ -107,7 +107,7 @@ class _SettingsState extends State<Settings> {
             color: Colors.black, fontFamily: 'BalsamiqSans_Regular'),
       ),
       trailing: Icon(iconData, color: Colors.black),
-      onTap: () => ontap,
+      onTap: () => ontap?.call(title),
     );
   }
 
