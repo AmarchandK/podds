@@ -26,7 +26,7 @@ class _BaseScreenState extends State<BaseScreen> {
   void initState() {
     init();
     setState(() {});
-  
+
     super.initState();
   }
 
@@ -36,52 +36,58 @@ class _BaseScreenState extends State<BaseScreen> {
     return Scaffold(
       backgroundColor: color2,
       body: screens[baseIndex],
-      bottomNavigationBar: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          (GetAllSongs.audioPlayer.playing) ||
-                  (GetAllSongs.audioPlayer.currentIndex != null)
-              ? const MiniPlayer()
-              : const SizedBox(),
-          NavigationBarTheme(
-              data: const NavigationBarThemeData(
-                indicatorColor: color1,
-                backgroundColor: color2,
-              ),
-              child: NavigationBar(
-                labelBehavior:
-                    NavigationDestinationLabelBehavior.onlyShowSelected,
-                animationDuration: const Duration(seconds: 1),
-                height: 60,
-                selectedIndex: baseIndex,
-                onDestinationSelected: (index) {
-                  if (index == 3) {
-                    showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
-                        context: context,
-                        builder: (ctx) {
-                          return Settings(context: context);
-                        });
-                  } else {
-                    setState(() {
-                      baseIndex = index;
-                    });
-                  }
-                },
-                destinations: const [
-                  NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-                  NavigationDestination(
-                      icon: Icon(Icons.library_music_sharp), label: 'Libary'),
-                  NavigationDestination(
-                      icon: Icon(Icons.playlist_play_rounded),
-                      label: 'Playlist'),
-                  NavigationDestination(
-                      icon: Icon(Icons.settings), label: 'Settings'),
-                ],
-              )),
-        ],
-      ),
+      bottomNavigationBar: ValueListenableBuilder(
+          valueListenable: FavoriteDB.favorites,
+          builder: (BuildContext context, List<dynamic> songs, Widget? child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                (GetAllSongs.audioPlayer.playing) ||
+                        (GetAllSongs.audioPlayer.currentIndex != null)
+                    ? const MiniPlayer()
+                    : const SizedBox(),
+                NavigationBarTheme(
+                    data: const NavigationBarThemeData(
+                      indicatorColor: color1,
+                      backgroundColor: color2,
+                    ),
+                    child: NavigationBar(
+                      labelBehavior:
+                          NavigationDestinationLabelBehavior.onlyShowSelected,
+                      animationDuration: const Duration(seconds: 1),
+                      height: 60,
+                      selectedIndex: baseIndex,
+                      onDestinationSelected: (index) {
+                        if (index == 3) {
+                          showModalBottomSheet(
+                              backgroundColor: Colors.transparent,
+                              context: context,
+                              builder: (ctx) {
+                                return Settings(context: context);
+                              });
+                        } else {
+                          setState(() {
+                            baseIndex = index;
+                          });
+                        }
+                      },
+                      destinations: const [
+                        NavigationDestination(
+                            icon: Icon(Icons.home), label: 'Home'),
+                        NavigationDestination(
+                            icon: Icon(Icons.library_music_sharp),
+                            label: 'Libary'),
+                        NavigationDestination(
+                            icon: Icon(Icons.playlist_play_rounded),
+                            label: 'Playlist'),
+                        NavigationDestination(
+                            icon: Icon(Icons.settings), label: 'Settings'),
+                      ],
+                    )),
+              ],
+            );
+          }),
     );
   }
 

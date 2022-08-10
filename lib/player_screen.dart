@@ -2,6 +2,7 @@
 
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:get/route_manager.dart';
+import 'package:podds/db_functions/favorite_db.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -53,6 +54,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         leading: IconButton(
             onPressed: () {
               Get.back();
+              FavoriteDB.favorites.notifyListeners();
             },
             icon: const Icon(Icons.keyboard_arrow_down_outlined)),
         backgroundColor: color1,

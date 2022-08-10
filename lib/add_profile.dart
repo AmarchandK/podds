@@ -40,6 +40,7 @@ class AddScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: TextFormField(
+                    keyboardType: TextInputType.name,
                     controller: _nameControler,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -50,7 +51,7 @@ class AddScreen extends StatelessWidget {
                     },
                     decoration: InputDecoration(
                       errorStyle: const TextStyle(color: color2),
-                      hintText: 'Enter Your Name',
+                      hintText: 'Your Name(Special characters not allowed !!!)',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -67,8 +68,8 @@ class AddScreen extends StatelessWidget {
                     }
                   },
                   child: const Text(
-                    'Login',
-                    style: TextStyle(color: Colors.green),
+                    'Submit',
+                    style: TextStyle(color: color2),
                   ),
                 )
               ],

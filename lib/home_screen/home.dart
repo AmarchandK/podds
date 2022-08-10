@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:podds/home_screen/homescreen_functns.dart';
@@ -26,7 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
             image: AssetImage('assets/logo.png'),
           ),
         ),
-        title: Text('${greeting()} $name'),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(greeting()),
+            Text(
+              name,
+              style: const TextStyle(color: color2),
+            ),
+          ],
+        ),
         elevation: 0,
         actions: [
           IconButton(
