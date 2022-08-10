@@ -51,7 +51,7 @@ class AddScreen extends StatelessWidget {
                     },
                     decoration: InputDecoration(
                       errorStyle: const TextStyle(color: color2),
-                      hintText: 'Your Name(Special characters not allowed !!!)',
+                      hintText: 'Your Name(Special characters  allowed !!!)',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
