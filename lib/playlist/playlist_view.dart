@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
@@ -26,17 +27,20 @@ class PlaylistView extends StatefulWidget {
 }
 
 class _PlaylistViewState extends State<PlaylistView> {
-  @override
-  void initState() {
-    getAllPlaylist();
-    super.initState();
-  }
+ final PlayListcontroller _listcontroller = Get.put(PlayListcontroller());
+ final RecentSongsController _controller = Get.put(RecentSongsController());
+
+  // @override
+  // void initState() {
+  //   getAllPlaylist();
+  //   super.initState();
+  // }
 
   List<dynamic> tempPlaySongs = [];
   final TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    PlaysongCheck.showSelectSong(widget.folderIndex);
+    _listcontroller.showSelectSong(widget.folderIndex);
     return Container(
       decoration: stylesClass.background(),
       child: Scaffold(
@@ -99,15 +103,14 @@ class _PlaylistViewState extends State<PlaylistView> {
                             child: TextButton.icon(
                               label: const Text("Delete Playlist"),
                               onPressed: () {
-                                deletePlayList(widget.folderIndex);
+                           _listcontroller.     deletePlayList(widget.folderIndex);
 
                                 baseIndex.value = 2;
 
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                             BaseScreen()),
+                                        builder: (context) => BaseScreen()),
                                     (route) => false);
                               },
                               icon: const Icon(Icons.delete_outline),
@@ -118,7 +121,7 @@ class _PlaylistViewState extends State<PlaylistView> {
             ),
             SliverToBoxAdapter(
               child: ValueListenableBuilder(
-                valueListenable: PlaysongCheck.selectPlaySong,
+                valueListenable: _listcontroller.selectPlaySong,
                 builder: (BuildContext context, List<SongModel> songs,
                     Widget? child) {
                   if (songs.isEmpty) {
@@ -130,7 +133,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                     );
                   } else {
                     return ListView.builder(
-                      itemCount: playListNotifier
+                      itemCount:_listcontroller. playListNotifier
                           .value[widget.folderIndex].playlistSongs.length,
                       itemBuilder: (BuildContext context, int playIndex) {
                         return Padding(
@@ -139,7 +142,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                             color: const Color.fromARGB(119, 21, 153, 140),
                             child: ListTile(
                               onTap: () {
-                                RecentSongs.addRecentlyPlayed(
+                                _controller.addRecentlyPlayed(
                                     songs[playIndex].id);
                                 GetAllSongs.audioPlayer.setAudioSource(
                                     GetAllSongs.createSongList(songs),

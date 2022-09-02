@@ -15,6 +15,7 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(PlayListModelAdapter().typeId)) {
     Hive.registerAdapter(PlayListModelAdapter());
   }
+  await Hive.openBox('favorites');
 
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',

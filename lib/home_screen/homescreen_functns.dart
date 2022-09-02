@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
-import 'package:podds/db_functions/favorite_db.dart';
+import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/functions/styles.dart';
@@ -18,6 +19,7 @@ import '../player_screen.dart';
 class HomeAllSongs extends StatelessWidget {
   HomeAllSongs({Key? key}) : super(key: key);
   final audioQuery = OnAudioQuery();
+ final RecentSongsController _controller = Get.put(RecentSongsController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class HomeAllSongs extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    RecentSongs.addRecentlyPlayed(item.data![index].id);
+                    _controller.addRecentlyPlayed(item.data![index].id);
                     GetAllSongs.audioPlayer.setAudioSource(
                         GetAllSongs.createSongList(item.data!),
                         initialIndex: index);
@@ -118,14 +120,16 @@ class HomeAllSongs extends StatelessWidget {
 ////
 /////////////////////////////////////////////////////////
 class HomeFavorites extends StatelessWidget {
-  const HomeFavorites({Key? key}) : super(key: key);
+  HomeFavorites({Key? key}) : super(key: key);
+  final FavDbFunctions _dbController = Get.put(FavDbFunctions());
+  final RecentSongsController _controller = Get.put(RecentSongsController());
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
       child: ValueListenableBuilder(
-        valueListenable: FavoriteDB.favorites,
+        valueListenable: _dbController.favorites,
         builder: (BuildContext context, List<dynamic> value, Widget? child) {
           // tempFav.addAll(FavoriteDB.favloop);
           if (value.isEmpty) {
@@ -141,15 +145,15 @@ class HomeFavorites extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    RecentSongs.addRecentlyPlayed(
+                    _controller.addRecentlyPlayed(
                         AllSongs.songs[value[index]].id);
                     GetAllSongs.audioPlayer.setAudioSource(
-                        GetAllSongs.createSongList(FavoriteDB.favloop),
+                        GetAllSongs.createSongList(_dbController.favloop),
                         initialIndex: index);
                     GetAllSongs.audioPlayer.play();
                     Get.to(
                       () => PlayerScreen(
-                        songModal: FavoriteDB.favloop,
+                        songModal: _dbController.favloop,
                         id: AllSongs.songs[value[index]].id,
                       ),
                       transition: Transition.downToUp,
@@ -211,14 +215,15 @@ class HomeFavorites extends StatelessWidget {
 ///////////////////////////////////////////
 ///////////////////////////////////////////////
 class HomePlaylist extends StatelessWidget {
-  const HomePlaylist({Key? key}) : super(key: key);
+   HomePlaylist({Key? key}) : super(key: key);
+ final PlayListcontroller _playlistcontroller = Get.put(PlayListcontroller());
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
       child: ValueListenableBuilder(
-        valueListenable: playListNotifier,
+        valueListenable:_playlistcontroller.playListNotifier,
         builder: (BuildContext context, List<PlayListModel> savedPlaylistvalue,
             Widget? child) {
           if (savedPlaylistvalue.isEmpty) {
@@ -292,14 +297,16 @@ class HomePlaylist extends StatelessWidget {
 /////////////////////////////////////////////
 ////////////////////////////////////////////
 class HomeRecentsSongs extends StatelessWidget {
-  const HomeRecentsSongs({Key? key}) : super(key: key);
+   HomeRecentsSongs({Key? key}) : super(key: key);
   static List<SongModel> removedup = [];
+ final RecentSongsController _controller = Get.put(RecentSongsController());
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 110,
       child: ValueListenableBuilder(
-        valueListenable: RecentSongs.recentsNotifier,
+        valueListenable: _controller.recentsNotifier,
         builder:
             (BuildContext context, List<SongModel> recentValue, Widget? child) {
           if (recentValue.isEmpty) {

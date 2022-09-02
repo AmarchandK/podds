@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
@@ -23,11 +24,12 @@ class PlayListAddButton extends StatefulWidget {
 }
 
 class _PlayListAddButtonState extends State<PlayListAddButton> {
+  final PlayListcontroller _listcontroller = Get.put(PlayListcontroller());
   @override
   Widget build(BuildContext context) {
-    final checkIndex = playListNotifier.value[widget.folderindex!].playlistSongs
+    final checkIndex =_listcontroller. playListNotifier.value[widget.folderindex!].playlistSongs
         .contains(widget.id);
-    final indexCheck = playListNotifier.value[widget.folderindex!].playlistSongs
+    final indexCheck =_listcontroller. playListNotifier.value[widget.folderindex!].playlistSongs
         .indexWhere((element) => element == widget.id);
     if (checkIndex != true) {
       return IconButton(
@@ -41,21 +43,21 @@ class _PlayListAddButtonState extends State<PlayListAddButton> {
             List<dynamic> newlist = widget.songlist;
             PlayListAddButton.updatelist = [
               newlist,
-              playListNotifier.value[widget.folderindex!].playlistSongs
+           _listcontroller.   playListNotifier.value[widget.folderindex!].playlistSongs
             ].expand((element) => element).toList();
             final model = PlayListModel(
               playListName:
-                  playListNotifier.value[widget.folderindex!].playListName,
+          _listcontroller.        playListNotifier.value[widget.folderindex!].playListName,
               playlistSongs: PlayListAddButton.updatelist,
             );
-            updateList(widget.folderindex, model);
-            getAllPlaylist();
-            PlaysongCheck.showSelectSong(widget.folderindex);
+       _listcontroller.     updateList(widget.folderindex, model);
+         _listcontroller.   getAllPlaylist();
+          _listcontroller.showSelectSong(widget.folderindex);
             setState(() {});
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               duration: const Duration(seconds: 2),
               content: Text(
-                'Added ${AllSongs.songs[indexCheck].title} to ${playListNotifier.value[widget.folderindex!].playListName},',
+                'Added ${AllSongs.songs[indexCheck].title} to ${_listcontroller.playListNotifier.value[widget.folderindex!].playListName},',
                 style: const TextStyle(color: Colors.white),
               ),
               backgroundColor: const Color.fromARGB(255, 62, 62, 62),
@@ -65,23 +67,23 @@ class _PlayListAddButtonState extends State<PlayListAddButton> {
     } else {
       return IconButton(
           onPressed: () {
-            playListNotifier.value[widget.folderindex!].playlistSongs
+     _listcontroller.       playListNotifier.value[widget.folderindex!].playlistSongs
                 .removeAt(indexCheck);
             PlayListAddButton.dltlist = [
               widget.songlist,
-              playListNotifier.value[widget.folderindex!].playlistSongs
+         _listcontroller.     playListNotifier.value[widget.folderindex!].playlistSongs
             ].expand((element) => element).toList();
             final model = PlayListModel(
                 playListName:
-                    playListNotifier.value[widget.folderindex!].playListName,
+             _listcontroller.       playListNotifier.value[widget.folderindex!].playListName,
                 playlistSongs: PlayListAddButton.dltlist);
-            updateList(widget.folderindex, model);
-            PlaysongCheck.showSelectSong(widget.folderindex);
+          _listcontroller.  updateList(widget.folderindex, model);
+          _listcontroller.showSelectSong(widget.folderindex);
             setState(() {});
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  ' Song Removed From ${playListNotifier.value[widget.folderindex!].playListName}',
+                  ' Song Removed From ${_listcontroller.playListNotifier.value[widget.folderindex!].playListName}',
                   style: const TextStyle(color: Colors.white),
                 ),
                 backgroundColor: const Color.fromARGB(255, 68, 68, 68),

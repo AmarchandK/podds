@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:lottie/lottie.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
-import 'package:podds/db_functions/favorite_db.dart';
+import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/get_all_songs.dart';
 import 'package:podds/player_screen.dart';
 
-class FavoriteFunction extends StatefulWidget {
-  const FavoriteFunction({Key? key}) : super(key: key);
+class FavoriteFunction extends StatelessWidget {
+  FavoriteFunction({Key? key}) : super(key: key);
   static List<SongModel> tempFav = [];
-
-  @override
-  State<FavoriteFunction> createState() => _FavoriteFunctionState();
-}
-
-class _FavoriteFunctionState extends State<FavoriteFunction> {
+  final FavDbFunctions _dbFunctions = Get.put(FavDbFunctions());
   final controller = ScrollController();
+ final RecentSongsController _controller = Get.put(RecentSongsController());
+
 
   // var tempIndex = 0;
-  @override
-  void initState() {
-    FavoriteDB.getAllSongs();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   FavoriteDB.getAllSongs();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: FavoriteDB.favorites,
+        valueListenable: _dbFunctions.favorites,
         builder: (BuildContext context, List<dynamic> value, Widget? child) {
           // print(value);
-          if (FavoriteDB.favloop.isEmpty) {
+          if (_dbFunctions.favloop.isEmpty) {
             return Center(
               child: Lottie.asset('assets/lf20_oq4hyt7j.json'),
             );
@@ -53,16 +51,16 @@ class _FavoriteFunctionState extends State<FavoriteFunction> {
                       child: ListTile(
                         onTap: () {
                           FavoriteFunction.tempFav.clear();
-                          FavoriteFunction.tempFav.addAll(FavoriteDB.favloop);
-                          RecentSongs.addRecentlyPlayed(
+                          FavoriteFunction.tempFav.addAll(_dbFunctions.favloop);
+                          _controller.addRecentlyPlayed(
                               AllSongs.songs[value[index]].id);
                           GetAllSongs.audioPlayer.setAudioSource(
-                              GetAllSongs.createSongList(FavoriteDB.favloop),
+                              GetAllSongs.createSongList(_dbFunctions.favloop),
                               initialIndex: index);
                           GetAllSongs.audioPlayer.play();
                           Get.to(
                             () => PlayerScreen(
-                              songModal: FavoriteDB.favloop,
+                              songModal: _dbFunctions.favloop,
                               id: AllSongs.songs[value[index]].id,
                             ),
                             transition: Transition.downToUp,

@@ -1,27 +1,30 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
 
-class RecentSongs {
-  static ValueNotifier<List<SongModel>> recentsNotifier = ValueNotifier([]);
-  static List<dynamic> recentPlayed = [];
-  static addRecentlyPlayed(item) async {
+class RecentSongsController extends GetxController {
+  ValueNotifier<List<SongModel>> recentsNotifier = ValueNotifier([]);
+  List<dynamic> recentPlayed = [];
+  addRecentlyPlayed(item) async {
     final dbBox = await Hive.openBox('recentsNotifier');
     await dbBox.add(item);
-    getRecentSongs();
+    getRecentSongs();           
   }
 
-  static getRecentSongs() async {
+  getRecentSongs() async {
     final dbBox = await Hive.openBox('recentsNotifier');
     recentPlayed = dbBox.values.toList();
 
     displayRecents();
-    recentsNotifier.notifyListeners();
+    // recentsNotifier.notifyListeners();
+    update();
+
   }
 
-  static displayRecents() async {
+  displayRecents() async {
     final dbBox = await Hive.openBox('recentsNotifier');
     final recentsItems = dbBox.values.toList();
     recentsNotifier.value.clear();
@@ -35,6 +38,7 @@ class RecentSongs {
       }
     }
     recentPlayed.reversed.toList();
-    recentsNotifier.notifyListeners();
+    // recentsNotifier.notifyListeners();
+    update();
   }
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
@@ -7,45 +8,50 @@ import 'package:podds/get_all_songs.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+class PlayListcontroller extends GetxController {
+  ValueNotifier<List<PlayListModel>> playListNotifier = ValueNotifier([]);
 
-ValueNotifier<List<PlayListModel>> playListNotifier = ValueNotifier([]);
-// List<SongModel> playListLoop = [];
+  void playlistAdd(PlayListModel value) async {
+    final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
+    int id = await playListDB.add(value);
+    value.id = id;
+    playListNotifier.value.add(value);
+    // playListNotifier.notifyListeners();
+    update();
+  }
 
-void playlistAdd(PlayListModel value) async {
-  final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
-  int id = await playListDB.add(value);
-  value.id = id;
-  playListNotifier.value.add(value);
-  playListNotifier.notifyListeners();
-}
+  Future<void> getAllPlaylist() async {
+    final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
+    playListNotifier.value.clear();
+    playListNotifier.value.addAll(playListDB.values);
+    // playListNotifier.notifyListeners();
+    update();
 
-Future<void> getAllPlaylist() async {
-  final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
-  playListNotifier.value.clear();
-  playListNotifier.value.addAll(playListDB.values);
-  playListNotifier.notifyListeners();
-}
+  }
 
-void updateList(index, value) async {
-  final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
-  await playListDB.putAt(index, value);
-  await getAllPlaylist();
+  void updateList(index, value) async {
+    final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
+    await playListDB.putAt(index, value);
+    await getAllPlaylist();
 
-  await PlaysongCheck.showSelectSong(index);
-  playListNotifier.notifyListeners();
-}
+    await showSelectSong(index);
+    // playListNotifier.notifyListeners();
+    update();
 
-void deletePlayList(index) async {
-  final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
-  await playListDB.deleteAt(index);
-  PlaysongCheck.selectPlaySong.notifyListeners();
+  }
 
-  getAllPlaylist();
-}
+  void deletePlayList(index) async {
+    final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
+    await playListDB.deleteAt(index);
+    // selectPlaySong.notifyListeners();
 
-class PlaysongCheck {
-  static ValueNotifier<List<SongModel>> selectPlaySong = ValueNotifier([]);
-  static showSelectSong(index) {
+    getAllPlaylist();
+    update();
+
+  }
+
+   ValueNotifier<List<SongModel>> selectPlaySong = ValueNotifier([]);
+  showSelectSong(index) {
     final checkSong = playListNotifier.value[index].playlistSongs;
     selectPlaySong.value.clear();
     // playListLoop.clear();
@@ -65,8 +71,8 @@ void resetApp() async {
   final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
   final favBoxdb = await Hive.openBox('favorites');
   final recentbocdb = await Hive.openBox('recentsNotifier');
- SharedPreferences preferences = await SharedPreferences.getInstance();
-await preferences.clear();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.clear();
   await playListDB.clear();
   await favBoxdb.clear();
   await recentbocdb.clear();

@@ -1,8 +1,9 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages
 
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/route_manager.dart';
-import 'package:podds/db_functions/favorite_db.dart';
+import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -28,6 +29,7 @@ class PlayerScreen extends StatefulWidget {
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
+ final FavDbFunctions _dbFunctions = Get.put(FavDbFunctions());
   int currentIndex1 = 0;
   @override
   void initState() {
@@ -54,7 +56,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         leading: IconButton(
             onPressed: () {
               Get.back();
-              FavoriteDB.favorites.notifyListeners();
+              _dbFunctions.favorites.notifyListeners();
             },
             icon: const Icon(Icons.keyboard_arrow_down_outlined)),
         backgroundColor: color1,

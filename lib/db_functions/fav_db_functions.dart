@@ -1,35 +1,40 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 
 import 'package:flutter/foundation.dart';
+import 'package:get/state_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
 
-class FavoriteDB {
-  static ValueNotifier<List<dynamic>> favorites = ValueNotifier([]);
-  static List<dynamic> favsong = [];
-  static List<SongModel> favloop = [];
+class FavDbFunctions extends GetxController {
+/////////   Favorite Functions   //////////
 
-  static addSongtoFav(item) async {
+  ValueNotifier<List<dynamic>> favorites = ValueNotifier([]);
+  List<dynamic> favsong = [];
+  List<SongModel> favloop = [];
+
+  addSongtoFav(item) async {
     final dbBox = await Hive.openBox('favorites');
     await dbBox.add(item);
     getAllSongs();
+    update();
   }
 
-  static getAllSongs() async {
+  getAllSongs() async {
     final dbBox = await Hive.openBox('favorites');
     favsong = dbBox.values.toList();
     displaySongs();
-    favorites.notifyListeners();
+    update();
   }
 
-  static deleteFromFav(index) async {
+  deleteFromFav(index) async {
     final dbBox = await Hive.openBox('favorites');
     await dbBox.deleteAt(index);
     getAllSongs();
+    update();
   }
 
-  static displaySongs() async {
+  displaySongs() async {
     final dbBox = await Hive.openBox('favorites');
     final musicitems = dbBox.values.toList();
     favorites.value.clear();
@@ -42,6 +47,6 @@ class FavoriteDB {
         }
       }
     }
-    favorites.notifyListeners();
+    update();
   }
 }

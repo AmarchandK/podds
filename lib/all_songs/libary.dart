@@ -64,7 +64,7 @@ class _LibaryScreenState extends State<LibaryScreen> {
           decoration: stylesClass.background(),
           child: TabBarView(children: [
             AllSongs(),
-            const FavoriteFunction(),
+             FavoriteFunction(),
           ]),
         ),
       ),

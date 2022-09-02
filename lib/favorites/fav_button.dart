@@ -1,27 +1,24 @@
 // ignore_for_file: use_build_context_synchronously, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:podds/db_functions/favorite_db.dart';
+import 'package:get/instance_manager.dart';
+import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 
-class FavBTN extends StatefulWidget {
+class FavBTN extends StatelessWidget {
   FavBTN({Key? key, this.id}) : super(key: key);
   dynamic id;
+  final FavDbFunctions _dbController = Get.put(FavDbFunctions());
 
-  @override
-  State<FavBTN> createState() => _FavBTNState();
-}
-
-class _FavBTNState extends State<FavBTN> {
   @override
   Widget build(BuildContext context) {
     final lastIndex =
-        FavoriteDB.favsong.indexWhere((element) => element == widget.id);
-    final checkIndex = FavoriteDB.favsong.contains(widget.id);
+        _dbController.favsong.indexWhere((element) => element == id);
+    final checkIndex = _dbController.favsong.contains(id);
     if (checkIndex == true) {
       return IconButton(
           onPressed: () async {
-            await FavoriteDB.deleteFromFav(lastIndex);
+            await _dbController.deleteFromFav(lastIndex);
 
             const snackbar = SnackBar(
                 content: Text('remove from favourites'),
@@ -29,7 +26,6 @@ class _FavBTNState extends State<FavBTN> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: color1);
             ScaffoldMessenger.of(context).showSnackBar(snackbar);
-            setState(() {});
           },
           icon: const Icon(
             Icons.favorite,
@@ -37,18 +33,18 @@ class _FavBTNState extends State<FavBTN> {
           ));
     }
     return IconButton(
-        onPressed: () async {
-          await FavoriteDB.addSongtoFav(widget.id);
+      onPressed: () async {
+        await _dbController.addSongtoFav(id);
 
-          const snackBar = SnackBar(
-              content: Text('Add to favorites '),
-              duration: Duration(seconds: 1),
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: color1);
+        const snackBar = SnackBar(
+            content: Text('Add to favorites '),
+            duration: Duration(seconds: 1),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: color1);
 
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          setState(() {});
-        },
-        icon: const Icon(Icons.favorite_border_outlined, color: color2));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      },
+      icon: const Icon(Icons.favorite_border_outlined, color: color2),
+    );
   }
 }

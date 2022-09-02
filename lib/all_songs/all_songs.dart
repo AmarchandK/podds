@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -13,6 +14,7 @@ class AllSongs extends StatelessWidget {
   AllSongs({Key? key}) : super(key: key);
   static List<SongModel> songs = [];
   final audioQuery = OnAudioQuery();
+ final RecentSongsController _controller = Get.put(RecentSongsController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class AllSongs extends StatelessWidget {
                     GetAllSongs.createSongList(songs),
                     initialIndex: index);
                 GetAllSongs.audioPlayer.play();
-                RecentSongs.addRecentlyPlayed(songs[index].id);
+              _controller.addRecentlyPlayed(songs[index].id);
                 Get.to(
                   () => PlayerScreen(
                     songModal: songs,

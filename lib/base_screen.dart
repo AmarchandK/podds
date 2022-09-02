@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:podds/Controlers/BaseScreen/base_screen_controller.dart';
 import 'package:podds/bottom_sheet.dart';
-import 'package:podds/db_functions/favorite_db.dart';
+import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/get_all_songs.dart';
 import 'package:podds/home_screen/home.dart';
@@ -16,7 +15,7 @@ class BaseScreen extends StatelessWidget {
   BaseScreen({Key? key}) : super(key: key);
 
   // BottomController _bottomController = Get.put(BottomController());
-
+  final FavDbFunctions _dbFunctions = Get.put(FavDbFunctions());
   final screens = const [
     HomeScreen(),
     LibaryScreen(),
@@ -28,7 +27,7 @@ class BaseScreen extends StatelessWidget {
       backgroundColor: color2,
       body: Obx(() => screens[baseIndex.value]),
       bottomNavigationBar: ValueListenableBuilder(
-        valueListenable: FavoriteDB.favorites,
+        valueListenable: _dbFunctions.favorites,
         builder: (BuildContext context, List<dynamic> songs, Widget? child) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,

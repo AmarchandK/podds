@@ -1,6 +1,8 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
@@ -13,11 +15,13 @@ class PlaylistScreen extends StatefulWidget {
 }
 
 class _PlaylistScreenState extends State<PlaylistScreen> {
-  @override
-  void initState() {
-    getAllPlaylist();
-    super.initState();
-  }
+ final PlayListcontroller _listcontroller = Get.put(PlayListcontroller());
+
+  // @override
+  // void initState() {
+  //   getAllPlaylist();
+  //   super.initState();
+  // }
 
   final TextEditingController _textEditingController = TextEditingController();
   @override
@@ -44,7 +48,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         body: Container(
           decoration: stylesClass.background(),
           child: ValueListenableBuilder(
-              valueListenable: playListNotifier,
+              valueListenable: _listcontroller.playListNotifier,
               builder: (BuildContext context,
                   List<PlayListModel> savedPlaylistvalue, Widget? child) {
                 if (savedPlaylistvalue.isEmpty) {
@@ -143,7 +147,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 if (_playName.isNotEmpty) {
                   final _newlist =
                       PlayListModel(playListName: _playName, playlistSongs: []);
-                  playlistAdd(_newlist);
+                _listcontroller.  playlistAdd(_newlist);
                   _textEditingController.clear();
                   Navigator.of(context).pop(MaterialPageRoute(
                     builder: (context) => const PlaylistScreen(),
