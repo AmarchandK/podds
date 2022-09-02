@@ -100,14 +100,14 @@ class _PlaylistViewState extends State<PlaylistView> {
                               label: const Text("Delete Playlist"),
                               onPressed: () {
                                 deletePlayList(widget.folderIndex);
-                                setState(() {
-                                  baseIndex = 2;
-                                });
+
+                                baseIndex.value = 2;
+
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const BaseScreen()),
+                                             BaseScreen()),
                                     (route) => false);
                               },
                               icon: const Icon(Icons.delete_outline),
@@ -141,14 +141,13 @@ class _PlaylistViewState extends State<PlaylistView> {
                               onTap: () {
                                 RecentSongs.addRecentlyPlayed(
                                     songs[playIndex].id);
-                                       GetAllSongs.audioPlayer.setAudioSource(
-                    GetAllSongs.createSongList(songs),
-                    initialIndex: playIndex);
-                GetAllSongs.audioPlayer.play();
+                                GetAllSongs.audioPlayer.setAudioSource(
+                                    GetAllSongs.createSongList(songs),
+                                    initialIndex: playIndex);
+                                GetAllSongs.audioPlayer.play();
                                 Get.to(PlayerScreen(
                                   id: songs[playIndex].id,
                                   songModal: songs,
-                            
                                 ));
                               },
                               leading: CircleAvatar(
