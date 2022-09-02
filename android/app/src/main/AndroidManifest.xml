@@ -1,5 +1,5 @@
  <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.podds">
+    package="com.fouvty.podds">
     <queries>
     <intent>
     <action android:name="android.intent.action.SEND"/>
