@@ -7,22 +7,7 @@ import 'package:podds/get_all_songs.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// class PlayListFunctions {
-//   Future addPlayList(PlayListModel playListValue) async {
-//     final playListBox = await Hive.openBox<PlayListModel>(playListDBname);
-//     await playListBox.put(playListValue.id, playListValue);
-//   }
 
-//   Future<List<PlayListModel>> getPlaylist() async {
-//     final playListBox = await Hive.openBox<PlayListModel>(playListDBname);
-//     return playListBox.values.toList();
-//   }
-
-//   Future deletePlayList(String playListID) async {
-//     final playListBox = await Hive.openBox<PlayListModel>(playListDBname);
-//     await playListBox.delete(playListID);
-//   }
-// }
 ValueNotifier<List<PlayListModel>> playListNotifier = ValueNotifier([]);
 // List<SongModel> playListLoop = [];
 
