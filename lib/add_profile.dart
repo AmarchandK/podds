@@ -59,7 +59,7 @@ class AddScreen extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: color1),
+                  style: ElevatedButton.styleFrom(backgroundColor: color1),
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
                       onTap(context);
@@ -95,7 +95,7 @@ class AddScreen extends StatelessWidget {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const BaseScreen(),
+        builder: (context) =>  BaseScreen(),
       ),
     );
   }
