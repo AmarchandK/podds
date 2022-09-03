@@ -10,7 +10,6 @@ import 'package:podds/functions/constants/styles.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 import '../now_playing/player_screen.dart';
 
-
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
   @override
@@ -66,12 +65,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     labelText: 'Search',
                     suffixIcon: IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
-                          // if (temp.isEmpty) {
-
-                          // } else {
-                          //   // temp.//???????????????
-                          // }
+                          Get.back();
                         },
                         icon: const Icon(Icons.close))),
               ),
@@ -97,9 +91,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                   GetAllSongs.createSongList(_foundSongs),
                                   initialIndex: index);
                               Get.to(PlayerScreen(
-                                  id: AllSongs.songs[index].id,
-                                  songModal: _foundSongs,
-                                 ));
+                                id: AllSongs.songs[index].id,
+                                songModal: _foundSongs,
+                              ));
                             },
                           ),
                         ),

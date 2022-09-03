@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
           padding: EdgeInsets.all(3.0),
           child: Image(
             image: AssetImage('assets/logo.png'),
-          ),                     
+          ),
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -28,7 +28,9 @@ class HomeScreen extends StatelessWidget {
             Text(greeting()),
             Text(
               name,
-              style: const TextStyle(color: color2),
+              style: const TextStyle(
+                color: color2,
+              ),
             ),
           ],
         ),

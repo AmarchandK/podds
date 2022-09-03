@@ -59,7 +59,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         leading: IconButton(
             onPressed: () {
               Get.back();
-              _dbFunctions.favorites;
+          
             },
             icon: const Icon(Icons.keyboard_arrow_down_outlined)),
         backgroundColor: color1,

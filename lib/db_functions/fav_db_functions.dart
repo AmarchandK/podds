@@ -14,9 +14,11 @@ class FavDbFunctions extends GetxController {
     super.onInit();
   }
 
-  Future<void> getAllFavSongs() async {
+   getAllFavSongs() async {
     final dbBox = await Hive.openBox<int>('favorites');
-    favsong = dbBox.values.toList();
+    // favsong = dbBox.values.toList();
+    favsong.clear();
+    favsong.addAll(dbBox.values.toList());
     displaySongs();
     update();
   }

@@ -8,15 +8,9 @@ import 'package:podds/paly_list_model/play_list_model.dart';
 import 'package:podds/screens/playlists/playlist_view.dart';
 
 class PlaylistScreen extends StatelessWidget {
-   PlaylistScreen({Key? key}) : super(key: key);
+  PlaylistScreen({Key? key}) : super(key: key);
 
   final PlayListcontroller _listcontroller = Get.find();
-
-  // @override
-  // void initState() {
-  //   getAllPlaylist();
-  //   super.initState();
-  // }
 
   final TextEditingController _textEditingController = TextEditingController();
   @override
@@ -61,10 +55,12 @@ class PlaylistScreen extends StatelessWidget {
                     child: CustomCard(
                       borderRadius: 5,
                       color: color1,
-                      onTap: () =>Get.to(()=>PlaylistView(
-                            folderIndex: index,
-                            playlistName: playlistDataTemp.playListName,
-                          ),),
+                      onTap: () => Get.to(
+                        () => PlaylistView(
+                          folderIndex: index,
+                          playlistName: playlistDataTemp.playListName,
+                        ),
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -137,7 +133,7 @@ class PlaylistScreen extends StatelessWidget {
                   _listcontroller.playlistAdd(_newlist);
                   _textEditingController.clear();
                   Navigator.of(context).pop(MaterialPageRoute(
-                    builder: (context) =>  PlaylistScreen(),
+                    builder: (context) => PlaylistScreen(),
                   ));
                 }
               },
