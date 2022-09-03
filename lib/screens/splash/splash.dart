@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:podds/all_songs/all_songs.dart';
+import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'add_profile.dart';
-import 'base_screen.dart';
-
+import '../add_screen/add_profile.dart';
+import '../bottombar/base_screen.dart';
 const savekey = 'userlogedin';
 String name = '';
 

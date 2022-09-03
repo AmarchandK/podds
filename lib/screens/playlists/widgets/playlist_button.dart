@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
-import 'package:podds/all_songs/all_songs.dart';
+import 'package:get/state_manager.dart';
+import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
-import 'package:podds/functions/styles.dart';
+import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 
-class PlayListAddButton extends StatelessWidget {
+class PlayListAddButton extends GetView {
   PlayListAddButton(
       {Key? key,
       required this.index,

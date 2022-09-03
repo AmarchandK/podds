@@ -2,7 +2,7 @@
 import 'package:get/state_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/all_songs/all_songs.dart';
+import 'package:podds/screens/all_songs/all_songs.dart';
 
 class FavDbFunctions extends GetxController {
   List<dynamic> favorites = [];
@@ -11,8 +11,6 @@ class FavDbFunctions extends GetxController {
   @override
   void onInit() {
     getAllFavSongs();
-    favloop;
-
     super.onInit();
   }
 

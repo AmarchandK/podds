@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/favorites/FavButton/fav_button.dart';
+import 'package:podds/screens/favorites/FavButton/fav_button.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
-import 'package:podds/favorites/fav_button.dart';
-import 'package:podds/functions/styles.dart';
+import 'package:podds/functions/constants/styles.dart';
 
-import '../screens/get_all_songs.dart';
-import '../screens/player_screen.dart';
+import '../../functions/get_all_songs/get_all_songs.dart';
+import '../now_playing/player_screen.dart';
 
 class AllSongs extends StatelessWidget {
   AllSongs({Key? key}) : super(key: key);

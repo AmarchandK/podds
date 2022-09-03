@@ -9,12 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/favorites/fav_button.dart';
-import 'package:podds/functions/styles.dart';
-import 'package:podds/home_screen/home.dart';
+import 'package:podds/functions/constants/styles.dart';
+import 'package:podds/screens/home_screen/home.dart';
 
 import '../favorites/FavButton/fav_button.dart';
-import 'get_all_songs.dart';
+import '../../functions/get_all_songs/get_all_songs.dart';
 
 class PlayerScreen extends StatefulWidget {
   PlayerScreen(

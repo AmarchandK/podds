@@ -8,11 +8,11 @@ import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/route_manager.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:podds/db_functions/playlist_db_functions.dart';
-import 'package:podds/functions/styles.dart';
+import 'package:podds/functions/constants/styles.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'add_profile.dart';
+import '../../functions/reset/reset_app.dart';
+import '../add_screen/add_profile.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key, required context}) : super(key: key);

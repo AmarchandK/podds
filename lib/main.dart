@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:podds/functions/styles.dart';
+import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
-import 'screens/splash.dart';
+import 'screens/splash/splash.dart';
 import 'Controlers/InitController/init_controllers.dart' as di;
 
 Future<void> main() async {
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         backgroundColor: color2,
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.cyan,
         brightness: Brightness.dark,
       ),
       home: const SplashScreen(),

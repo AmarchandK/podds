@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
-import 'package:podds/functions/styles.dart';
-import 'package:podds/home_screen/home.dart';
-import 'package:podds/all_songs/libary.dart';
-import 'package:podds/playlist/playlist.dart';
+import 'package:podds/functions/constants/styles.dart';
+import 'package:podds/screens/home_screen/home.dart';
+import 'package:podds/screens/all_songs/libary.dart';
+import 'package:podds/screens/playlists/playlist.dart';
 
-import 'bottom_sheet.dart';
-import 'get_all_songs.dart';
-import 'miniplayer.dart';
+import '../settings/bottom_sheet.dart';
+import '../../functions/get_all_songs/get_all_songs.dart';
+import '../miniplayer/miniplayer.dart';
 
 RxInt baseIndex = 0.obs;
 

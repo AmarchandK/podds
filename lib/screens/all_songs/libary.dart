@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:podds/all_songs/all_songs.dart';
-import 'package:podds/favorites/fav_fuction.dart';
-import '../functions/styles.dart';
-import '../screens/search.dart';
+import 'package:podds/screens/all_songs/all_songs.dart';
+import 'package:podds/screens/favorites/fav_fuction.dart';
+import '../../functions/constants/styles.dart';
+import '../search/search.dart';
 
 class LibaryScreen extends StatelessWidget {
   const LibaryScreen({Key? key}) : super(key: key);

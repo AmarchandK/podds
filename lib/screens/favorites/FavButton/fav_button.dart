@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
-
-import '../../functions/styles.dart';
+import '../../../functions/constants/styles.dart';
 
 class FavButton extends StatelessWidget {
   FavButton({super.key, required this.id});

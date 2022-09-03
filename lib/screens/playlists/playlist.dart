@@ -2,12 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:get/get.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get/state_manager.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
-import 'package:podds/functions/styles.dart';
+import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
-import 'package:podds/playlist/playlist_view.dart';
+import 'package:podds/screens/playlists/playlist_view.dart';
 
 class PlaylistScreen extends StatelessWidget {
    PlaylistScreen({Key? key}) : super(key: key);

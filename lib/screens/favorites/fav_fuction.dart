@@ -4,34 +4,23 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/state_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/favorites/FavButton/fav_button.dart';
-import 'package:podds/all_songs/all_songs.dart';
+import 'package:podds/screens/favorites/FavButton/fav_button.dart';
+import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
-import 'package:podds/favorites/fav_button.dart';
-import 'package:podds/functions/styles.dart';
-import '../screens/get_all_songs.dart';
-import '../screens/player_screen.dart';
+import 'package:podds/functions/constants/styles.dart';
+import '../../functions/get_all_songs/get_all_songs.dart';
+import '../now_playing/player_screen.dart';
 
 class FavoriteFunction extends StatelessWidget {
   FavoriteFunction({Key? key}) : super(key: key);
   static List<SongModel> tempFav = [];
   final FavDbFunctions _dbFunctions = Get.find();
-  // final controller = ScrollController();
   final RecentSongsController _controller = Get.find();
-
-  // var tempIndex = 0;
-  // @override
-  // void initState() {
-  //   FavoriteDB.getAllSongs();
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<FavDbFunctions>(builder: (controller) {
       final tempList = _dbFunctions.favloop;
-      // print(value);
       if (_dbFunctions.favloop.isEmpty) {
         return Center(
           child: Lottie.asset('assets/lf20_oq4hyt7j.json'),
@@ -40,7 +29,6 @@ class FavoriteFunction extends StatelessWidget {
         return ListView.builder(
             primary: false,
             shrinkWrap: true,
-            // controller: controller,
             itemCount: tempList.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(

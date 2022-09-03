@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/all_songs/all_songs.dart';
-import 'package:podds/functions/styles.dart';
-import 'package:podds/playlist/playlist_button.dart';
+import 'package:podds/screens/all_songs/all_songs.dart';
+import 'package:podds/db_functions/playlist_db_functions.dart';
+import 'package:podds/functions/constants/styles.dart';
+import 'package:podds/screens/playlists/widgets/playlist_button.dart';
 
-import '../screens/get_all_songs.dart';
+import '../../functions/get_all_songs/get_all_songs.dart';
 
 class AddToPlaylist extends StatelessWidget {
    AddToPlaylist(
@@ -48,11 +50,11 @@ class AddToPlaylist extends StatelessWidget {
                       nullArtworkWidget: const Icon(Icons.music_note),
                     ),
                   ),
-                  trailing: PlayListAddButton(
+                  trailing: GetBuilder<PlayListcontroller>(builder: (controller) => PlayListAddButton(
                     id: AddToPlaylist.addSong[index].id,
                     index: index,
                     folderindex: folderIndex,
-                  ),
+                  ),),
                   title: Text(
                     AddToPlaylist.addSong[index].displayNameWOExt,
                     overflow: TextOverflow.fade,

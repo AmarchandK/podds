@@ -12,14 +12,16 @@ class GetAllSongs {
     playingSongs = songs;
     for (var song in songs) {
       sources.add(
-        AudioSource.uri(Uri.parse(song.uri!),
-            tag: MediaItem(
-              // Specify a unique ID for each media item:
-              id: '${song.id}',
-              // Metadata to display in the notification:
-              album: "${song.album}",
-              title: song.displayNameWOExt,
-            )),
+        AudioSource.uri(
+          Uri.parse(song.uri!),
+          tag: MediaItem(
+            // Specify a unique ID for each media item:
+            id: '${song.id}',
+            // Metadata to display in the notification:
+            album: "${song.album}",
+            title: song.displayNameWOExt,
+          ),
+        ),
       );
     }
     return ConcatenatingAudioSource(children: sources);

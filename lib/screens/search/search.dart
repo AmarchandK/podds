@@ -5,11 +5,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/all_songs/all_songs.dart';
-import 'package:podds/functions/styles.dart';
-
-import 'get_all_songs.dart';
-import 'player_screen.dart';
+import 'package:podds/screens/all_songs/all_songs.dart';
+import 'package:podds/functions/constants/styles.dart';
+import '../../functions/get_all_songs/get_all_songs.dart';
+import '../now_playing/player_screen.dart';
 
 
 class SearchScreen extends StatefulWidget {
@@ -43,7 +42,6 @@ class _SearchScreenState extends State<SearchScreen> {
           .toList();
       // we use the toLowerCase() method to make it case-insensitive
     }
-
     // Refresh the UI
     setState(() {
       _foundSongs = results;

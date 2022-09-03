@@ -8,12 +8,12 @@ import 'package:get/state_manager.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
-import 'package:podds/functions/styles.dart';
-import 'package:podds/playlist/add_playlist_songs.dart';
-import 'package:podds/playlist/playlist_button.dart';
-import '../screens/base_screen.dart';
-import '../screens/get_all_songs.dart';
-import '../screens/player_screen.dart';
+import 'package:podds/functions/constants/styles.dart';
+import 'package:podds/screens/playlists/add_playlist_songs.dart';
+import 'package:podds/screens/playlists/widgets/playlist_button.dart';
+import '../bottombar/base_screen.dart';
+import '../../functions/get_all_songs/get_all_songs.dart';
+import '../now_playing/player_screen.dart';
 
 class PlaylistView extends StatelessWidget {
   PlaylistView(
