@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/get_all_songs.dart';
 import 'package:podds/playlist/playlist_button.dart';
 
-class AddToPlaylist extends StatefulWidget {
-  const AddToPlaylist(
+import '../screens/get_all_songs.dart';
+
+class AddToPlaylist extends StatelessWidget {
+   AddToPlaylist(
       {Key? key, required this.playlistName, required this.folderIndex})
       : super(key: key);
   final String playlistName;
   static List<SongModel> addSong = AllSongs.songs;
   final int folderIndex;
-  @override
-  State<AddToPlaylist> createState() => _AddToPlaylistState();
-}
 
-class _AddToPlaylistState extends State<AddToPlaylist> {
   final audioQuery = OnAudioQuery();
 
   @override
@@ -27,7 +24,7 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
         appBar: AppBar(
           backgroundColor: color1,
           elevation: 0,
-          title: Text('Add to ${widget.playlistName} '),
+          title: Text('Add to $playlistName '),
           centerTitle: true,
         ),
         backgroundColor: Colors.transparent,
@@ -54,7 +51,7 @@ class _AddToPlaylistState extends State<AddToPlaylist> {
                   trailing: PlayListAddButton(
                     id: AddToPlaylist.addSong[index].id,
                     index: index,
-                    folderindex: widget.folderIndex,
+                    folderindex: folderIndex,
                   ),
                   title: Text(
                     AddToPlaylist.addSong[index].displayNameWOExt,

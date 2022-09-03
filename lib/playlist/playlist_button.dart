@@ -5,7 +5,7 @@ import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 
-class PlayListAddButton extends StatefulWidget {
+class PlayListAddButton extends StatelessWidget {
   PlayListAddButton(
       {Key? key,
       required this.index,
@@ -19,18 +19,15 @@ class PlayListAddButton extends StatefulWidget {
   static List<dynamic> updatelist = [];
   static List<dynamic> dltlist = [];
 
-  @override
-  State<PlayListAddButton> createState() => _PlayListAddButtonState();
-}
-
-class _PlayListAddButtonState extends State<PlayListAddButton> {
-  final PlayListcontroller _listcontroller = Get.put(PlayListcontroller());
+  final PlayListcontroller _listcontroller = Get.find();
   @override
   Widget build(BuildContext context) {
-    final checkIndex =_listcontroller. playListNotifier.value[widget.folderindex!].playlistSongs
-        .contains(widget.id);
-    final indexCheck =_listcontroller. playListNotifier.value[widget.folderindex!].playlistSongs
-        .indexWhere((element) => element == widget.id);
+    final checkIndex = _listcontroller
+        .playListNotifier[folderindex!].playlistSongs
+        .contains(id);
+    final indexCheck = _listcontroller
+        .playListNotifier[folderindex!].playlistSongs
+        .indexWhere((element) => element == id);
     if (checkIndex != true) {
       return IconButton(
           icon: const Icon(
@@ -39,25 +36,25 @@ class _PlayListAddButtonState extends State<PlayListAddButton> {
             size: 30,
           ),
           onPressed: () async {
-            widget.songlist.add(widget.id);
-            List<dynamic> newlist = widget.songlist;
+            songlist.add(id);
+            List<dynamic> newlist = songlist;
             PlayListAddButton.updatelist = [
               newlist,
-           _listcontroller.   playListNotifier.value[widget.folderindex!].playlistSongs
+              _listcontroller.playListNotifier[folderindex!].playlistSongs
             ].expand((element) => element).toList();
             final model = PlayListModel(
               playListName:
-          _listcontroller.        playListNotifier.value[widget.folderindex!].playListName,
+                  _listcontroller.playListNotifier[folderindex!].playListName,
               playlistSongs: PlayListAddButton.updatelist,
             );
-       _listcontroller.     updateList(widget.folderindex, model);
-         _listcontroller.   getAllPlaylist();
-          _listcontroller.showSelectSong(widget.folderindex);
-            setState(() {});
+            _listcontroller.updateList(folderindex, model);
+            _listcontroller.getAllPlaylist();
+            _listcontroller.showSelectSong(folderindex);
+            // setState(() {});
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               duration: const Duration(seconds: 2),
               content: Text(
-                'Added ${AllSongs.songs[indexCheck].title} to ${_listcontroller.playListNotifier.value[widget.folderindex!].playListName},',
+                'Added ${AllSongs.songs[indexCheck].title} to ${_listcontroller.playListNotifier[folderindex!].playListName},',
                 style: const TextStyle(color: Colors.white),
               ),
               backgroundColor: const Color.fromARGB(255, 62, 62, 62),
@@ -66,36 +63,37 @@ class _PlayListAddButtonState extends State<PlayListAddButton> {
           });
     } else {
       return IconButton(
-          onPressed: () {
-     _listcontroller.       playListNotifier.value[widget.folderindex!].playlistSongs
-                .removeAt(indexCheck);
-            PlayListAddButton.dltlist = [
-              widget.songlist,
-         _listcontroller.     playListNotifier.value[widget.folderindex!].playlistSongs
-            ].expand((element) => element).toList();
-            final model = PlayListModel(
-                playListName:
-             _listcontroller.       playListNotifier.value[widget.folderindex!].playListName,
-                playlistSongs: PlayListAddButton.dltlist);
-          _listcontroller.  updateList(widget.folderindex, model);
-          _listcontroller.showSelectSong(widget.folderindex);
-            setState(() {});
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  ' Song Removed From ${_listcontroller.playListNotifier.value[widget.folderindex!].playListName}',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                backgroundColor: const Color.fromARGB(255, 68, 68, 68),
-                behavior: SnackBarBehavior.floating,
+        onPressed: () {
+          _listcontroller.playListNotifier[folderindex!].playlistSongs
+              .removeAt(indexCheck);
+          PlayListAddButton.dltlist = [
+            songlist,
+            _listcontroller.playListNotifier[folderindex!].playlistSongs
+          ].expand((element) => element).toList();
+          final model = PlayListModel(
+              playListName:
+                  _listcontroller.playListNotifier[folderindex!].playListName,
+              playlistSongs: PlayListAddButton.dltlist);
+          _listcontroller.updateList(folderindex, model);
+          _listcontroller.showSelectSong(folderindex);
+          // setState(() {});
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                ' Song Removed From ${_listcontroller.playListNotifier[folderindex!].playListName}',
+                style: const TextStyle(color: Colors.white),
               ),
-            );
-          },
-          icon: const Icon(
-            Icons.playlist_add_check_circle,
-            color: color2,
-            size: 30,
-          ));
+              backgroundColor: const Color.fromARGB(255, 68, 68, 68),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        },
+        icon: const Icon(
+          Icons.playlist_add_check_circle,
+          color: color2,
+          size: 30,
+        ),
+      );
     }
   }
 }

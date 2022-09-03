@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/favorites/fav_fuction.dart';
-import 'package:podds/search.dart';
 import '../functions/styles.dart';
+import '../screens/search.dart';
 
-class LibaryScreen extends StatefulWidget {
+class LibaryScreen extends StatelessWidget {
   const LibaryScreen({Key? key}) : super(key: key);
 
-  @override
-  State<LibaryScreen> createState() => _LibaryScreenState();
-}
 
-class _LibaryScreenState extends State<LibaryScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

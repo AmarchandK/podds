@@ -1,46 +1,33 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, no_leading_underscores_for_local_identifiers
 
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:get/state_manager.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podds/base_screen.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/get_all_songs.dart';
-import 'package:podds/player_screen.dart';
 import 'package:podds/playlist/add_playlist_songs.dart';
-import 'package:podds/playlist/playlist.dart';
 import 'package:podds/playlist/playlist_button.dart';
+import '../screens/base_screen.dart';
+import '../screens/get_all_songs.dart';
+import '../screens/player_screen.dart';
 
-class PlaylistView extends StatefulWidget {
+class PlaylistView extends StatelessWidget {
   PlaylistView(
       {Key? key, required this.folderIndex, required this.playlistName})
       : super(key: key);
   final int folderIndex;
   String playlistName;
-  @override
-  State<PlaylistView> createState() => _PlaylistViewState();
-}
 
-class _PlaylistViewState extends State<PlaylistView> {
- final PlayListcontroller _listcontroller = Get.put(PlayListcontroller());
- final RecentSongsController _controller = Get.put(RecentSongsController());
+  final PlayListcontroller _listcontroller = Get.find();
+  final RecentSongsController _controller =Get.find();
 
-  // @override
-  // void initState() {
-  //   getAllPlaylist();
-  //   super.initState();
-  // }
-
-  List<dynamic> tempPlaySongs = [];
-  final TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    _listcontroller.showSelectSong(widget.folderIndex);
+    // _listcontroller.showSelectSong(folderIndex);
     return Container(
       decoration: stylesClass.background(),
       child: Scaffold(
@@ -53,8 +40,8 @@ class _PlaylistViewState extends State<PlaylistView> {
           ),
           onPressed: () => Get.to(
               AddToPlaylist(
-                playlistName: widget.playlistName,
-                folderIndex: widget.folderIndex,
+                playlistName: playlistName,
+                folderIndex: folderIndex,
               ),
               transition: Transition.downToUp),
         ),
@@ -74,7 +61,7 @@ class _PlaylistViewState extends State<PlaylistView> {
               flexibleSpace: FlexibleSpaceBar(
                 expandedTitleScale: 2,
                 // collapseMode: CollapseMode.pin,
-                title: stylesClass.textStyle(hometext: widget.playlistName),
+                title: stylesClass.textStyle(hometext: playlistName),
                 centerTitle: true,
                 background: Image.asset(
                   'assets/podds.png',
@@ -85,46 +72,45 @@ class _PlaylistViewState extends State<PlaylistView> {
               expandedHeight: MediaQuery.of(context).size.height / 3,
               actions: [
                 PopupMenuButton<int>(
-                    color: color2,
-                    elevation: 0,
-                    icon: const Icon(Icons.more_vert),
-                    itemBuilder: (context) => [
-                          // PopupMenuItem(
-                          //     child: TextButton.icon(
-                          //         label: const Text("Rename"),
-                          //         onPressed: () =>
-                          //             renamePlaylsit(widget.folderIndex),
-                          //         icon: const Icon(Icons
-                          //             .drive_file_rename_outline_outlined))),
-                          // const PopupMenuDivider(
-                          //   height: 5,
-                          // ),
-                          PopupMenuItem(
-                            child: TextButton.icon(
-                              label: const Text("Delete Playlist"),
-                              onPressed: () {
-                           _listcontroller.     deletePlayList(widget.folderIndex);
-
-                                baseIndex.value = 2;
-
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => BaseScreen()),
-                                    (route) => false);
-                              },
-                              icon: const Icon(Icons.delete_outline),
-                            ),
-                          ),
-                        ])
+                  color: color2,
+                  elevation: 0,
+                  icon: const Icon(Icons.more_vert),
+                  itemBuilder: (context) => [
+                    // PopupMenuItem(
+                    //     child: TextButton.icon(
+                    //         label: const Text("Rename"),
+                    //         onPressed: () =>
+                    //             renamePlaylsit(widget.folderIndex),
+                    //         icon: const Icon(Icons
+                    //             .drive_file_rename_outline_outlined))),
+                    // const PopupMenuDivider(
+                    //   height: 5,
+                    // ),
+                    PopupMenuItem(
+                      child: TextButton.icon(
+                        label: const Text("Delete Playlist"),
+                        onPressed: () {
+                          _listcontroller.deletePlayList(folderIndex);
+                          baseIndex.value = 2;
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BaseScreen(),
+                              ),
+                              (route) => false);
+                        },
+                        icon: const Icon(Icons.delete_outline),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
             SliverToBoxAdapter(
-              child: ValueListenableBuilder(
-                valueListenable: _listcontroller.selectPlaySong,
-                builder: (BuildContext context, List<SongModel> songs,
-                    Widget? child) {
-                  if (songs.isEmpty) {
+              child: GetBuilder<PlayListcontroller>(
+                builder: (controller) {
+                  final _playListSongs = _listcontroller.selectPlaySong;
+                  if (_playListSongs.isEmpty) {
                     return Align(
                       child: Padding(
                         padding: const EdgeInsets.all(50.0),
@@ -133,8 +119,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                     );
                   } else {
                     return ListView.builder(
-                      itemCount:_listcontroller. playListNotifier
-                          .value[widget.folderIndex].playlistSongs.length,
+                      itemCount: _listcontroller
+                          .playListNotifier[folderIndex].playlistSongs.length,
                       itemBuilder: (BuildContext context, int playIndex) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -143,14 +129,14 @@ class _PlaylistViewState extends State<PlaylistView> {
                             child: ListTile(
                               onTap: () {
                                 _controller.addRecentlyPlayed(
-                                    songs[playIndex].id);
+                                    _playListSongs[playIndex].id);
                                 GetAllSongs.audioPlayer.setAudioSource(
-                                    GetAllSongs.createSongList(songs),
+                                    GetAllSongs.createSongList(_playListSongs),
                                     initialIndex: playIndex);
                                 GetAllSongs.audioPlayer.play();
                                 Get.to(PlayerScreen(
-                                  id: songs[playIndex].id,
-                                  songModal: songs,
+                                  id: _playListSongs[playIndex].id,
+                                  songModal: _playListSongs,
                                 ));
                               },
                               leading: CircleAvatar(
@@ -158,7 +144,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                                 backgroundColor: color1,
                                 child: QueryArtworkWidget(
                                   artworkFit: BoxFit.fill,
-                                  id: songs[playIndex].id,
+                                  id: _playListSongs[playIndex].id,
                                   type: ArtworkType.AUDIO,
                                   nullArtworkWidget: Padding(
                                     padding: const EdgeInsets.all(6.0),
@@ -170,14 +156,14 @@ class _PlaylistViewState extends State<PlaylistView> {
                               ),
                               subtitle: const Text('Tap to play'),
                               title: Text(
-                                songs[playIndex].title,
+                                _playListSongs[playIndex].title,
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                               ),
                               trailing: PlayListAddButton(
                                   index: playIndex,
-                                  folderindex: widget.folderIndex,
-                                  id: songs[playIndex].id),
+                                  folderindex: folderIndex,
+                                  id: _playListSongs[playIndex].id),
                             ),
                           ),
                         );
@@ -194,42 +180,43 @@ class _PlaylistViewState extends State<PlaylistView> {
       ),
     );
   }
+  // final TextEditingController _textEditingController = TextEditingController();
 
-  renamePlaylsit(index) async {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Rename Playlist'),
-        content: TextField(
-          controller: _textEditingController,
-          autofocus: true,
-          decoration: const InputDecoration(
-            hintText: 'Playlist name',
-            border: OutlineInputBorder(),
-          ),
-        ),
-        actions: [
-          OutlinedButton(
-            onPressed: () {
-              final playReName = _textEditingController.text.trim();
-              if (playReName.isNotEmpty) {
-                // final _newlist =
-                //     PlayListModel(playListName: _playName, playlistSongs: []);
-                // updateList(index, playReName);
-                _textEditingController.clear();
-                Navigator.of(context).pop(MaterialPageRoute(
-                  builder: (context) => const PlaylistScreen(),
-                ));
-              }
-            },
-            child: const Text('Rename'),
-          ),
-          OutlinedButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          )
-        ],
-      ),
-    );
-  }
+  // renamePlaylsit(index) async {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: const Text('Rename Playlist'),
+  //       content: TextField(
+  //         controller: _textEditingController,
+  //         autofocus: true,
+  //         decoration: const InputDecoration(
+  //           hintText: 'Playlist name',
+  //           border: OutlineInputBorder(),
+  //         ),
+  //       ),
+  //       actions: [
+  //         OutlinedButton(
+  //           onPressed: () {
+  //             final playReName = _textEditingController.text.trim();
+  //             if (playReName.isNotEmpty) {
+  //               // final _newlist =
+  //               //     PlayListModel(playListName: _playName, playlistSongs: []);
+  //               // updateList(index, playReName);
+  //               _textEditingController.clear();
+  //               Navigator.of(context).pop(MaterialPageRoute(
+  //                 builder: (context) => const PlaylistScreen(),
+  //               ));
+  //             }
+  //           },
+  //           child: const Text('Rename'),
+  //         ),
+  //         OutlinedButton(
+  //           onPressed: () => Navigator.pop(context),
+  //           child: const Text('Cancel'),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 }

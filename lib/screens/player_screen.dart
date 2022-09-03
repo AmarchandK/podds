@@ -1,5 +1,4 @@
-// ignore_for_file: must_be_immutable, depend_on_referenced_packages
-
+// ignore_for_file: must_be_immutable, depend_on_referenced_packages, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/route_manager.dart';
@@ -11,8 +10,9 @@ import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/get_all_songs.dart';
 import 'package:podds/home_screen/home.dart';
+
+import 'get_all_songs.dart';
 
 class PlayerScreen extends StatefulWidget {
   PlayerScreen(
@@ -29,18 +29,20 @@ class PlayerScreen extends StatefulWidget {
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
- final FavDbFunctions _dbFunctions = Get.put(FavDbFunctions());
+  final FavDbFunctions _dbFunctions = Get.find();
   int currentIndex1 = 0;
   @override
   void initState() {
-    GetAllSongs.audioPlayer.currentIndexStream.listen((index) {
-      if (index != null && mounted) {
-        setState(() {
-          currentIndex1 = index;
-        });
-        GetAllSongs.getCurrentIndex = index;
-      }
-    });
+    GetAllSongs.audioPlayer.currentIndexStream.listen(
+      (index) {
+        if (index != null && mounted) {
+          setState(() {
+            currentIndex1 = index;
+          });
+          GetAllSongs.getCurrentIndex = index;
+        }
+      },
+    );
     // playSong();
     super.initState();
   }
@@ -56,7 +58,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         leading: IconButton(
             onPressed: () {
               Get.back();
-              _dbFunctions.favorites.notifyListeners();
+              _dbFunctions.favorites;
             },
             icon: const Icon(Icons.keyboard_arrow_down_outlined)),
         backgroundColor: color1,

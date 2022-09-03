@@ -7,8 +7,10 @@ import 'package:get/state_manager.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/get_all_songs.dart';
-import 'package:podds/player_screen.dart';
+
+import 'get_all_songs.dart';
+import 'player_screen.dart';
+
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);

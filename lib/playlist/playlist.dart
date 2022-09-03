@@ -1,21 +1,18 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
-import 'package:get/get_core/get_core.dart';
+import 'package:get/get.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:get/state_manager.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 import 'package:podds/playlist/playlist_view.dart';
 
-class PlaylistScreen extends StatefulWidget {
-  const PlaylistScreen({Key? key}) : super(key: key);
-  @override
-  State<PlaylistScreen> createState() => _PlaylistScreenState();
-}
+class PlaylistScreen extends StatelessWidget {
+   PlaylistScreen({Key? key}) : super(key: key);
 
-class _PlaylistScreenState extends State<PlaylistScreen> {
- final PlayListcontroller _listcontroller = Get.put(PlayListcontroller());
+  final PlayListcontroller _listcontroller = Get.find();
 
   // @override
   // void initState() {
@@ -47,67 +44,59 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         ],
         body: Container(
           decoration: stylesClass.background(),
-          child: ValueListenableBuilder(
-              valueListenable: _listcontroller.playListNotifier,
-              builder: (BuildContext context,
-                  List<PlayListModel> savedPlaylistvalue, Widget? child) {
-                if (savedPlaylistvalue.isEmpty) {
-                  return Center(
-                    child: Image.asset('assets/nullphone.png'),
-                  );
-                } else {
-                  return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemCount: savedPlaylistvalue.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final playlistDataTemp = savedPlaylistvalue[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: CustomCard(
-                          borderRadius: 5,
-                          color: color1,
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PlaylistView(
-                                folderIndex: index,
-                                playlistName: playlistDataTemp.playListName,
-                              ),
+          child: GetBuilder<PlayListcontroller>(builder: (controler) {
+            final _list = _listcontroller.playListNotifier;
+            if (_list.isEmpty) {
+              return Center(
+                child: Image.asset('assets/nullphone.png'),
+              );
+            } else {
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: _list.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final playlistDataTemp = _list[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: CustomCard(
+                      borderRadius: 5,
+                      color: color1,
+                      onTap: () =>Get.to(()=>PlaylistView(
+                            folderIndex: index,
+                            playlistName: playlistDataTemp.playListName,
+                          ),),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            height: 130,
+                            child: Image.asset(
+                              'assets/podds.png',
+                              fit: BoxFit.fill,
                             ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: 130,
-                                child: Image.asset(
-                                  'assets/podds.png',
-                                  fit: BoxFit.fill,
-                                ),
+                          SizedBox(
+                            height: 18,
+                            child: Center(
+                              child: Text(
+                                playlistDataTemp.playListName,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(
-                                height: 18,
-                                child: Center(
-                                  child: Text(
-                                    playlistDataTemp.playListName,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   );
-                }
-              }),
+                },
+              );
+            }
+          }),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -147,10 +136,10 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 if (_playName.isNotEmpty) {
                   final _newlist =
                       PlayListModel(playListName: _playName, playlistSongs: []);
-                _listcontroller.  playlistAdd(_newlist);
+                  _listcontroller.playlistAdd(_newlist);
                   _textEditingController.clear();
                   Navigator.of(context).pop(MaterialPageRoute(
-                    builder: (context) => const PlaylistScreen(),
+                    builder: (context) =>  PlaylistScreen(),
                   ));
                 }
               },

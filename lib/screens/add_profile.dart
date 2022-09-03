@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:podds/base_screen.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/splash.dart';
+import 'package:podds/screens/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'base_screen.dart';
 
 class AddScreen extends StatelessWidget {
   AddScreen({Key? key}) : super(key: key);

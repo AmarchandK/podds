@@ -8,20 +8,15 @@ import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/route_manager.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:podds/add_profile.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'add_profile.dart';
 
-class Settings extends StatefulWidget {
+class Settings extends StatelessWidget {
   const Settings({Key? key, required context}) : super(key: key);
 
-  @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
@@ -67,9 +62,9 @@ class _SettingsState extends State<Settings> {
                   title: 'Feedback',
                   iconData: Icons.rate_review_outlined,
                   ontap: (_) {
-                    setState(() {
-                      _betterFeedback(context);
-                    });
+                    // setState(() {
+                    _betterFeedback(context);
+                    // });
                   }),
               _bottomSheetDatas(
                   title: 'About',

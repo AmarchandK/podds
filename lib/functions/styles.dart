@@ -5,12 +5,9 @@ const color2 = Color.fromARGB(255, 0, 204, 204);
 final stylesClass = StylesPage();
 
 class StylesPage {
-
   Widget build(BuildContext context) {
-  
     return Container();
   }
-
   BoxDecoration background() {
     return const BoxDecoration(
       gradient: LinearGradient(

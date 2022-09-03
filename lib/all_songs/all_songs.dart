@@ -7,8 +7,9 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
-import 'package:podds/get_all_songs.dart';
-import 'package:podds/player_screen.dart';
+
+import '../screens/get_all_songs.dart';
+import '../screens/player_screen.dart';
 
 class AllSongs extends StatelessWidget {
   AllSongs({Key? key}) : super(key: key);

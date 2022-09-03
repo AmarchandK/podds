@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:podds/add_profile.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:podds/all_songs/all_songs.dart';
-import 'package:podds/base_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'add_profile.dart';
+import 'base_screen.dart';
 
 const savekey = 'userlogedin';
 String name = '';
@@ -18,6 +20,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    Permission.storage.request();
     checkLogin();
     AllSongs();
     super.initState();
@@ -55,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
         () => Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>  BaseScreen(),
+            builder: (context) => BaseScreen(),
           ),
         ),
       );

@@ -5,17 +5,17 @@ import 'package:get/route_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:podds/functions/styles.dart';
-
 import 'package:podds/paly_list_model/play_list_model.dart';
-import 'package:podds/splash.dart';
+import 'screens/splash.dart';
+import 'Controlers/InitController/init_controllers.dart' as di;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(PlayListModelAdapter().typeId)) {
     Hive.registerAdapter(PlayListModelAdapter());
   }
-  await Hive.openBox('favorites');
 
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',

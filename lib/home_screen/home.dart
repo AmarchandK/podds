@@ -2,18 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:podds/home_screen/homescreen_functns.dart';
 import 'package:podds/functions/styles.dart';
+import '../screens/search.dart';
+import '../screens/splash.dart';
 
-import 'package:podds/search.dart';
-import 'package:podds/splash.dart';
-
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
             image: AssetImage('assets/logo.png'),
           ),
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(greeting()),
             Text(
@@ -36,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+        centerTitle: true,
         elevation: 0,
         actions: [
           IconButton(
@@ -53,13 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               children: [
                 stylesClass.textStyle(hometext: 'Recents'),
-                 HomeRecentsSongs(),
+                HomeRecentsSongs(),
                 stylesClass.textStyle(hometext: 'All songs'),
                 HomeAllSongs(),
                 stylesClass.textStyle(hometext: 'Favorites'),
-                 HomeFavorites(),
+                HomeFavorites(),
                 stylesClass.textStyle(hometext: 'Playlists'),
-                 HomePlaylist(),
+                HomePlaylist(),
               ],
             ),
           )),
