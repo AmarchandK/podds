@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:rxdart/rxdart.dart';
@@ -12,6 +13,7 @@ import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
 import 'package:podds/home_screen/home.dart';
 
+import '../favorites/FavButton/fav_button.dart';
 import 'get_all_songs.dart';
 
 class PlayerScreen extends StatefulWidget {
@@ -119,10 +121,15 @@ class _PlayerScreenState extends State<PlayerScreen> {
               ),
             ),
             Text(
-                widget.songModal[currentIndex1].artist.toString() == '<unknown>'
-                    ? 'Unknown Artist'
-                    : widget.songModal[currentIndex1].artist.toString()),
-            Align(child: FavBTN(id: widget.id)),
+              widget.songModal[currentIndex1].artist.toString() == '<unknown>'
+                  ? 'Unknown Artist'
+                  : widget.songModal[currentIndex1].artist.toString(),
+            ),
+            Align(
+              child: GetBuilder<FavDbFunctions>(
+                builder: (controller) => FavButton(id: widget.id),
+              ),
+            ),
             StreamBuilder<DurationState>(
                 stream: _durationStateStream,
                 builder: (context, snapshot) {

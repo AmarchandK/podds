@@ -4,6 +4,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/state_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:podds/favorites/FavButton/fav_button.dart';
 import 'package:podds/all_songs/all_songs.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
@@ -29,7 +30,7 @@ class FavoriteFunction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<FavDbFunctions>(builder: (controller) {
-      final tempList = _dbFunctions.favorites;
+      final tempList = _dbFunctions.favloop;
       // print(value);
       if (_dbFunctions.favloop.isEmpty) {
         return Center(
@@ -50,8 +51,7 @@ class FavoriteFunction extends StatelessWidget {
                     onTap: () {
                       FavoriteFunction.tempFav.clear();
                       FavoriteFunction.tempFav.addAll(_dbFunctions.favloop);
-                      _controller.addRecentlyPlayed(
-                          AllSongs.songs[tempList[index]].id);
+                      _controller.addRecentlyPlayed(tempList[index].id);
                       GetAllSongs.audioPlayer.setAudioSource(
                           GetAllSongs.createSongList(_dbFunctions.favloop),
                           initialIndex: index);
@@ -59,7 +59,7 @@ class FavoriteFunction extends StatelessWidget {
                       Get.to(
                         () => PlayerScreen(
                           songModal: _dbFunctions.favloop,
-                          id: AllSongs.songs[tempList[index]].id,
+                          id: tempList[index].id,
                         ),
                         transition: Transition.downToUp,
                         duration: const Duration(milliseconds: 500),
@@ -70,7 +70,7 @@ class FavoriteFunction extends StatelessWidget {
                       backgroundColor: color1,
                       child: QueryArtworkWidget(
                         artworkFit: BoxFit.fill,
-                        id: AllSongs.songs[tempList[index]].id,
+                        id: tempList[index].id,
                         type: ArtworkType.AUDIO,
                         nullArtworkWidget: Center(
                             child: Padding(
@@ -82,12 +82,10 @@ class FavoriteFunction extends StatelessWidget {
                       ),
                     ),
                     trailing: GetBuilder<FavDbFunctions>(
-                      builder: (controller) => FavBTN(
-                        id: AllSongs.songs[tempList[index]].id,
-                      ),
-                    ),
+                        builder: (controller) =>
+                            FavButton(id: tempList[index].id)),
                     title: Text(
-                      AllSongs.songs[tempList[index]].title,
+                      tempList[index].title,
                       overflow: TextOverflow.fade,
                       softWrap: false,
                     ),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:podds/favorites/FavButton/fav_button.dart';
+import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/favorites/fav_button.dart';
 import 'package:podds/functions/styles.dart';
@@ -15,7 +18,7 @@ class AllSongs extends StatelessWidget {
   AllSongs({Key? key}) : super(key: key);
   static List<SongModel> songs = [];
   final audioQuery = OnAudioQuery();
- final RecentSongsController _controller = Get.put(RecentSongsController());
+  final RecentSongsController _controller = Get.put(RecentSongsController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class AllSongs extends StatelessWidget {
                     GetAllSongs.createSongList(songs),
                     initialIndex: index);
                 GetAllSongs.audioPlayer.play();
-              _controller.addRecentlyPlayed(songs[index].id);
+                _controller.addRecentlyPlayed(songs[index].id);
                 Get.to(
                   () => PlayerScreen(
                     songModal: songs,
@@ -60,8 +63,8 @@ class AllSongs extends StatelessWidget {
                   )),
                 ),
               ),
-              trailing: FavBTN(
-                id: songs[index].id,
+              trailing: GetBuilder<FavDbFunctions>(
+                builder: (controller) => FavButton(id: songs[index].id),
               ),
               title: Text(
                 songs[index].displayNameWOExt,

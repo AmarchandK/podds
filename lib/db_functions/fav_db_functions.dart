@@ -19,12 +19,13 @@ class FavDbFunctions extends GetxController {
   Future<void> getAllFavSongs() async {
     final dbBox = await Hive.openBox<int>('favorites');
     favsong = dbBox.values.toList();
+    displaySongs();
     update();
   }
 
-  addSongtoFav(item) async {
+  addSongtoFav(int id) async {
     final dbBox = await Hive.openBox<int>('favorites');
-    await dbBox.add(item);
+    await dbBox.add(id);
     getAllFavSongs();
     update();
   }
@@ -36,11 +37,11 @@ class FavDbFunctions extends GetxController {
     update();
   }
 
-  deleteFromFavorites(id) async {
+  deleteFromFavorites(int id) async {
     final dbBox = await Hive.openBox<int>('favorites');
     // favsong.removeWhere((item) => item == id);
     int index = favsong.indexOf(id);
-   await dbBox.deleteAt(index);
+    await dbBox.deleteAt(index);
     getAllFavSongs();
     update();
   }
