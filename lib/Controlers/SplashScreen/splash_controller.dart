@@ -19,9 +19,9 @@ class SplshController extends GetxController {
     name = sharedpref.getString('name') ?? 'No data';
     final alreadyloged = sharedpref.getBool('loged') ?? false;
     if (alreadyloged == false) {
-      Timer(const Duration(seconds: 2), () => Get.off(AddScreen()));
+      Timer(const Duration(seconds: 2), () => Get.off(() => AddScreen()));
     } else {
-      Timer(const Duration(seconds: 3), () => Get.off(BaseScreen()));
+      Timer(const Duration(seconds: 3), () => Get.off(() => BaseScreen()));
     }
   }
 }

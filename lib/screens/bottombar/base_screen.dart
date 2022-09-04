@@ -13,8 +13,6 @@ import '../miniplayer/miniplayer.dart';
 
 class BaseScreen extends StatelessWidget {
   BaseScreen({Key? key}) : super(key: key);
-
-  // BottomController _bottomController = Get.put(BottomController());
   final FavDbFunctions _dbFunctions = Get.find();
   final screens = [
     const HomeScreen(),

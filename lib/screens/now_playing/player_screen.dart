@@ -57,7 +57,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
         leading: IconButton(
             onPressed: () {
               Get.back();
-          
             },
             icon: const Icon(Icons.keyboard_arrow_down_outlined)),
         backgroundColor: color1,
@@ -95,6 +94,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 artworkBorder: BorderRadius.circular(height / 6),
                 id: widget.songModal[currentIndex1].id,
                 type: ArtworkType.AUDIO,
+                artworkQuality: FilterQuality.high,
                 keepOldArtwork: true,
                 nullArtworkWidget: Padding(
                   padding: const EdgeInsets.all(25.0),

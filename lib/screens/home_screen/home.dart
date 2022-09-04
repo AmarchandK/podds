@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () => Get.to(
-              () => const SearchScreen(),
+              () => SearchScreen(),
             ),
             icon: const Icon(Icons.search),
           )

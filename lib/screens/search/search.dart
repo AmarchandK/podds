@@ -1,55 +1,14 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/state_manager.dart';
-import 'package:on_audio_query/on_audio_query.dart';
+import 'package:get/get.dart';
 import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:podds/functions/constants/styles.dart';
+import 'package:podds/screens/search/controller/search_controller.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 import '../now_playing/player_screen.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
-  @override
-  _SearchScreenState createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  final List<SongModel> _allSongs = AllSongs.songs;
-  // This list holds the data for the list view
-  List<SongModel> _foundSongs = [];
-  String temp = '';
-  @override
-  initState() {
-    // at the beginning, all users are shown
-    _foundSongs = _allSongs;
-    super.initState();
-  }
-
-  // This function i s called whenever the text field changes
-  void _runFilter(String enteredKeyword) {
-    List<SongModel> results = [];
-    if (enteredKeyword.isEmpty) {
-      // if the search field is empty or only contains white-space, we'll display all users
-      results = _allSongs;
-    } else {
-      results = _allSongs
-          .where(
-            (name) => name.title.toLowerCase().contains(
-                  enteredKeyword.toLowerCase(),
-                ),
-          )
-          .toList();
-      // we use the toLowerCase() method to make it case-insensitive
-    }
-    // Refresh the UI
-    setState(() {
-      _foundSongs = results;
-    });
-  }
-
+class SearchScreen extends StatelessWidget {
+  SearchScreen({Key? key}) : super(key: key);
+  final Searchcontroller _searchcontroller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,48 +20,55 @@ class _SearchScreenState extends State<SearchScreen> {
               TextFormField(
                 autofocus: true,
                 onChanged: (value) {
-                  _runFilter(value);
-                  // temp = value;
+                  _searchcontroller.runFilter(value);
+                  // temp = value
                 },
                 decoration: InputDecoration(
-                    labelText: 'Search',
-                    suffixIcon: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          // if (temp.isEmpty) {
+                  labelText: 'Search',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      // if (temp.isEmpty) {
 
-                          // } else {
-                          //   // temp.//???????????????
-                          // }
-                        },
-                        icon: const Icon(Icons.close))),
+                      // } else {
+                      //   // temp.//???????????????
+                      // }
+                    },
+                    icon: const Icon(Icons.close),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 20,
               ),
               Expanded(
-                child: _foundSongs.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: _foundSongs.length,
-                        itemBuilder: (context, index) => Card(
-                          key: ValueKey(_foundSongs[index].id),
-                          color: color1,
-                          elevation: 4,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          child: ListTile(
-                            leading: const Icon(Icons.search),
-                            title: Text(_foundSongs[index].title),
-                            onTap: () {
-                              FocusManager.instance.primaryFocus?.unfocus();
-                              GetAllSongs.audioPlayer.play();
-                              GetAllSongs.audioPlayer.setAudioSource(
-                                  GetAllSongs.createSongList(_foundSongs),
-                                  initialIndex: index);
-                              Get.to(PlayerScreen(
-                                id: AllSongs.songs[index].id,
-                                songModal: _foundSongs,
-                              ));
-                            },
+                child: _searchcontroller.foundSongs.isNotEmpty
+                    ? GetBuilder<Searchcontroller>(
+                        builder: (controller) => ListView.builder(
+                          itemCount: _searchcontroller.foundSongs.length,
+                          itemBuilder: (context, index) => Card(
+                            key: ValueKey(
+                                _searchcontroller.foundSongs[index].id),
+                            color: color1,
+                            elevation: 4,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            child: ListTile(
+                              leading: const Icon(Icons.search),
+                              title: Text(
+                                  _searchcontroller.foundSongs[index].title),
+                              onTap: () {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                GetAllSongs.audioPlayer.play();
+                                GetAllSongs.audioPlayer.setAudioSource(
+                                    GetAllSongs.createSongList(
+                                        _searchcontroller.foundSongs),
+                                    initialIndex: index);
+                                Get.to(PlayerScreen(
+                                  id: AllSongs.songs[index].id,
+                                  songModal: _searchcontroller.foundSongs,
+                                ));
+                              },
+                            ),
                           ),
                         ),
                       )

@@ -26,7 +26,7 @@ class LibaryScreen extends StatelessWidget {
           elevation: 0,
           actions: [
             IconButton(
-                onPressed: () => Get.to(const SearchScreen()),
+                onPressed: () => Get.to( SearchScreen()),
                 icon: const Icon(Icons.search_sharp))
           ],
           // actions: [
