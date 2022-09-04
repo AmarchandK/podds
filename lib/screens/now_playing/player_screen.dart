@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
@@ -30,7 +29,6 @@ class PlayerScreen extends StatefulWidget {
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
-  final FavDbFunctions _dbFunctions = Get.find();
   int currentIndex1 = 0;
   @override
   void initState() {

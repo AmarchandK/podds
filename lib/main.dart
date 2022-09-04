@@ -11,11 +11,11 @@ import 'Controlers/InitController/init_controllers.dart' as di;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await di.init();
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(PlayListModelAdapter().typeId)) {
     Hive.registerAdapter(PlayListModelAdapter());
   }
+  await di.init();
 
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         backgroundColor: color2,
-        primarySwatch: Colors.cyan,
+        primarySwatch: Colors.blueGrey,
         brightness: Brightness.dark,
       ),
       home: const SplashScreen(),

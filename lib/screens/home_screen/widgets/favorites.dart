@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:podds/screens/favorites/FavButton/fav_button.dart';
 import '../../all_songs/all_songs.dart';
 import '../../../db_functions/fav_db_functions.dart';
 import '../../../db_functions/recent_songs.dart';
@@ -53,27 +54,32 @@ class HomeFavorites extends StatelessWidget {
                     child: Column(
                       children: [
                         Material(
-                          elevation: 10,
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            decoration: stylesClass.background(),
-                            height: 150,
-                            width: 150,
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: QueryArtworkWidget(
-                                artworkBorder: BorderRadius.circular(0),
-                                artworkFit: BoxFit.fill,
-                                id: AllSongs.songs[tempList[index]].id,
-                                type: ArtworkType.AUDIO,
-                                nullArtworkWidget: Image.asset(
-                                  'assets/podds.png',
-                                  fit: BoxFit.fill,
+                            elevation: 10,
+                            borderRadius: BorderRadius.circular(10),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  decoration: stylesClass.background(),
+                                  height: 150,
+                                  width: 150,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: QueryArtworkWidget(
+                                      artworkBorder: BorderRadius.circular(0),
+                                      artworkFit: BoxFit.fill,
+                                      id: AllSongs.songs[tempList[index]].id,
+                                      type: ArtworkType.AUDIO,
+                                      nullArtworkWidget: Image.asset(
+                                        'assets/podds.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
+                                FavButton(
+                                    id: AllSongs.songs[tempList[index]].id)
+                              ],
+                            ),),
                         Padding(
                           padding: const EdgeInsets.only(top: 7),
                           child: SizedBox(

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:podds/screens/home_screen/widgets/all_songs.dart';
 import 'package:podds/functions/constants/styles.dart';
 import '../search/search.dart';
-import '../splash/splash.dart';
 import 'widgets/favorites.dart';
 import 'widgets/playlists.dart';
 import 'widgets/recent.dart';

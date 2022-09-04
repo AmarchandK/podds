@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:podds/functions/constants/styles.dart';
-import 'package:podds/screens/splash/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../bottombar/base_screen.dart';
 
 class AddScreen extends StatelessWidget {
@@ -96,7 +94,7 @@ class AddScreen extends StatelessWidget {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) =>  BaseScreen(),
+        builder: (context) => BaseScreen(),
       ),
     );
   }

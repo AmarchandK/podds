@@ -1,4 +1,6 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+import 'dart:developer';
+
 import 'package:get/state_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -11,10 +13,11 @@ class FavDbFunctions extends GetxController {
   @override
   void onInit() {
     getAllFavSongs();
+    log("working");
     super.onInit();
   }
 
-   getAllFavSongs() async {
+  getAllFavSongs() async {
     final dbBox = await Hive.openBox<int>('favorites');
     // favsong = dbBox.values.toList();
     favsong.clear();

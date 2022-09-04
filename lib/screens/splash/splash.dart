@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
-const savekey = 'userlogedin';
-String name = '';
 
 class SplashScreen extends GetView {
   const SplashScreen({Key? key}) : super(key: key);

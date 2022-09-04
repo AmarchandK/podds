@@ -9,9 +9,7 @@ import 'package:podds/screens/playlists/playlist_view.dart';
 
 class PlaylistScreen extends StatelessWidget {
   PlaylistScreen({Key? key}) : super(key: key);
-
   final PlayListcontroller _listcontroller = Get.find();
-
   final TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {

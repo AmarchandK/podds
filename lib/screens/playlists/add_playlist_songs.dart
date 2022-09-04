@@ -5,19 +5,16 @@ import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/screens/playlists/widgets/playlist_button.dart';
-
 import '../../functions/get_all_songs/get_all_songs.dart';
 
 class AddToPlaylist extends StatelessWidget {
-   AddToPlaylist(
+  AddToPlaylist(
       {Key? key, required this.playlistName, required this.folderIndex})
       : super(key: key);
   final String playlistName;
   static List<SongModel> addSong = AllSongs.songs;
   final int folderIndex;
-
   final audioQuery = OnAudioQuery();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +37,12 @@ class AddToPlaylist extends StatelessWidget {
               child: Card(
                 color: const Color.fromARGB(119, 21, 153, 140),
                 child: ListTile(
-                  onTap: () => GetAllSongs.audioPlayer.play(),
+                  onTap: () {
+                    GetAllSongs.audioPlayer.setAudioSource(
+                        GetAllSongs.createSongList(addSong),
+                        initialIndex: index);
+                    GetAllSongs.audioPlayer.play();
+                  },
                   leading: CircleAvatar(
                     radius: 25,
                     child: QueryArtworkWidget(
@@ -50,15 +52,24 @@ class AddToPlaylist extends StatelessWidget {
                       nullArtworkWidget: const Icon(Icons.music_note),
                     ),
                   ),
-                  trailing: GetBuilder<PlayListcontroller>(builder: (controller) => PlayListAddButton(
-                    id: AddToPlaylist.addSong[index].id,
-                    index: index,
-                    folderindex: folderIndex,
-                  ),),
+                  trailing: GetBuilder<PlayListcontroller>(
+                    builder: (controller) => PlayListAddButton(
+                      id: AddToPlaylist.addSong[index].id,
+                      index: index,
+                      folderindex: folderIndex,
+                    ),
+                  ),
+                  subtitle: const Text(
+                    'Tap to play',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                   title: Text(
                     AddToPlaylist.addSong[index].displayNameWOExt,
                     overflow: TextOverflow.fade,
                     softWrap: false,
+                    style: TextStyle(
+                        color:
+                            GetAllSongs.audioPlayer.playing ? color2 : color1),
                   ),
                 ),
               ),

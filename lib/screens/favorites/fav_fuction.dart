@@ -5,7 +5,6 @@ import 'package:get/state_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/screens/favorites/FavButton/fav_button.dart';
-import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/functions/constants/styles.dart';

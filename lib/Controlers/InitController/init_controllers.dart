@@ -4,9 +4,9 @@ import 'package:podds/db_functions/fav_db_functions.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 
-Future<void> init() async {
+init() {
   Get.put(FavDbFunctions());
-  Get.lazyPut(() => PlayListcontroller());
+  Get.put(PlayListcontroller());
   Get.lazyPut(() => RecentSongsController());
   Get.put(SplshController());
 }

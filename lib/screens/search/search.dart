@@ -36,8 +36,11 @@ class _SearchScreenState extends State<SearchScreen> {
       results = _allSongs;
     } else {
       results = _allSongs
-          .where((name) =>
-              name.title.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .where(
+            (name) => name.title.toLowerCase().contains(
+                  enteredKeyword.toLowerCase(),
+                ),
+          )
           .toList();
       // we use the toLowerCase() method to make it case-insensitive
     }
@@ -65,7 +68,12 @@ class _SearchScreenState extends State<SearchScreen> {
                     labelText: 'Search',
                     suffixIcon: IconButton(
                         onPressed: () {
-                          Get.back();
+                          Navigator.pop(context);
+                          // if (temp.isEmpty) {
+
+                          // } else {
+                          //   // temp.//???????????????
+                          // }
                         },
                         icon: const Icon(Icons.close))),
               ),

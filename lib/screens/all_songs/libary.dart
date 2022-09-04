@@ -8,7 +8,6 @@ import '../search/search.dart';
 class LibaryScreen extends StatelessWidget {
   const LibaryScreen({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -58,10 +57,12 @@ class LibaryScreen extends StatelessWidget {
         ),
         body: Container(
           decoration: stylesClass.background(),
-          child: TabBarView(children: [
-            AllSongs(),
-             FavoriteFunction(),
-          ]),
+          child: TabBarView(
+            children: [
+              AllSongs(),
+              FavoriteFunction(),
+            ],
+          ),
         ),
       ),
     );

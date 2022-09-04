@@ -7,25 +7,23 @@ import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/screens/home_screen/home.dart';
 import 'package:podds/screens/all_songs/libary.dart';
 import 'package:podds/screens/playlists/playlist.dart';
-
 import '../settings/bottom_sheet.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 import '../miniplayer/miniplayer.dart';
-
-RxInt baseIndex = 0.obs;
 
 class BaseScreen extends StatelessWidget {
   BaseScreen({Key? key}) : super(key: key);
 
   // BottomController _bottomController = Get.put(BottomController());
-  final FavDbFunctions _dbFunctions =Get.find();
-  final screens =  [
-   const HomeScreen(),
-   const LibaryScreen(),
+  final FavDbFunctions _dbFunctions = Get.find();
+  final screens = [
+    const HomeScreen(),
+    const LibaryScreen(),
     PlaylistScreen(),
   ];
   @override
   Widget build(BuildContext context) {
+    // _dbFunctions.getAllFavSongs();
     return Scaffold(
       backgroundColor: color2,
       body: Obx(() => screens[baseIndex.value]),

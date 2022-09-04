@@ -1,4 +1,6 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+import 'dart:developer';
+
 import 'package:get/state_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -10,10 +12,12 @@ class PlayListcontroller extends GetxController {
   List<SongModel> selectPlaySong = [];
 
   @override
-  void onInit() async {
+  void onInit() {
     getAllPlaylist();
+    log("Working playlist");
     super.onInit();
   }
+
   Future<void> getAllPlaylist() async {
     final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
     playListNotifier.clear();
@@ -32,7 +36,7 @@ class PlayListcontroller extends GetxController {
     final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
     await playListDB.putAt(index, value);
     await getAllPlaylist();
-    await showSelectSong(index); 
+    await showSelectSong(index);
     update();
   }
 
@@ -57,4 +61,3 @@ class PlayListcontroller extends GetxController {
     }
   }
 }
-

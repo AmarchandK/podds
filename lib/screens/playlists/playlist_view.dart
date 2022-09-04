@@ -20,10 +20,9 @@ class PlaylistView extends StatelessWidget {
       {Key? key, required this.folderIndex, required this.playlistName})
       : super(key: key);
   final int folderIndex;
-  String playlistName;
-
+  final String playlistName;
   final PlayListcontroller _listcontroller = Get.find();
-  final RecentSongsController _controller =Get.find();
+  final RecentSongsController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +31,12 @@ class PlaylistView extends StatelessWidget {
       decoration: stylesClass.background(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        floatingActionButton: FloatingActionButton(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
           backgroundColor: color1,
-          child: const Icon(
-            Icons.add,
-            color: color2,
+          label: const Text(
+            'Add Songs',
+            style: TextStyle(color: Colors.white),
           ),
           onPressed: () => Get.to(
               AddToPlaylist(
@@ -88,16 +88,23 @@ class PlaylistView extends StatelessWidget {
                     // ),
                     PopupMenuItem(
                       child: TextButton.icon(
-                        label: const Text("Delete Playlist"),
+                        label: Text(
+                          "Delete $playlistName",
+                          style: const TextStyle(color: Colors.white),
+                        ),
                         onPressed: () {
-                          _listcontroller.deletePlayList(folderIndex);
-                          baseIndex.value = 2;
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BaseScreen(),
-                              ),
-                              (route) => false);
+                          Get.defaultDialog(
+                            title: "Delete $playlistName",
+                            middleText: "Are you sure $name?",
+                            backgroundColor: color1,
+                            textConfirm: 'Yes',
+                            onConfirm: () {
+                              _listcontroller.deletePlayList(folderIndex);
+                              baseIndex.value = 2;
+                              
+                              Get.offAll(BaseScreen());
+                            },
+                          );
                         },
                         icon: const Icon(Icons.delete_outline),
                       ),

@@ -6,10 +6,9 @@ import 'package:get/state_manager.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
-import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/db_functions/recent_songs.dart';
 import 'package:podds/functions/constants/styles.dart';
-import 'package:podds/screens/playlists/playlist_view.dart';
+import 'package:podds/screens/favorites/FavButton/fav_button.dart';
 import '../../../functions/get_all_songs/get_all_songs.dart';
 import '../../now_playing/player_screen.dart';
 
@@ -68,27 +67,34 @@ class HomeAllSongs extends StatelessWidget {
                     child: Column(
                       children: [
                         Material(
-                          elevation: 10,
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            decoration: stylesClass.background(),
-                            height: 150,
-                            width: 150,
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: QueryArtworkWidget(
-                                artworkBorder: BorderRadius.circular(0),
-                                artworkFit: BoxFit.fill,
-                                id: item.data![index].id,
-                                type: ArtworkType.AUDIO,
-                                nullArtworkWidget: Image.asset(
-                                  'assets/podds.png',
-                                  fit: BoxFit.fill,
+                            elevation: 10,
+                            borderRadius: BorderRadius.circular(10),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  decoration: stylesClass.background(),
+                                  height: 150,
+                                  width: 150,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: QueryArtworkWidget(
+                                      artworkBorder: BorderRadius.circular(0),
+                                      artworkFit: BoxFit.fill,
+                                      id: item.data![index].id,
+                                      type: ArtworkType.AUDIO,
+                                      nullArtworkWidget: Image.asset(
+                                        'assets/podds.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
+                                GetBuilder<FavDbFunctions>(
+                                    builder: (controller) {
+                                  return FavButton(id: item.data![index].id);
+                                }),
+                              ],
+                            )),
                         Padding(
                           padding: const EdgeInsets.only(top: 7),
                           child: SizedBox(

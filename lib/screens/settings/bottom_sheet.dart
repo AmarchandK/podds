@@ -57,7 +57,7 @@ class Settings extends StatelessWidget {
                   title: 'Rate App',
                   iconData: Icons.star_border,
                   ontap: (ctx) => launch(
-                      'https://play.google.com/store/apps/details?id=in.brototype.podds')),
+                      'https://play.google.com/store/apps/details?id=in.fauty.podds')),
               _bottomSheetDatas(
                   title: 'Feedback',
                   iconData: Icons.rate_review_outlined,

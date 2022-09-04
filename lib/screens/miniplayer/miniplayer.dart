@@ -5,7 +5,6 @@ import 'package:get/route_manager.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/functions/constants/styles.dart';
-
 import '../../functions/get_all_songs/get_all_songs.dart';
 import '../now_playing/player_screen.dart';
 

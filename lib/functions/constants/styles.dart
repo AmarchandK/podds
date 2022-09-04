@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 const color1 = Color.fromARGB(255, 25, 124, 124);
 const color2 = Color.fromARGB(255, 0, 204, 204);
 final stylesClass = StylesPage();
 
+// const savekey = 'userlogedin';
+String name = '';
+RxInt baseIndex = 0.obs;
+
 class StylesPage {
   Widget build(BuildContext context) {
     return Container();
   }
+
   BoxDecoration background() {
     return const BoxDecoration(
       gradient: LinearGradient(
@@ -40,6 +46,7 @@ String greeting() {
   }
   return 'Good Evening';
 }
+
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildOverscrollIndicator(
