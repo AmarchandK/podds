@@ -46,7 +46,6 @@ class FavoriteFunction extends StatelessWidget {
                       Get.to(
                         () => PlayerScreen(
                           songModal: _dbFunctions.favloop,
-                          id: tempList[index].id,
                         ),
                         transition: Transition.downToUp,
                         duration: const Duration(milliseconds: 500),

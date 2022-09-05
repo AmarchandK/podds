@@ -38,7 +38,6 @@ class AllSongs extends StatelessWidget {
                 Get.to(
                   () => PlayerScreen(
                     songModal: songs,
-                    id: songs[index].id,
                   ),
                   transition: Transition.downToUp,
                   duration: const Duration(milliseconds: 500),

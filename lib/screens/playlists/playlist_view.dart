@@ -142,7 +142,7 @@ class PlaylistView extends StatelessWidget {
                                     initialIndex: playIndex);
                                 GetAllSongs.audioPlayer.play();
                                 Get.to(() => PlayerScreen(
-                                      id: _playListSongs[playIndex].id,
+                          
                                       songModal: _playListSongs,
                                     ));
                               },

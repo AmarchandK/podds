@@ -42,7 +42,7 @@ class HomeRecentsSongs extends StatelessWidget {
 
                       Get.to(
                         () => PlayerScreen(
-                            songModal: removedup, id: removedup[index].id),
+                            songModal: removedup,),
                         transition: Transition.downToUp,
                         duration: const Duration(milliseconds: 500),
                       );

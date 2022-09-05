@@ -43,7 +43,7 @@ class HomeFavorites extends StatelessWidget {
                     Get.to(
                       () => PlayerScreen(
                         songModal: _dbController.favloop,
-                        id: AllSongs.songs[tempList[index]].id,
+      
                       ),
                       transition: Transition.downToUp,
                       duration: const Duration(milliseconds: 500),

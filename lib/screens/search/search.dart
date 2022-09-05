@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/screens/search/controller/search_controller.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
@@ -59,7 +58,7 @@ class SearchScreen extends GetView {
                                     initialIndex: index);
                                 Get.to(
                                   PlayerScreen(
-                                    id: AllSongs.songs[index].id,
+                      
                                     songModal: _searchcontroller.foundSongs,
                                   ),
                                 );

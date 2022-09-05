@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:get/get.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
@@ -13,32 +14,13 @@ import 'package:podds/screens/home_screen/home.dart';
 import '../favorites/FavButton/fav_button.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 
-class PlayerScreen extends StatefulWidget {
-  PlayerScreen({Key? key, required this.songModal, required this.id})
+class PlayerScreen extends StatelessWidget {
+  PlayerScreen({Key? key, required this.songModal,})
       : super(key: key);
   final List<dynamic> songModal;
-  dynamic id;
-  @override
-  State<PlayerScreen> createState() => _PlayerScreenState();
-}
 
-class _PlayerScreenState extends State<PlayerScreen> {
-  int currentIndex1 = 0;
+
   final NowPlayingController _controller = Get.put(NowPlayingController());
-  @override
-  void initState() {
-    GetAllSongs.audioPlayer.currentIndexStream.listen(
-      (index) {
-        if (index != null && mounted) {
-          setState(() {
-            currentIndex1 = index;
-          });
-          GetAllSongs.getCurrentIndex = index;
-        }
-      },
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +42,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
           IconButton(
             onPressed: () {
               showSliderDialog(value: GetAllSongs.audioPlayer.volume);
-              setState(() {});
             },
             icon: GetAllSongs.audioPlayer.volume == 0
                 ? const Icon(Icons.volume_off)
@@ -75,52 +56,64 @@ class _PlayerScreenState extends State<PlayerScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              height: height / 3,
-              width: height / 3,
-              decoration: BoxDecoration(
-                border: Border.all(width: 5, color: color2),
-                color: color1,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(height / 6),
+                height: height / 3,
+                width: height / 3,
+                decoration: BoxDecoration(
+                  border: Border.all(width: 5, color: color2),
+                  color: color1,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(height / 6),
+                  ),
                 ),
-              ),
-              child: QueryArtworkWidget(
-                artworkFit: BoxFit.fill,
-                artworkBorder: BorderRadius.circular(height / 6),
-                id: widget.songModal[currentIndex1].id,
-                type: ArtworkType.AUDIO,
-                artworkQuality: FilterQuality.high,
-                keepOldArtwork: true,
-                nullArtworkWidget: Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Center(
-                    child: Image.asset(
-                      'assets/logo.png',
+                child: Obx(
+                  () => QueryArtworkWidget(
+                    artworkFit: BoxFit.fill,
+                    artworkBorder: BorderRadius.circular(height / 6),
+                    id: songModal[_controller.currentIndex1.value].id,
+                    type: ArtworkType.AUDIO,
+                    artworkQuality: FilterQuality.high,
+                    keepOldArtwork: true,
+                    nullArtworkWidget: Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/logo.png',
+                        ),
+                      ),
                     ),
+                  ),
+                )),
+            Obx(
+              () => MarqueeText(
+                speed: 10,
+                text: TextSpan(
+                  // text: widget.songName[widget.index].displayNameWOExt,
+                  text: songModal[_controller.currentIndex1.value]
+                      .title
+                      .toString(),
+                  style: TextStyle(
+                    fontSize: height / 22,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
-            MarqueeText(
-              speed: 10,
-              text: TextSpan(
-                // text: widget.songName[widget.index].displayNameWOExt,
-                text: widget.songModal[currentIndex1].title.toString(),
-                style: TextStyle(
-                  fontSize: height / 22,
-                  fontWeight: FontWeight.bold,
-                ),
+            Obx(
+              () => Text(
+                songModal[_controller.currentIndex1.value].artist.toString() ==
+                        '<unknown>'
+                    ? 'Unknown Artist'
+                    : songModal[_controller.currentIndex1.value]
+                        .artist
+                        .toString(),
               ),
-            ),
-            Text(
-              widget.songModal[currentIndex1].artist.toString() == '<unknown>'
-                  ? 'Unknown Artist'
-                  : widget.songModal[currentIndex1].artist.toString(),
             ),
             Align(
               child: GetBuilder<FavDbFunctions>(
-                builder: (controller) => FavButton(id: widget.id),
-              ),
+                  builder: (controller) => Obx(
+                        () => FavButton(
+                            id: songModal[_controller.currentIndex1.value].id),
+                      )),
             ),
             StreamBuilder<DurationState>(
                 stream: _durationStateStream,
@@ -216,7 +209,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                     } else {
                       await GetAllSongs.audioPlayer.play();
                     }
-                    setState(() {});
                   },
                   child: StreamBuilder<bool>(
                     stream: GetAllSongs.audioPlayer.playingStream,
@@ -258,49 +250,37 @@ class _PlayerScreenState extends State<PlayerScreen> {
     );
   }
 
-  void changeToSeconds(int seconds) {
-    Duration duration = Duration(seconds: seconds);
-    GetAllSongs.audioPlayer.seek(duration);
-  }
-
 /////// VOLUME ////////////
   showSliderDialog({
     String valueSuffix = '',
     required double value,
   }) {
-    return showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: const Text(
-          'Adjust Your Volume',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white),
-        ),
-        content: StreamBuilder<double>(
-          stream: GetAllSongs.audioPlayer.volumeStream,
-          builder: (context, snapshot) => SizedBox(
-            height: 100.0,
-            child: Column(
-              children: [
-                Text('${snapshot.data?.toStringAsFixed(1)}$valueSuffix',
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Fixed',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24.0)),
-                Slider(
-                  activeColor: color2,
-                  inactiveColor: Colors.grey,
-                  divisions: 10,
-                  min: 0,
-                  max: 5,
-                  value: snapshot.data ?? value,
-                  onChanged: GetAllSongs.audioPlayer.setVolume,
-                ),
-              ],
-            ),
+    return Get.defaultDialog(
+      title: 'Adjust Volume',
+      titleStyle: const TextStyle(color: color1),
+      backgroundColor: color2,
+      content: StreamBuilder<double>(
+        stream: GetAllSongs.audioPlayer.volumeStream,
+        builder: (context, snapshot) => SizedBox(
+          height: 100.0,
+          child: Column(
+            children: [
+              Text('${snapshot.data?.toStringAsFixed(1)}$valueSuffix',
+                  style: const TextStyle(
+                      color: color1,
+                      fontFamily: 'Fixed',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24.0)),
+              Slider(
+                activeColor: color1,
+                inactiveColor: color2,
+                divisions: 10,
+                min: 0,
+                max: 5,
+                value: snapshot.data ?? value,
+                onChanged: GetAllSongs.audioPlayer.setVolume,
+              ),
+            ],
           ),
         ),
       ),

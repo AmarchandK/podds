@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -58,7 +56,7 @@ class HomeAllSongs extends StatelessWidget {
                     Get.to(
                         () => PlayerScreen(
                               songModal: item.data!,
-                              id: item.data![index].id,
+  
                             ),
                         transition: Transition.downToUp,
                         duration: const Duration(milliseconds: 500));

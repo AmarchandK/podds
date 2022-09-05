@@ -5,7 +5,6 @@ import 'package:get/route_manager.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/functions/constants/styles.dart';
-import 'package:podds/screens/favorites/FavButton/fav_button.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 import '../now_playing/player_screen.dart';
 
@@ -36,9 +35,9 @@ class _MiniPlayerState extends State<MiniPlayer> {
       child: ListTile(
         onTap: () => Get.to(
             PlayerScreen(
-                songModal: GetAllSongs.playingSongs,
-                id: GetAllSongs
-                    .playingSongs[GetAllSongs.audioPlayer.currentIndex!].id),
+              songModal: GetAllSongs.playingSongs,
+         
+            ),
             duration: const Duration(seconds: 1),
             transition: Transition.downToUp),
         leading: QueryArtworkWidget(
