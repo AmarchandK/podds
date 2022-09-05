@@ -168,7 +168,7 @@ class PlaylistView extends StatelessWidget {
                                 softWrap: false,
                               ),
                               trailing: PlayListAddButton(
-                                  index: playIndex,
+                               
                                   folderindex: folderIndex,
                                   id: _playListSongs[playIndex].id),
                             ),

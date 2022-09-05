@@ -7,11 +7,9 @@ import 'package:podds/paly_list_model/play_list_model.dart';
 class PlayListAddButton extends GetView {
   PlayListAddButton(
       {Key? key,
-      required this.index,
       required this.folderindex,
       required this.id})
       : super(key: key);
-  final int? index;
   final int? folderindex;
   final int? id;
   final List<dynamic> songlist = [];

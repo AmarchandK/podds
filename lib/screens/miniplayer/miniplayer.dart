@@ -36,7 +36,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
         onTap: () => Get.to(
             PlayerScreen(
               songModal: GetAllSongs.playingSongs,
-         
             ),
             duration: const Duration(seconds: 1),
             transition: Transition.downToUp),
@@ -69,7 +68,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                 onPressed: () async {
                   await GetAllSongs.audioPlayer.play();
                 },
-                icon: const Icon(Icons.play_arrow, size: 35),
+                icon: const Icon(Icons.play_circle_outline, size: 35),
               ),
         // trailing: IconButton(
         //   icon: StreamBuilder<bool>(

@@ -55,7 +55,7 @@ class AddToPlaylist extends StatelessWidget {
                   trailing: GetBuilder<PlayListcontroller>(
                     builder: (controller) => PlayListAddButton(
                       id: AddToPlaylist.addSong[index].id,
-                      index: index,
+            
                       folderindex: folderIndex,
                     ),
                   ),

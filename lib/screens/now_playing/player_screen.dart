@@ -18,10 +18,7 @@ class PlayerScreen extends StatelessWidget {
   PlayerScreen({Key? key, required this.songModal,})
       : super(key: key);
   final List<dynamic> songModal;
-
-
   final NowPlayingController _controller = Get.put(NowPlayingController());
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
