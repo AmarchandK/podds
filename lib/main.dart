@@ -7,7 +7,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 import 'screens/splash/splash.dart';
-import 'Controlers/InitController/init_controllers.dart' as di;
+import 'InitController/init_controllers.dart' as di;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,13 +15,13 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(PlayListModelAdapter().typeId)) {
     Hive.registerAdapter(PlayListModelAdapter());
   }
+  runApp(const BetterFeedback(child: MyApp()));
   await di.init();
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
-  runApp(const BetterFeedback(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

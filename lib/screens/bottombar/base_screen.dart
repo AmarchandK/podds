@@ -25,15 +25,16 @@ class BaseScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: color2,
       body: Obx(() => screens[baseIndex.value]),
-      bottomNavigationBar: GetBuilder<FavDbFunctions>(
-        builder: (controller) {
+      bottomNavigationBar: StreamBuilder<int?>(
+        stream: GetAllSongs.audioPlayer.currentIndexStream,
+        builder: (context, index) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
             children: [
               (GetAllSongs.audioPlayer.playing) ||
                       (GetAllSongs.audioPlayer.currentIndex != null)
-                  ? const MiniPlayer()
+                  ?  MiniPlayer()
                   : const SizedBox(),
               NavigationBarTheme(
                 data: const NavigationBarThemeData(

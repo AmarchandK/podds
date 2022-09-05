@@ -103,6 +103,7 @@ class PlaylistView extends StatelessWidget {
                               baseIndex.value = 2;
 
                               Get.offAll(BaseScreen());
+                              Get.back();
                             },
                           );
                         },
@@ -142,7 +143,6 @@ class PlaylistView extends StatelessWidget {
                                     initialIndex: playIndex);
                                 GetAllSongs.audioPlayer.play();
                                 Get.to(() => PlayerScreen(
-                          
                                       songModal: _playListSongs,
                                     ));
                               },
@@ -168,7 +168,6 @@ class PlaylistView extends StatelessWidget {
                                 softWrap: false,
                               ),
                               trailing: PlayListAddButton(
-                               
                                   folderindex: folderIndex,
                                   id: _playListSongs[playIndex].id),
                             ),

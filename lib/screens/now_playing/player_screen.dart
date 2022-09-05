@@ -15,8 +15,10 @@ import '../favorites/FavButton/fav_button.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 
 class PlayerScreen extends StatelessWidget {
-  PlayerScreen({Key? key, required this.songModal,})
-      : super(key: key);
+  PlayerScreen({
+    Key? key,
+    required this.songModal,
+  }) : super(key: key);
   final List<dynamic> songModal;
   final NowPlayingController _controller = Get.put(NowPlayingController());
   @override
@@ -30,7 +32,7 @@ class PlayerScreen extends StatelessWidget {
         leading: IconButton(
             onPressed: () {
               Get.back();
-              _controller.update();
+              // _controller.update();
             },
             icon: const Icon(Icons.keyboard_arrow_down_outlined)),
         backgroundColor: color1,

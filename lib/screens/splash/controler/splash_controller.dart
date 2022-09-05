@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:podds/screens/bottombar/base_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../functions/constants/styles.dart';
-import '../../screens/add_screen/add_profile.dart';
+import '../../../functions/constants/styles.dart';
+import '../../add_screen/add_profile.dart';
 
 class SplshController extends GetxController {
   @override

@@ -58,7 +58,6 @@ class SearchScreen extends GetView {
                                     initialIndex: index);
                                 Get.to(
                                   PlayerScreen(
-                      
                                     songModal: _searchcontroller.foundSongs,
                                   ),
                                 );

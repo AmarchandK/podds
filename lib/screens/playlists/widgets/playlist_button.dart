@@ -5,10 +5,7 @@ import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 
 class PlayListAddButton extends GetView {
-  PlayListAddButton(
-      {Key? key,
-      required this.folderindex,
-      required this.id})
+  PlayListAddButton({Key? key, required this.folderindex, required this.id})
       : super(key: key);
   final int? folderindex;
   final int? id;
