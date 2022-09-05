@@ -13,7 +13,9 @@ class AllSongs extends StatelessWidget {
   AllSongs({Key? key}) : super(key: key);
   static List<SongModel> songs = [];
   final audioQuery = OnAudioQuery();
-  final RecentSongsController _controller = Get.put(RecentSongsController());
+  final RecentSongsController _controller = Get.put(
+    RecentSongsController(),
+  );
 
   @override
   Widget build(BuildContext context) {

@@ -30,6 +30,7 @@ class HomePlaylist extends StatelessWidget {
                 final playlistDataTemp = playLists[index];
                 return GestureDetector(
                   onTap: () {
+                    _playlistcontroller.showSelectSong(index);
                     Get.to(
                         () => PlaylistView(
                               folderIndex: index,

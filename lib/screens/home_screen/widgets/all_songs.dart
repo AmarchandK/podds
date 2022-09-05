@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -101,7 +103,7 @@ class HomeAllSongs extends StatelessWidget {
                             width: 130,
                             child: Center(
                               child: Text(
-                                item.data![index].displayNameWOExt,
+                                item.data![index].title,
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                               ),

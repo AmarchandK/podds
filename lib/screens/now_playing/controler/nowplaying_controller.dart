@@ -17,15 +17,4 @@ class NowPlayingController extends GetxController {
     );
     super.onInit();
   }
-
-  playPrevious() async {
-    if (GetAllSongs.audioPlayer.hasPrevious) {
-      await GetAllSongs.audioPlayer.seekToPrevious();
-      await GetAllSongs.audioPlayer.play();
-      update();
-    } else {
-      await GetAllSongs.audioPlayer.play();
-      update();
-    }
-  }
 }

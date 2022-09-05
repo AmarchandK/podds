@@ -6,9 +6,9 @@ import 'package:podds/screens/search/controller/search_controller.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 import '../now_playing/player_screen.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends GetView {
   SearchScreen({Key? key}) : super(key: key);
-  final Searchcontroller _searchcontroller = Get.find();
+  final Searchcontroller _searchcontroller = Get.put(Searchcontroller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,18 +21,12 @@ class SearchScreen extends StatelessWidget {
                 autofocus: true,
                 onChanged: (value) {
                   _searchcontroller.runFilter(value);
-                  // temp = value
                 },
                 decoration: InputDecoration(
                   labelText: 'Search',
                   suffixIcon: IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
-                      // if (temp.isEmpty) {
-
-                      // } else {
-                      //   // temp.//???????????????
-                      // }
+                      Get.back();
                     },
                     icon: const Icon(Icons.close),
                   ),
@@ -63,10 +57,12 @@ class SearchScreen extends StatelessWidget {
                                     GetAllSongs.createSongList(
                                         _searchcontroller.foundSongs),
                                     initialIndex: index);
-                                Get.to(PlayerScreen(
-                                  id: AllSongs.songs[index].id,
-                                  songModal: _searchcontroller.foundSongs,
-                                ));
+                                Get.to(
+                                  PlayerScreen(
+                                    id: AllSongs.songs[index].id,
+                                    songModal: _searchcontroller.foundSongs,
+                                  ),
+                                );
                               },
                             ),
                           ),

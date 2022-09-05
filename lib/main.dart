@@ -16,7 +16,6 @@ Future<void> main() async {
     Hive.registerAdapter(PlayListModelAdapter());
   }
   await di.init();
-
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
     androidNotificationChannelName: 'Audio playback',

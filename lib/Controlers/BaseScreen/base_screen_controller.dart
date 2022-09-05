@@ -6,7 +6,7 @@ import '../../screens/favorites/fav_fuction.dart';
 import '../../screens/home_screen/widgets/all_songs.dart';
 
 class BottomController extends GetxController {
- final RecentSongsController _controller = Get.put(RecentSongsController());
+  final RecentSongsController _controller = Get.put(RecentSongsController());
 
   @override
   void onInit() {
@@ -17,9 +17,7 @@ class BottomController extends GetxController {
   Future init() async {
     await Permission.storage.request();
     HomeAllSongs();
-    // await getAllPlaylist();
     await _controller.displayRecents();
-    // await FavoriteDB.getAllSongs();
     FavoriteFunction();
     update();
   }

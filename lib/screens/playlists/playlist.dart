@@ -53,12 +53,15 @@ class PlaylistScreen extends StatelessWidget {
                     child: CustomCard(
                       borderRadius: 5,
                       color: color1,
-                      onTap: () => Get.to(
-                        () => PlaylistView(
-                          folderIndex: index,
-                          playlistName: playlistDataTemp.playListName,
-                        ),
-                      ),
+                      onTap: () {
+                        _listcontroller.showSelectSong(index);
+                        Get.to(
+                          () => PlaylistView(
+                            folderIndex: index,
+                            playlistName: playlistDataTemp.playListName,
+                          ),
+                        );
+                      },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [

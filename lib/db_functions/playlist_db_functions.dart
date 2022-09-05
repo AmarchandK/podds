@@ -14,9 +14,11 @@ class PlayListcontroller extends GetxController {
   @override
   void onInit() {
     getAllPlaylist();
-    log("Working playlist");
+
     super.onInit();
   }
+
+  
 
   Future<void> getAllPlaylist() async {
     final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
@@ -29,6 +31,7 @@ class PlayListcontroller extends GetxController {
     final playListDB = await Hive.openBox<PlayListModel>('playlist_db');
     playListDB.add(value);
     getAllPlaylist();
+    selectPlaySong;
     update();
   }
 

@@ -101,7 +101,7 @@ class PlaylistView extends StatelessWidget {
                             onConfirm: () {
                               _listcontroller.deletePlayList(folderIndex);
                               baseIndex.value = 2;
-                              
+
                               Get.offAll(BaseScreen());
                             },
                           );
@@ -141,10 +141,10 @@ class PlaylistView extends StatelessWidget {
                                     GetAllSongs.createSongList(_playListSongs),
                                     initialIndex: playIndex);
                                 GetAllSongs.audioPlayer.play();
-                                Get.to(()=>PlayerScreen(
-                                  id: _playListSongs[playIndex].id,
-                                  songModal: _playListSongs,
-                                ));
+                                Get.to(() => PlayerScreen(
+                                      id: _playListSongs[playIndex].id,
+                                      songModal: _playListSongs,
+                                    ));
                               },
                               leading: CircleAvatar(
                                 radius: 25,

@@ -1,28 +1,22 @@
 // ignore_for_file: must_be_immutable, depend_on_referenced_packages, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:podds/screens/now_playing/controler/nowplaying_controller.dart';
+import 'package:rxdart/rxdart.dart' as rxmport;
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/screens/home_screen/home.dart';
-
 import '../favorites/FavButton/fav_button.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 
 class PlayerScreen extends StatefulWidget {
-  PlayerScreen(
-      {Key? key,
-      required this.songModal,
-      //  this.index,
-      required this.id})
+  PlayerScreen({Key? key, required this.songModal, required this.id})
       : super(key: key);
   final List<dynamic> songModal;
-  // int? index;
   dynamic id;
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
@@ -30,6 +24,7 @@ class PlayerScreen extends StatefulWidget {
 
 class _PlayerScreenState extends State<PlayerScreen> {
   int currentIndex1 = 0;
+  final NowPlayingController _controller = Get.put(NowPlayingController());
   @override
   void initState() {
     GetAllSongs.audioPlayer.currentIndexStream.listen(
@@ -42,7 +37,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
         }
       },
     );
-    // playSong();
     super.initState();
   }
 
@@ -57,6 +51,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
         leading: IconButton(
             onPressed: () {
               Get.back();
+              _controller.update();
             },
             icon: const Icon(Icons.keyboard_arrow_down_outlined)),
         backgroundColor: color1,
@@ -319,7 +314,7 @@ class DurationState {
 }
 
 Stream<DurationState> get _durationStateStream =>
-    Rx.combineLatest2<Duration, Duration?, DurationState>(
+    rxmport.Rx.combineLatest2<Duration, Duration?, DurationState>(
         GetAllSongs.audioPlayer.positionStream,
         GetAllSongs.audioPlayer.durationStream,
         (position, duration) => DurationState(

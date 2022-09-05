@@ -9,7 +9,7 @@ import '../../now_playing/player_screen.dart';
 class HomeRecentsSongs extends StatelessWidget {
   HomeRecentsSongs({Key? key}) : super(key: key);
   static List<SongModel> removedup = [];
-  final RecentSongsController _controller = Get.find();
+  final RecentSongsController _controller = Get.put(RecentSongsController());
 
   @override
   Widget build(BuildContext context) {

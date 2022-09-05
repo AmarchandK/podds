@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/instance_manager.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
 import 'package:podds/functions/constants/styles.dart';
@@ -49,18 +48,16 @@ class PlayListAddButton extends GetView {
               playlistSongs: PlayListAddButton.updatelist,
             );
             _listcontroller.updateList(folderindex, model);
-            _listcontroller.getAllPlaylist();
+            // _listcontroller.getAllPlaylist();
             _listcontroller.showSelectSong(folderindex);
-            // setState(() {});
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              duration: const Duration(seconds: 2),
-              content: Text(
-                'Added ${AllSongs.songs[indexCheck].title} to ${_listcontroller.playListNotifier[folderindex!].playListName},',
-                style: const TextStyle(color: Colors.white),
-              ),
-              backgroundColor: const Color.fromARGB(255, 62, 62, 62),
-              behavior: SnackBarBehavior.floating,
-            ));
+            Get.snackbar(
+                "Song added  to ${_listcontroller.playListNotifier[folderindex!].playListName},",
+                "",
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: color1,
+                margin: const EdgeInsets.all(10),
+                duration: const Duration(seconds: 1),
+                barBlur: 10);
           });
     } else {
       return IconButton(
@@ -77,16 +74,14 @@ class PlayListAddButton extends GetView {
               playlistSongs: PlayListAddButton.dltlist);
           _listcontroller.updateList(folderindex, model);
           _listcontroller.showSelectSong(folderindex);
-          // setState(() {});
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                ' Song Removed From ${_listcontroller.playListNotifier[folderindex!].playListName}',
-                style: const TextStyle(color: Colors.white),
-              ),
-              backgroundColor: const Color.fromARGB(255, 68, 68, 68),
-              behavior: SnackBarBehavior.floating,
-            ),
+
+          Get.snackbar(
+            "Song removed From ${_listcontroller.playListNotifier[folderindex!].playListName}",
+            "",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: color1,
+            margin: const EdgeInsets.all(10),
+            duration: const Duration(seconds: 1),
           );
         },
         icon: const Icon(
