@@ -12,7 +12,6 @@ class PlayListcontroller extends GetxController {
   @override
   void onInit() {
     getAllPlaylist();
-
     super.onInit();
   }
 

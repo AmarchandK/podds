@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/screens/all_songs/all_songs.dart';
 import 'package:podds/db_functions/playlist_db_functions.dart';
@@ -21,6 +21,12 @@ class AddToPlaylist extends StatelessWidget {
       decoration: stylesClass.background(),
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+                GetAllSongs.audioPlayer.stop();
+              },
+              icon: const Icon(Icons.arrow_back)),
           backgroundColor: color1,
           elevation: 0,
           title: Text('Add to $playlistName '),
@@ -55,7 +61,6 @@ class AddToPlaylist extends StatelessWidget {
                   trailing: GetBuilder<PlayListcontroller>(
                     builder: (controller) => PlayListAddButton(
                       id: AddToPlaylist.addSong[index].id,
-            
                       folderindex: folderIndex,
                     ),
                   ),
@@ -67,9 +72,7 @@ class AddToPlaylist extends StatelessWidget {
                     AddToPlaylist.addSong[index].displayNameWOExt,
                     overflow: TextOverflow.fade,
                     softWrap: false,
-                    style: TextStyle(
-                        color:
-                            GetAllSongs.audioPlayer.playing ? color2 : color1),
+                    style: const TextStyle(color: color2),
                   ),
                 ),
               ),

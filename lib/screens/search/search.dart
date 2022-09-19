@@ -1,7 +1,8 @@
+import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:podds/functions/constants/styles.dart';
-import 'package:podds/screens/search/controller/search_controller.dart';
+import 'package:podds/controllers/search_controller.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 import '../now_playing/player_screen.dart';
 
@@ -34,10 +35,10 @@ class SearchScreen extends GetView {
               const SizedBox(
                 height: 20,
               ),
-              Expanded(
-                child: _searchcontroller.foundSongs.isNotEmpty
-                    ? GetBuilder<Searchcontroller>(
-                        builder: (controller) => ListView.builder(
+              GetBuilder<Searchcontroller>(
+                builder: (controller) => Expanded(
+                  child: _searchcontroller.foundSongs.isNotEmpty
+                      ? ListView.builder(
                           itemCount: _searchcontroller.foundSongs.length,
                           itemBuilder: (context, index) => Card(
                             key: ValueKey(
@@ -64,12 +65,14 @@ class SearchScreen extends GetView {
                               },
                             ),
                           ),
+                        )
+                      : EmptyWidget(
+                          title: 'No song found!',
+                          packageImage: PackageImage.Image_4,
+                          hideBackgroundAnimation: true,
                         ),
-                      )
-                    : const Text(
-                        'No Songs found',
-                      ),
-              ),
+                ),
+              )
             ],
           ),
         ),

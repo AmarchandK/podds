@@ -1,4 +1,5 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
+import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,13 @@ class PlaylistScreen extends StatelessWidget {
             final _list = _listcontroller.playListNotifier;
             if (_list.isEmpty) {
               return Center(
-                child: Image.asset('assets/nullphone.png'),
+                child: EmptyWidget(
+                  hideBackgroundAnimation: true,
+                  image: 'assets/nullphone.png',
+                  title: 'No Playlsit Created',
+                  titleTextStyle: const TextStyle(color: color2, fontSize: 21),
+                  subTitle: '',
+                ),
               );
             } else {
               return GridView.builder(

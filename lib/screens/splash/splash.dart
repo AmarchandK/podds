@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
-
+import 'package:get/get.dart';
+import 'package:podds/controllers/splash_controller.dart';
 
 class SplashScreen extends GetView {
-  const SplashScreen({Key? key}) : super(key: key);
+  SplashScreen({Key? key}) : super(key: key);
+  final SplshController screen = Get.put(SplshController());
 
   @override
   Widget build(BuildContext context) {

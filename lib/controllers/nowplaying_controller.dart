@@ -1,5 +1,5 @@
 import 'package:get/state_manager.dart';
-import '../../../functions/get_all_songs/get_all_songs.dart';
+import '../functions/get_all_songs/get_all_songs.dart';
 class NowPlayingController extends GetxController {
   RxInt currentIndex1 = 0.obs;
 

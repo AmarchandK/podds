@@ -9,10 +9,10 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/route_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:podds/functions/constants/styles.dart';
+import 'package:podds/screens/splash/splash.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../functions/reset/reset_app.dart';
-import '../add_screen/add_profile.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key, required context}) : super(key: key);
@@ -41,23 +41,30 @@ class Settings extends StatelessWidget {
               ),
               _bottomSheetDatas(
                   title: 'Reset App',
-                  ontap: (ctx) {
-                    showResetWarning(context);
-                  },
+                  ontap: (_) => Get.defaultDialog(
+                      title: 'Resest Warning',
+                      backgroundColor: color1,
+                      middleText:
+                          "All this app's data will be deleted permanently This includes all Favorites & Playlists that you added !",
+                      onCancel: () => Get.back(),
+                      onConfirm: () {
+                        resetApp();
+                        Get.offAll( SplashScreen());
+                      }),
                   iconData: Icons.restart_alt),
               _bottomSheetDatas(
                   title: 'Share',
                   iconData: Icons.share,
                   ontap: (_) async {
                     await Share.share(
-                        'check out my website https://play.google.com/store/apps/details?id=in.brototype.podds',
-                        subject: 'Look what I made!');
+                        'check out my website https://play.google.com/store/apps/details?id=in.fouvty.podds&hl=en&gl=US',
+                        subject: 'Look What I Made!');
                   }),
               _bottomSheetDatas(
                   title: 'Rate App',
                   iconData: Icons.star_border,
                   ontap: (ctx) => launch(
-                      'https://play.google.com/store/apps/details?id=in.fauty.podds')),
+                      'https://play.google.com/store/apps/details?id=in.fouvty.podds&hl=en&gl=US')),
               _bottomSheetDatas(
                   title: 'Feedback',
                   iconData: Icons.rate_review_outlined,
@@ -67,7 +74,7 @@ class Settings extends StatelessWidget {
                     // });
                   }),
               _bottomSheetDatas(
-                  title: 'About',
+                  title: 'About Developer',
                   iconData: Icons.info_outline_rounded,
                   ontap: (ctx) async =>
                       await launch('https://github.com/AmarchandK')),
@@ -77,7 +84,7 @@ class Settings extends StatelessWidget {
               const Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  'Version\n  1.0.0',
+                  'Version\n  1.2.0',
                 ),
               )
             ],
@@ -118,32 +125,6 @@ class Settings extends StatelessWidget {
       );
       await FlutterEmailSender.send(email);
     });
-  }
-
-  showResetWarning(ctx) {
-    return showDialog(
-      context: ctx,
-      builder: (ctx) => AlertDialog(
-        title: const Text("Warning"),
-        content: const Text(
-            "All this app's data will be deleted permanently,\nThis includes all Favorites & Playlists that you added !"),
-        actions: <Widget>[
-          TextButton(
-              onPressed: () => Navigator.of(ctx).pop(),
-              child: const Text('Cancel')),
-          TextButton(
-            onPressed: () {
-              resetApp();
-              Get.offAll(AddScreen());
-            },
-            child: Container(
-              padding: const EdgeInsets.all(14),
-              child: const Text("Okay"),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   Future<String> writeImageToStorage(Uint8List feedbackScreenshot) async {

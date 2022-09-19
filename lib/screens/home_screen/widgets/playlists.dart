@@ -1,3 +1,4 @@
+import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../db_functions/playlist_db_functions.dart';
@@ -16,11 +17,8 @@ class HomePlaylist extends StatelessWidget {
         builder: (controler) {
           final playLists = _playlistcontroller.playListNotifier;
           if (playLists.isEmpty) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(50.0),
-                child: Image.asset('assets/nullHome.png'),
-              ),
+            return EmptyWidget(
+              image: 'assets/nullHome.png',
             );
           } else {
             return ListView.builder(

@@ -6,7 +6,6 @@ const color2 = Color.fromARGB(255, 0, 204, 204);
 final stylesClass = StylesPage();
 
 // const savekey = 'userlogedin';
-String name = '';
 RxInt baseIndex = 0.obs;
 
 class StylesPage {

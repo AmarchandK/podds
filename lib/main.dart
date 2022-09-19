@@ -7,7 +7,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:podds/functions/constants/styles.dart';
 import 'package:podds/paly_list_model/play_list_model.dart';
 import 'screens/splash/splash.dart';
-import 'InitController/init_controllers.dart' as di;
+import 'controllers/InitController/init_controllers.dart' as di;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,11 +32,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'RaleWay',
         backgroundColor: color2,
         primarySwatch: Colors.blueGrey,
         brightness: Brightness.dark,
       ),
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }

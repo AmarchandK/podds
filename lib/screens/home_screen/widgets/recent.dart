@@ -1,3 +1,4 @@
+import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -9,7 +10,8 @@ import '../../now_playing/player_screen.dart';
 class HomeRecentsSongs extends StatelessWidget {
   HomeRecentsSongs({Key? key}) : super(key: key);
   static List<SongModel> removedup = [];
-  final RecentSongsController _controller = Get.find();
+  final RecentSongsController _controller = Get.put(RecentSongsController());
+  
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,11 @@ class HomeRecentsSongs extends StatelessWidget {
         builder: (controller) {
           final recentValue = _controller.recentsNotifier;
           if (recentValue.isEmpty) {
-            return const Center(
-              child: Text('No Songs Played'),
+            return Center(
+              child: EmptyWidget(
+                title: 'No Songs \n Plalyed',
+                titleTextStyle: const TextStyle(fontSize: 15, color: color2),
+              ),
             );
           } else {
             final temp = recentValue.reversed.toList();

@@ -1,12 +1,9 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podds/functions/constants/styles.dart';
-import 'package:podds/screens/miniplayer/controller/miniplayer_controller.dart';
+import 'package:podds/controllers/miniplayer_controller.dart';
 import '../../functions/get_all_songs/get_all_songs.dart';
 import '../now_playing/player_screen.dart';
 
@@ -41,7 +38,7 @@ class MiniPlayer extends StatelessWidget {
             style: const TextStyle(color: color2),
             speed: 15,
             text: TextSpan(
-                text: GetAllSongs
+                text: GetAllSongs  
                     .playingSongs[GetAllSongs.audioPlayer.currentIndex!]
                     .displayNameWOExt),
           ),
@@ -50,8 +47,8 @@ class MiniPlayer extends StatelessWidget {
               icon: StreamBuilder<bool>(
                 stream: GetAllSongs.audioPlayer.playingStream,
                 builder: ((context, snapshot) {
-                  bool? _currentPlayingStage = snapshot.data;
-                  if (_currentPlayingStage != null && _currentPlayingStage) {
+                  bool? currentPlayingStage = snapshot.data;
+                  if (currentPlayingStage != null && currentPlayingStage) {
                     return const Icon(Icons.pause_circle_outline, size: 35);
                   } else {
                     return const Icon(Icons.play_circle_outline_outlined,

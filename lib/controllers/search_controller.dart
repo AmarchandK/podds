@@ -1,6 +1,6 @@
 import 'package:get/state_manager.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import '../../all_songs/all_songs.dart';
+import '../screens/all_songs/all_songs.dart';
 
 class Searchcontroller extends GetxController {
   final List<SongModel> allSongs = AllSongs.songs;

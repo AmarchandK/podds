@@ -1,3 +1,4 @@
+import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -22,11 +23,9 @@ class HomeFavorites extends StatelessWidget {
         builder: (controller) {
           final tempList = _dbController.favorites;
           if (tempList.isEmpty) {
-            return Center(
-                child: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Image.asset('assets/nullHome.png'),
-            ));
+            return EmptyWidget(
+              image: 'assets/nullHome.png',
+            );
           } else {
             return ListView.builder(
               itemCount: tempList.length > 5 ? 5 : tempList.length,

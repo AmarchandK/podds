@@ -14,24 +14,8 @@ class FavButton extends StatelessWidget {
       onPressed: () {
         if (!isfav) {
           favController.addSongtoFav(id);
-          Get.snackbar(
-            "Added to Favorites",
-            "",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: color1,
-            margin: const EdgeInsets.all(10),
-            duration: const Duration(seconds: 1),
-          );
         } else {
           favController.deleteFromFavorites(id);
-          Get.snackbar(
-            "Delete From Favorites",
-            "",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: color1,
-            margin: const EdgeInsets.all(10),
-            duration: const Duration(seconds: 1),
-          );
         }
       },
       icon: isfav

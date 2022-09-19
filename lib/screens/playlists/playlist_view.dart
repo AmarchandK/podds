@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, no_leading_underscores_for_local_identifiers
 
+import 'package:empty_widget/empty_widget.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +40,10 @@ class PlaylistView extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           onPressed: () => Get.to(
-              AddToPlaylist(
-                playlistName: playlistName,
-                folderIndex: folderIndex,
-              ),
+              () => AddToPlaylist(
+                    playlistName: playlistName,
+                    folderIndex: folderIndex,
+                  ),
               transition: Transition.downToUp),
         ),
         body: CustomScrollView(
@@ -95,15 +96,13 @@ class PlaylistView extends StatelessWidget {
                         onPressed: () {
                           Get.defaultDialog(
                             title: "Delete $playlistName",
-                            middleText: "Are you sure $name?",
+                            middleText: "Are you sure!",
                             backgroundColor: color1,
                             textConfirm: 'Yes',
                             onConfirm: () {
                               _listcontroller.deletePlayList(folderIndex);
                               baseIndex.value = 2;
-
-                              Get.offAll(BaseScreen());
-                              Get.back();
+                              Get.off(() => BaseScreen());
                             },
                           );
                         },
@@ -119,11 +118,8 @@ class PlaylistView extends StatelessWidget {
                 builder: (controller) {
                   final _playListSongs = _listcontroller.selectPlaySong;
                   if (_playListSongs.isEmpty) {
-                    return Align(
-                      child: Padding(
-                        padding: const EdgeInsets.all(50.0),
-                        child: Image.asset('assets/nullHome.png'),
-                      ),
+                    return EmptyWidget(
+                      image: 'assets/nullHome.png',
                     );
                   } else {
                     return ListView.builder(

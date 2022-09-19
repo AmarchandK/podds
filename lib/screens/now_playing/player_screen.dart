@@ -3,7 +3,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:get/get.dart';
 import 'package:podds/db_functions/fav_db_functions.dart';
-import 'package:podds/screens/now_playing/controler/nowplaying_controller.dart';
+import 'package:podds/controllers/nowplaying_controller.dart';
 import 'package:rxdart/rxdart.dart' as rxmport;
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';

@@ -25,12 +25,6 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(greeting()),
-            Text(
-              name,
-              style: const TextStyle(
-                color: color2,
-              ),
-            ),
           ],
         ),
         centerTitle: true,

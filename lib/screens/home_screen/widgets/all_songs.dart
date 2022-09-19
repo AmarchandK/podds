@@ -1,3 +1,4 @@
+import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -35,11 +36,10 @@ class HomeAllSongs extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (item.data!.isEmpty) {
-            return Center(
-                child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Image.asset('assets/nullHome.png'),
-            ));
+            return EmptyWidget(
+              image: 'assets/nullHome.png',
+              hideBackgroundAnimation: true,
+            );
           } else {
             AllSongs.songs = item.data!;
             return ListView.builder(
@@ -56,7 +56,6 @@ class HomeAllSongs extends StatelessWidget {
                     Get.to(
                         () => PlayerScreen(
                               songModal: item.data!,
-  
                             ),
                         transition: Transition.downToUp,
                         duration: const Duration(milliseconds: 500));
