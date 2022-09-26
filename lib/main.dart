@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:podds/functions/constants/styles.dart';
-import 'package:podds/paly_list_model/play_list_model.dart';
-import 'screens/splash/splash.dart';
-import 'controllers/InitController/init_controllers.dart' as di;
+import 'package:podds/global_constants/styles.dart';
+import 'screens/playlists/model/play_list_model.dart';
+import 'screens/splash/view/splash.dart';
+import 'global_constants/init_controllers.dart' as di;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
