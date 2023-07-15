@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:podds/global_constants/styles.dart';
 import 'screens/playlists/model/play_list_model.dart';
 import 'screens/splash/view/splash.dart';
 import 'global_constants/init_controllers.dart' as di;
@@ -33,8 +32,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'RaleWay',
-        backgroundColor: color2,
-        primarySwatch: Colors.blueGrey,
         brightness: Brightness.dark,
       ),
       home: SplashScreen(),
