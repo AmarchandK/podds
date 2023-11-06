@@ -13,7 +13,7 @@ import '../../miniplayer/view/miniplayer.dart';
 class BaseScreen extends StatelessWidget {
   BaseScreen({Key? key}) : super(key: key);
   final FavDbController _dbFunctions = Get.put(FavDbController());
-  final screens = [
+  final List<StatelessWidget> screens = [
     const HomeScreen(),
     const LibaryScreen(),
     PlaylistScreen(),
@@ -32,7 +32,7 @@ class BaseScreen extends StatelessWidget {
             children: [
               (GetAllSongs.audioPlayer.playing) ||
                       (GetAllSongs.audioPlayer.currentIndex != null)
-                  ?  MiniPlayer()
+                  ? MiniPlayer()
                   : const SizedBox(),
               NavigationBarTheme(
                 data: const NavigationBarThemeData(

@@ -15,7 +15,7 @@ class FavDbController extends GetxController {
     super.onInit();
   }
 
-  getAllFavSongs() async {
+  void getAllFavSongs() async {
     final dbBox = await Hive.openBox<int>('favorites');
     favsong.clear();
     favsong.addAll(dbBox.values.toList());
@@ -23,21 +23,21 @@ class FavDbController extends GetxController {
     update();
   }
 
-  addSongtoFav(int id) async {
+  void addSongtoFav(int id) async {
     final dbBox = await Hive.openBox<int>('favorites');
     await dbBox.add(id);
     getAllFavSongs();
     update();
   }
 
-  deleteFromFav(index) async {
+  void deleteFromFav(index) async {
     final dbBox = await Hive.openBox<int>('favorites');
     await dbBox.deleteAt(index);
     getAllFavSongs();
     update();
   }
 
-  deleteFromFavorites(int id) async {
+  void deleteFromFavorites(int id) async {
     final dbBox = await Hive.openBox<int>('favorites');
     // favsong.removeWhere((item) => item == id);
     int index = favsong.indexOf(id);
@@ -50,9 +50,9 @@ class FavDbController extends GetxController {
     return favsong.contains(id);
   }
 
-  displaySongs() async {
+  void displaySongs() async {
     final dbBox = await Hive.openBox<int>('favorites');
-    final musicitems = dbBox.values.toList();
+    final List<int> musicitems = dbBox.values.toList();
     favorites.clear();
     favloop.clear();
     for (int i = 0; i < musicitems.length; i++) {
